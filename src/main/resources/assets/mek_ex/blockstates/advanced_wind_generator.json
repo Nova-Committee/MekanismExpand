@@ -1,0 +1,1 @@
+{"variants":{"facing=north":{"model":"mek_ex:block/advanced_wind_generator"},"facing=south":{"model":"mek_ex:block/advanced_wind_generator","y":180},"facing=west":{"model":"mek_ex:block/advanced_wind_generator","y":-90},"facing=east":{"model":"mek_ex:block/advanced_wind_generator","y":90}}}

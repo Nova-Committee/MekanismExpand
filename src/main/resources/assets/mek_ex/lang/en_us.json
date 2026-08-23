@@ -1,0 +1,20 @@
+{
+  "block.mek_ex.basic_wind_generator": "Basic Wind Generator",
+  "block.mek_ex.advanced_wind_generator": "Advanced Wind Generator",
+  "block.mek_ex.elite_wind_generator": "Elite Wind Generator",
+  "block.mek_ex.ultimate_wind_generator": "Ultimate Wind Generator",
+
+  "gui.mek_ex.upgrades.capacity_effect": "Energy storage multiplier: 1.5x per upgrade",
+
+  "container.mek_ex.basic_wind_generator": "Basic Wind Generator",
+  "container.mek_ex.advanced_wind_generator": "Advanced Wind Generator",
+  "container.mek_ex.elite_wind_generator": "Elite Wind Generator",
+  "container.mek_ex.ultimate_wind_generator": "Ultimate Wind Generator",
+
+  "item.mek_ex.upgrade_capacity": "Capacity Upgrade",
+
+  "upgrade.mek_ex.capacity.desc": "Increases generator energy storage by 50% per upgrade. Maximum of 4 upgrades.",
+  "upgrade.mek_ex.capacity": "Capacity",
+
+  "itemGroup.mek_ex.mekanism_expand": "Mekanism: Expand"
+}

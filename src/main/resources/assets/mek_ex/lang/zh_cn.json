@@ -1,0 +1,20 @@
+{
+  "block.mek_ex.basic_wind_generator": "基础风力发电机",
+  "block.mek_ex.advanced_wind_generator": "高级风力发电机",
+  "block.mek_ex.elite_wind_generator": "精英风力发电机",
+  "block.mek_ex.ultimate_wind_generator": "终极风力发电机",
+
+  "gui.mek_ex.upgrades.capacity_effect": "储能倍率：每个升级提高至1.5倍",
+
+  "container.mek_ex.basic_wind_generator": "基础风力发电机",
+  "container.mek_ex.advanced_wind_generator": "高级风力发电机",
+  "container.mek_ex.elite_wind_generator": "精英风力发电机",
+  "container.mek_ex.ultimate_wind_generator": "终极风力发电机",
+
+  "item.mek_ex.upgrade_capacity": "增容升级",
+
+  "upgrade.mek_ex.capacity.desc": "每个升级使发电机储电量提高50%，最多安装4个。",
+  "upgrade.mek_ex.capacity": "增容",
+
+  "itemGroup.mek_ex.mekanism_expand": "通用机械：拓展"
+}

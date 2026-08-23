@@ -1,0 +1,20 @@
+{
+  "required": true,
+  "package": "committee.nova.mek_ex.init.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "UpgradeUtilsMixin",
+    "APILangMixin",
+    "UpgradeMixin",
+    "EnumUtilsMixin",
+    "TileEntityMekanismMixin",
+    "TileEntityGeneratorMixin",
+    "ItemTierInstallerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "mek_ex:basic_wind_generator",
+    "mek_ex:advanced_wind_generator",
+    "mek_ex:elite_wind_generator",
+    "mek_ex:ultimate_wind_generator"
+  ]
+}
