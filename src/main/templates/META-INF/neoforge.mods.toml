@@ -46,7 +46,7 @@ displayName="${mod_name}" #mandatory
 
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-Example mod description.
+Add all sorts of content to mek, some items can help you get through the boring early and mid stages, and some content adds new experiences to your mek. Enjoy to the fullest!
 '''
 
 # The [[mixins]] block allows you to declare your mixin config to FML so that it gets loaded.
