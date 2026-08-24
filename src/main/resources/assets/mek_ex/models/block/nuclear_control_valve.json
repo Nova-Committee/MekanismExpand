@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "mek_ex:block/nuclear_control_valve"
+  }
+}

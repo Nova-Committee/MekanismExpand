@@ -1,7 +1,6 @@
 package committee.nova.mek_ex;
 
 import committee.nova.mek_ex.common.upgrade.MEXUpgrades;
-import committee.nova.mek_ex.init.registry.MEXBlockEntities;
 import committee.nova.mek_ex.init.registry.MEXBlocks;
 import committee.nova.mek_ex.init.registry.MEXContainerTypes;
 import committee.nova.mek_ex.init.registry.MEXCreativeTabs;
@@ -35,7 +34,6 @@ public class MekEXMod {
         Upgrade.values();
         CAPACITY_UPGRADE_TYPE = MEXUpgrades.capacity();
         MEXBlocks.register(modEventBus);
-        MEXBlockEntities.register(modEventBus);
         MEXItems.register(modEventBus);
         MEXContainerTypes.CONTAINER_TYPES.register(modEventBus);
         MEXGenTileEntityTypes.TILE_ENTITY_TYPES.register(modEventBus);

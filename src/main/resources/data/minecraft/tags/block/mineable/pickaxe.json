@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    "mek_ex:nuclear_control_tank",
+    "mek_ex:nuclear_control_valve",
     "mek_ex:basic_wind_generator",
     "mek_ex:advanced_wind_generator",
     "mek_ex:elite_wind_generator",

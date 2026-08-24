@@ -3,13 +3,20 @@
   "block.mek_ex.advanced_wind_generator": "Advanced Wind Generator",
   "block.mek_ex.elite_wind_generator": "Elite Wind Generator",
   "block.mek_ex.ultimate_wind_generator": "Ultimate Wind Generator",
+  "block.mek_ex.nuclear_control_tank": "Nuclear Control Tank",
+  "block.mek_ex.nuclear_control_valve": "Nuclear Control Tank Valve",
+
+  "description.mek_ex.nuclear_control_tank": "The casing used in the Nuclear Control Tank multiblock, a structure capable of storing great amounts of fluid and chemicals and radioactive materials.",
+  "description.mek_ex.nuclear_control_valve": "A valve that can be placed on a Nuclear Control Tank multiblock, allowing for fluids and chemicals and and radioactive materials. to be inserted and extracted via external piping.",
 
   "gui.mek_ex.upgrades.capacity_effect": "Energy storage multiplier: 1.5x per upgrade",
+  "gui.mek_ex.nuclear_control_tank":"Nuclear Control Tank",
 
   "container.mek_ex.basic_wind_generator": "Basic Wind Generator",
   "container.mek_ex.advanced_wind_generator": "Advanced Wind Generator",
   "container.mek_ex.elite_wind_generator": "Elite Wind Generator",
   "container.mek_ex.ultimate_wind_generator": "Ultimate Wind Generator",
+  "container.mek_ex.nuclear_control_tank": "Nuclear Control Tank",
 
   "item.mek_ex.upgrade_capacity": "Capacity Upgrade",
 

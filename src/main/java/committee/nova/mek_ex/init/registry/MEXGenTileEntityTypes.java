@@ -5,6 +5,8 @@ import committee.nova.mek_ex.common.block.entity.TileEntityAdvancedWindGenerator
 import committee.nova.mek_ex.common.block.entity.TileEntityEliteWindGenerator;
 import committee.nova.mek_ex.common.block.entity.TileEntityBasicWindGenerator;
 import committee.nova.mek_ex.common.block.entity.TileEntityUltimateWindGenerator;
+import committee.nova.mek_ex.common.block.entity.TileEntityNuclearControlTank;
+import committee.nova.mek_ex.common.block.entity.TileEntityNuclearControlValve;
 import mekanism.common.capabilities.Capabilities;
 import mekanism.common.registration.impl.TileEntityTypeDeferredRegister;
 import mekanism.common.registration.impl.TileEntityTypeRegistryObject;
@@ -40,4 +42,12 @@ public final class MEXGenTileEntityTypes {
             .serverTicker(TileEntityMekanism::tickServer)
             .withSimple(Capabilities.CONFIG_CARD)
             .build();
+
+    public static final TileEntityTypeRegistryObject<TileEntityNuclearControlTank> NUCLEAR_CONTROL_TANK = TILE_ENTITY_TYPES.mekBuilder(MEXBlocks.nuclear_control_tank, TileEntityNuclearControlTank::new)
+            .clientTicker(TileEntityMekanism::tickClient).serverTicker(TileEntityMekanism::tickServer)
+            .withSimple(Capabilities.CONFIGURABLE).without(Capabilities.ITEM.block()).build();
+
+    public static final TileEntityTypeRegistryObject<TileEntityNuclearControlValve> NUCLEAR_CONTROL_VALVE = TILE_ENTITY_TYPES.mekBuilder(MEXBlocks.nuclear_control_valve, TileEntityNuclearControlValve::new)
+            .clientTicker(TileEntityMekanism::tickClient).serverTicker(TileEntityMekanism::tickServer)
+            .withSimple(Capabilities.CONFIGURABLE).build();
 }
