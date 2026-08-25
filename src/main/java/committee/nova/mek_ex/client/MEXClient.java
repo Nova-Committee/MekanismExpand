@@ -9,6 +9,7 @@ import committee.nova.mek_ex.client.screen.GuiBasicWindGenerator;
 import committee.nova.mek_ex.client.screen.GuiEliteWindGenerator;
 import committee.nova.mek_ex.client.screen.GuiUltimateWindGenerator;
 import committee.nova.mek_ex.client.screen.GuiNuclearControlTank;
+import committee.nova.mek_ex.client.screen.GuiNeutronActivator;
 import committee.nova.mek_ex.init.registry.MEXBlocks;
 import committee.nova.mek_ex.init.registry.MEXContainerTypes;
 import committee.nova.mek_ex.init.registry.MEXGenTileEntityTypes;
@@ -43,6 +44,7 @@ public class MEXClient {
         ClientRegistrationUtil.registerScreen(event, MEXContainerTypes.ELITE_WIND_GENERATOR, GuiEliteWindGenerator::new);
         ClientRegistrationUtil.registerScreen(event, MEXContainerTypes.ULTIMATE_WIND_GENERATOR, GuiUltimateWindGenerator::new);
         ClientRegistrationUtil.registerScreen(event, MEXContainerTypes.NUCLEAR_CONTROL_TANK, GuiNuclearControlTank::new);
+        ClientRegistrationUtil.registerScreen(event, MEXContainerTypes.NEUTRON_ACTIVATOR, GuiNeutronActivator::new);
     }
 
     @SubscribeEvent

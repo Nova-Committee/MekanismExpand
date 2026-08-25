@@ -7,6 +7,9 @@ import committee.nova.mek_ex.common.block.entity.TileEntityBasicWindGenerator;
 import committee.nova.mek_ex.common.block.entity.TileEntityUltimateWindGenerator;
 import committee.nova.mek_ex.common.block.entity.TileEntityNuclearControlTank;
 import committee.nova.mek_ex.common.block.entity.TileEntityNuclearControlValve;
+import committee.nova.mek_ex.common.block.entity.TileEntityNeutronActivator;
+import committee.nova.mek_ex.common.block.entity.TileEntityAntimatterSuperchargedCoil;
+import committee.nova.mek_ex.common.item.AntimatterSuperchargedCoilItem;
 import committee.nova.mek_ex.common.item.WindGeneratorItem;
 import mekanism.common.attachments.containers.ContainerType;
 import mekanism.common.attachments.containers.item.ItemSlotsBuilder;
@@ -16,6 +19,8 @@ import mekanism.common.item.block.ItemBlockTooltip;
 import mekanism.common.registration.impl.BlockDeferredRegister;
 import mekanism.common.registration.impl.BlockRegistryObject;
 import mekanism.generators.common.content.blocktype.Generator;
+import mekanism.common.content.blocktype.Machine;
+import mekanism.common.content.blocktype.BlockTypeTile;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
 
@@ -39,6 +44,10 @@ public final class MEXBlocks {
     public static final BlockRegistryObject<BlockBasicMultiblock<TileEntityNuclearControlTank>, ItemBlockTooltip<BlockBasicMultiblock<TileEntityNuclearControlTank>>> nuclear_control_tank = BLOCKS.registerDetails("nuclear_control_tank", () -> new BlockBasicMultiblock<>(MEXBlockTypes.NUCLEAR_CONTROL_TANK, properties -> properties.mapColor(MapColor.COLOR_GRAY)));
 
     public static final BlockRegistryObject<BlockBasicMultiblock<TileEntityNuclearControlValve>, ItemBlockTooltip<BlockBasicMultiblock<TileEntityNuclearControlValve>>> nuclear_control_valve = BLOCKS.registerDetails("nuclear_control_valve", () -> new BlockBasicMultiblock<>(MEXBlockTypes.NUCLEAR_CONTROL_VALVE, properties -> properties.mapColor(MapColor.COLOR_GRAY)));
+
+    public static final BlockRegistryObject<BlockTile.BlockTileModel<TileEntityNeutronActivator, Machine<TileEntityNeutronActivator>>, ItemBlockTooltip<BlockTile.BlockTileModel<TileEntityNeutronActivator, Machine<TileEntityNeutronActivator>>>> neutron_activator = BLOCKS.registerDetails("neutron_activator", () -> new BlockTile.BlockTileModel<>(MEXBlockTypes.NEUTRON_ACTIVATOR, properties -> properties.mapColor(MapColor.METAL)));
+
+    public static final BlockRegistryObject<BlockTile.BlockTileModel<TileEntityAntimatterSuperchargedCoil, BlockTypeTile<TileEntityAntimatterSuperchargedCoil>>, AntimatterSuperchargedCoilItem> antimatter_supercharged_coil = BLOCKS.register("antimatter_supercharged_coil", () -> new BlockTile.BlockTileModel<>(MEXBlockTypes.ANTIMATTER_SUPERCHARGED_COIL, properties -> properties.mapColor(MapColor.COLOR_PURPLE)), AntimatterSuperchargedCoilItem::new);
 
 
 

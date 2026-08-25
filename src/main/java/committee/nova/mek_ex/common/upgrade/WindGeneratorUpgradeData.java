@@ -9,9 +9,7 @@ import mekanism.common.upgrade.IUpgradeData;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 
-/**
- * Carries wind generator state while a tier installer replaces its block entity.
- */
+
 public final class WindGeneratorUpgradeData implements IUpgradeData {
 
     public final boolean redstone;

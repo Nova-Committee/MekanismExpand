@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {"tag": "c:pellets/antimatter"},
+    "P": {
+      "tag": "c:pellets/polonium"
+    },
+    "C": {"tag": "c:ingots/gold"},
+    "S": {"item": "mekanism:supercharged_coil"}
+  },
+  "pattern": ["CCC", "ASA", "PPP"],
+  "result": {"count": 1, "id": "mek_ex:antimatter_supercharged_coil"}
+}

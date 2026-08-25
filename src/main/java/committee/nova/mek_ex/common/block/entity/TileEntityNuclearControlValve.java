@@ -13,10 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
 
-/**
- * Valve tile for the nuclear control tank. Valves expose both sides of the
- * formed merged tank and retain Mekanism's transfer/comparator behavior.
- */
+
 public class TileEntityNuclearControlValve extends TileEntityNuclearControlTank {
 
     public TileEntityNuclearControlValve(BlockPos pos, BlockState state) {

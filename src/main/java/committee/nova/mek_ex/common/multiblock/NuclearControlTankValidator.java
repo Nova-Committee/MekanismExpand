@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import committee.nova.mek_ex.init.registry.MEXBlockTypes;
 
-/** Validates the frame and valve blocks belonging to the nuclear control tank. */
+
 public final class NuclearControlTankValidator extends CuboidStructureValidator<NuclearControlTankMultiblockData> {
 
     @Override

@@ -34,11 +34,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
 
-/**
- * Nuclear-control variant of Mekanism's tank data. The chemical tank uses
- * {@link ChemicalAttributeValidator#ALWAYS_ALLOW}, which is required for
- * radioactive chemicals that the default attribute validator rejects.
- */
+
 public class NuclearControlTankMultiblockData extends MultiblockData implements IValveHandler {
 
     @ContainerSync

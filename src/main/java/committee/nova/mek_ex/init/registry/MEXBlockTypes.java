@@ -6,24 +6,35 @@ import committee.nova.mek_ex.common.block.entity.TileEntityBasicWindGenerator;
 import committee.nova.mek_ex.common.block.entity.TileEntityUltimateWindGenerator;
 import committee.nova.mek_ex.common.block.entity.TileEntityNuclearControlTank;
 import committee.nova.mek_ex.common.block.entity.TileEntityNuclearControlValve;
+import committee.nova.mek_ex.common.block.entity.TileEntityNeutronActivator;
+import committee.nova.mek_ex.common.block.entity.TileEntityAntimatterSuperchargedCoil;
 import committee.nova.mek_ex.common.upgrade.MEXUpgrades;
 import committee.nova.mek_ex.init.enums.MEXLang;
 import committee.nova.mek_ex.init.enums.MEXWindTier;
 import mekanism.api.Upgrade;
+import mekanism.api.energy.IEnergyConversionHelper;
 import mekanism.common.MekanismLang;
 import mekanism.common.block.attribute.AttributeCustomSelectionBox;
 import mekanism.common.block.attribute.AttributeHasBounding;
 import mekanism.common.block.attribute.AttributeUpgradeSupport;
 import mekanism.common.block.attribute.AttributeUpgradeable;
+import mekanism.common.block.attribute.AttributeParticleFX;
+import mekanism.common.block.attribute.AttributeStateFacing;
+import mekanism.common.block.attribute.AttributeStateFacing.FacePlacementType;
 import mekanism.common.block.attribute.Attributes;
 import mekanism.common.content.blocktype.BlockTypeTile;
 import mekanism.common.content.blocktype.BlockTypeTile.BlockTileBuilder;
 import mekanism.generators.common.GeneratorsLang;
 import mekanism.generators.common.content.blocktype.BlockShapes;
 import mekanism.generators.common.content.blocktype.Generator;
+import mekanism.common.content.blocktype.Machine;
+import mekanism.common.lib.transmitter.TransmissionType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 public final class MEXBlockTypes {
 
@@ -41,6 +52,12 @@ public final class MEXBlockTypes {
             }
             return true;
         }
+    };
+    private static final VoxelShape[] NEUTRON_ACTIVATOR_SHAPE = {
+          Block.box(0, 0, 0, 16, 16, 16),
+          Block.box(0, 0, 0, 16, 16, 16),
+          Block.box(0, 0, 0, 16, 16, 16),
+          Block.box(0, 0, 0, 16, 16, 16)
     };
 
     private MEXBlockTypes() {
@@ -108,5 +125,24 @@ public final class MEXBlockTypes {
           .with(Attributes.INVENTORY, Attributes.COMPARATOR)
           .externalMultiblock()
           .withComputerSupport("nuclearControlValve")
+          .build();
+
+    public static final Machine<TileEntityNeutronActivator> NEUTRON_ACTIVATOR = Machine.MachineBuilder
+          .createMachine(() -> MEXGenTileEntityTypes.NEUTRON_ACTIVATOR, MEXLang.DESCRIPTION_NEUTRON_ACTIVATOR)
+          .withGui(() -> MEXContainerTypes.NEUTRON_ACTIVATOR)
+          .withEnergyConfig(() -> 1L, () -> IEnergyConversionHelper.INSTANCE.feConversion().convertFrom(28_000L))
+          .without(AttributeParticleFX.class, AttributeUpgradeSupport.class)
+          .withCustomShape(NEUTRON_ACTIVATOR_SHAPE)
+          .with(AttributeCustomSelectionBox.JSON)
+          .withSideConfig(TransmissionType.ITEM, TransmissionType.CHEMICAL, TransmissionType.ENERGY)
+          .withComputerSupport("neutronActivator")
+          .replace(Attributes.ACTIVE)
+          .build();
+
+    public static final BlockTypeTile<TileEntityAntimatterSuperchargedCoil> ANTIMATTER_SUPERCHARGED_COIL = BlockTileBuilder
+          .createBlock(() -> MEXGenTileEntityTypes.ANTIMATTER_SUPERCHARGED_COIL, MEXLang.DESCRIPTION_ANTIMATTER_SUPERCHARGED_COIL)
+          .with(new AttributeStateFacing(BlockStateProperties.FACING, FacePlacementType.SELECTED_FACE))
+          .withCustomShape(mekanism.common.content.blocktype.BlockShapes.SUPERCHARGED_COIL)
+          .internalMultiblock()
           .build();
 }

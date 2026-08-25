@@ -5,17 +5,24 @@
   "block.mek_ex.ultimate_wind_generator": "终极风力发电机",
   "block.mek_ex.nuclear_control_tank": "核控储罐",
   "block.mek_ex.nuclear_control_valve": "核控储罐阀门",
-  "description.mek_ex.nuclear_control_tank": "核控储罐多方块结构的框架，可以存储大量流体。",
-  "description.mek_ex.nuclear_control_valve": "核控储罐的连接口，允许通过外部管道输入和输出流体和化学品和放射性物质。",
+  "block.mek_ex.neutron_activator": "中子活化器",
+  "block.mek_ex.antimatter_supercharged_coil": "反物质增压线圈",
+
+  "description.mek_ex.nuclear_control_tank": "核控储罐多方块结构的框架，可储存大量流体、化学品和放射性物质。",
+  "description.mek_ex.nuclear_control_valve": "核控储罐的连接接口，允许通过外部管道输入和输出流体、化学品及放射性物质。",
+  "description.mek_ex.neutron_activator": "使用电力与自身辐射进行化学活化的机器。",
+  "description.mek_ex.antimatter_supercharged_coil": "可使超临界移相器处理速率提高五倍，并产生紫色闪电的增压线圈。",
 
   "gui.mek_ex.upgrades.capacity_effect": "储能倍率：每个升级提高至1.5倍",
-  "gui.mek_ex.nuclear_control_tank":"核控储罐",
+  "gui.mek_ex.nuclear_control_tank": "核控储罐",
+  "gui.mek_ex.neutron_activator": "中子活化器",
 
   "container.mek_ex.basic_wind_generator": "基础风力发电机",
   "container.mek_ex.advanced_wind_generator": "高级风力发电机",
   "container.mek_ex.elite_wind_generator": "精英风力发电机",
   "container.mek_ex.ultimate_wind_generator": "终极风力发电机",
   "container.mek_ex.nuclear_control_tank": "核控储罐",
+  "container.mek_ex.neutron_activator": "中子活化器",
 
   "item.mek_ex.upgrade_capacity": "增容升级",
 

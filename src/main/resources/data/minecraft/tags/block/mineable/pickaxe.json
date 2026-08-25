@@ -6,6 +6,8 @@
     "mek_ex:basic_wind_generator",
     "mek_ex:advanced_wind_generator",
     "mek_ex:elite_wind_generator",
-    "mek_ex:ultimate_wind_generator"
+    "mek_ex:ultimate_wind_generator",
+    "mek_ex:neutron_activator",
+    "mek_ex:antimatter_supercharged_coil"
   ]
 }

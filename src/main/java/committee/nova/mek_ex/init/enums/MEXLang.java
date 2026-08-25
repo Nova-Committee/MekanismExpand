@@ -13,6 +13,9 @@ public enum MEXLang implements ILangEntry {
     NUCLEAR_CONTROL_TANK("gui", "nuclear_control_tank"),
     DESCRIPTION_NUCLEAR_CONTROL_TANK("description", "nuclear_control_tank"),
     DESCRIPTION_NUCLEAR_CONTROL_VALVE("description", "nuclear_control_valve"),
+    DESCRIPTION_NEUTRON_ACTIVATOR("description", "neutron_activator"),
+    NEUTRON_ACTIVATOR("gui", "neutron_activator"),
+    DESCRIPTION_ANTIMATTER_SUPERCHARGED_COIL("description", "antimatter_supercharged_coil"),
     CAPACITY_UPGRADE("upgrade", "capacity"),
     CAPACITY_UPGRADE_DESCRIPTION("upgrade", "capacity.desc"),
     CAPACITY_UPGRADE_EFFECT("gui", "upgrades.capacity_effect");

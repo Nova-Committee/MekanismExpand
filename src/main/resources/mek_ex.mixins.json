@@ -9,7 +9,13 @@
     "EnumUtilsMixin",
     "TileEntityMekanismMixin",
     "TileEntityGeneratorMixin",
-    "ItemTierInstallerMixin"
+    "ItemTierInstallerMixin",
+    "SPSValidatorMixin",
+    "SPSMultiblockDataMixin"
+  ],
+  "client": [
+    "RenderSPSMixin",
+    "RecipeViewerRecipeTypeMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -7,7 +7,7 @@ import mekanism.common.util.NBTUtils;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 
-/** Persists the edit mode for a nuclear control tank multiblock. */
+
 public final class NuclearControlTankCache extends MultiblockCache<NuclearControlTankMultiblockData> {
 
     private ContainerEditMode editMode = ContainerEditMode.BOTH;

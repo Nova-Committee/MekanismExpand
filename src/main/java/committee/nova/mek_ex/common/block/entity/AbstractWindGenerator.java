@@ -62,12 +62,12 @@ public abstract class AbstractWindGenerator extends TileEntityGenerator implemen
     protected boolean onUpdateServer() {
         boolean sendUpdatePacket = super.onUpdateServer();
         energySlot.drainContainer();
-        // If we're in a blacklisted dimension, there's nothing more to do
+
         if (isBlacklistDimension) {
             return sendUpdatePacket;
         }
         if (ticker % SharedConstants.TICKS_PER_SECOND == 0) {
-            // Recalculate the current multiplier once a second
+
             currentMultiplier = getMultiplier();
             setActive(canFunction() && currentMultiplier != 0L);
         }
@@ -102,27 +102,22 @@ public abstract class AbstractWindGenerator extends TileEntityGenerator implemen
     public float getHeightSpeedRatio() {
         int height = getBlockPos().getY() + 4;
         if (level == null) {
-            //Fallback to default values, but in general this is not going to happen
+
             return SPEED * height / 384F;
         }
-        //Shift so that a wind generator at the min build height acts as if it was at a height of zero
+
         int minBuildHeight = level.getMinBuildHeight();
         height -= minBuildHeight;
         return SPEED * height / (level.getMaxBuildHeight() - minBuildHeight);
     }
 
-    /**
-     * Determines the current output multiplier, taking sky visibility and height into account.
-     **/
     private double getMultiplier() {
         if (level != null) {
             BlockPos top = getBlockPos().above(4);
-            //Validate it isn't fluid logged to help try and prevent https://github.com/mekanism/Mekanism/issues/7344
-            //Clamp the height limits as the logical bounds of the world
+
             if (level.getFluidState(top).isEmpty() && level.canSeeSky(top)) {
                 int minBuildHeight = level.getMinBuildHeight();
-                //Based off of how PortalForcer#createPortal calculates
-                // The minus one is to handle that the max level height is treated as exclusive
+
                 int maxLevelHeight = Math.min(level.getMaxBuildHeight(), minBuildHeight + level.dimensionType().logicalHeight()) - 1;
                 int minY = Math.max(MekanismGeneratorsConfig.generators.windGenerationMinY.get(), minBuildHeight);
                 int maxY = Math.min(MekanismGeneratorsConfig.generators.windGenerationMaxY.get(), maxLevelHeight);
@@ -140,9 +135,7 @@ public abstract class AbstractWindGenerator extends TileEntityGenerator implemen
     @Override
     public void setLevel(@NotNull Level world) {
         super.setLevel(world);
-        // Check the blacklist and force an update if we're in the blacklist. Otherwise, we'll never send
-        // an initial activity status and the client (in MP) will show the windmills turning while not
-        // generating any power
+
         isBlacklistDimension = world.dimensionTypeRegistration().is(MekanismAPITags.DimensionTypes.NO_WIND);
         if (isBlacklistDimension) {
             setActive(false);

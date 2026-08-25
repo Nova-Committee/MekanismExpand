@@ -24,11 +24,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-/**
- * Nuclear control tank casing tile. It reuses Mekanism's merged fluid/chemical
- * tank data so every registered fluid and chemical, including radioactive waste,
- * plutonium and polonium, can be stored by the formed structure.
- */
+
 public class TileEntityNuclearControlTank extends TileEntityMultiblock<NuclearControlTankMultiblockData> implements IFluidContainerManager {
 
     public TileEntityNuclearControlTank(BlockPos pos, BlockState state) {
@@ -50,10 +46,7 @@ public class TileEntityNuclearControlTank extends TileEntityMultiblock<NuclearCo
         return new NuclearControlTankMultiblockData(this);
     }
 
-    /**
-     * Handles chemical containers before delegating to Mekanism's fluid
-     * interaction, since the upstream dynamic tank only handles fluids here.
-     */
+
     @Override
     public ItemInteractionResult onActivate(Player player, InteractionHand hand, ItemStack stack) {
         if (!player.isShiftKeyDown()) {
@@ -101,8 +94,7 @@ public class TileEntityNuclearControlTank extends TileEntityMultiblock<NuclearCo
         if (stack.isEmpty()) {
             return false;
         }
-        // Mekanism chemical item capabilities commonly require an unstacked item.
-        // Work on one copy, then put the updated container back into the player's inventory.
+
         ItemStack itemCopy = stack.copyWithCount(1);
         IChemicalHandler itemHandler = Capabilities.CHEMICAL.getCapability(itemCopy);
         if (itemHandler == null) {

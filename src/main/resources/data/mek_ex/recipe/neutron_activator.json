@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {"item": "mekanism:hdpe_sheet"},
+    "A": {"tag": "c:pellets/plutonium"},
+    "C": {"tag": "c:circuits/elite"},
+    "I": {"tag": "c:ingots/bronze"},
+    "X": {"item": "mekanism:steel_casing"}
+  },
+  "pattern": ["A#A", "CXC", "III"],
+  "result": {"count": 1, "id": "mek_ex:neutron_activator"}
+}

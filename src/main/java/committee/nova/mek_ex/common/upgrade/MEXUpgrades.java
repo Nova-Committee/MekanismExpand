@@ -3,9 +3,7 @@ package committee.nova.mek_ex.common.upgrade;
 import java.util.Arrays;
 import mekanism.api.Upgrade;
 
-/**
- * Resolves upgrades added by the enum mixin after Mekanism initializes its enum constants.
- */
+
 public final class MEXUpgrades {
 
     private MEXUpgrades() {

@@ -6,9 +6,6 @@ import mekanism.common.tile.base.TileEntityMekanism;
 import committee.nova.mek_ex.common.upgrade.MEXUpgrades;
 import mekanism.api.functions.ConstantPredicates;
 
-/**
- * Generator energy container whose capacity follows the installed capacity upgrades.
- */
 public final class MEXCapacityEnergyContainer extends BasicEnergyContainer {
 
     private final TileEntityMekanism tile;
