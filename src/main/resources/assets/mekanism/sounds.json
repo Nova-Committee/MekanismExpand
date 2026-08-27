@@ -1,0 +1,13 @@
+{
+  "tile.machine.mek_ex_environmental_radiation_generator": {
+    "subtitle": "sound_event.mek_ex.environmental_radiation_generator",
+    "sounds": [
+      {
+        "name": "mek_ex:item/environmental_radiation_generator",
+        "type": "file",
+        "pitch": 1.35,
+        "volume": 0.7
+      }
+    ]
+  }
+}

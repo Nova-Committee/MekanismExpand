@@ -7,6 +7,7 @@ import committee.nova.mek_ex.common.block.entity.TileEntityBasicWindGenerator;
 import committee.nova.mek_ex.common.block.entity.TileEntityUltimateWindGenerator;
 import committee.nova.mek_ex.common.block.entity.TileEntityNuclearControlTank;
 import committee.nova.mek_ex.common.block.entity.TileEntityNeutronActivator;
+import committee.nova.mek_ex.common.block.entity.TileEntityEnvironmentalRadiationGenerator;
 import mekanism.common.inventory.container.tile.MekanismTileContainer;
 import mekanism.common.registration.impl.ContainerTypeDeferredRegister;
 import mekanism.common.registration.impl.ContainerTypeRegistryObject;
@@ -21,4 +22,5 @@ public class MEXContainerTypes {
     public static final ContainerTypeRegistryObject<MekanismTileContainer<TileEntityUltimateWindGenerator>> ULTIMATE_WIND_GENERATOR = CONTAINER_TYPES.custom(MEXBlocks.ultimate_wind_generator, TileEntityUltimateWindGenerator.class).armorSideBar(-20, 11, 0).build();
     public static final ContainerTypeRegistryObject<MekanismTileContainer<TileEntityNuclearControlTank>> NUCLEAR_CONTROL_TANK = CONTAINER_TYPES.custom(MEXBlocks.nuclear_control_tank, TileEntityNuclearControlTank.class).armorSideBar().build();
     public static final ContainerTypeRegistryObject<MekanismTileContainer<TileEntityNeutronActivator>> NEUTRON_ACTIVATOR = CONTAINER_TYPES.custom(MEXBlocks.neutron_activator, TileEntityNeutronActivator.class).build();
+    public static final ContainerTypeRegistryObject<MekanismTileContainer<TileEntityEnvironmentalRadiationGenerator>> ENVIRONMENTAL_RADIATION_GENERATOR = CONTAINER_TYPES.custom(MEXBlocks.environmental_radiation_generator, TileEntityEnvironmentalRadiationGenerator.class).build();
 }

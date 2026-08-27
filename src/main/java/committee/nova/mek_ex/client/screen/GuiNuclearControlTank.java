@@ -25,7 +25,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
 
-/** GUI for the nuclear control tank, matching Mekanism's dynamic tank layout. */
 public class GuiNuclearControlTank extends GuiMekanismTile<TileEntityNuclearControlTank, MekanismTileContainer<TileEntityNuclearControlTank>> {
 
     public GuiNuclearControlTank(MekanismTileContainer<TileEntityNuclearControlTank> container, Inventory inv, Component title) {

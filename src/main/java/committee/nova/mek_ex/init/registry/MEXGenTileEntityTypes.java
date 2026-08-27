@@ -9,6 +9,7 @@ import committee.nova.mek_ex.common.block.entity.TileEntityNuclearControlTank;
 import committee.nova.mek_ex.common.block.entity.TileEntityNuclearControlValve;
 import committee.nova.mek_ex.common.block.entity.TileEntityNeutronActivator;
 import committee.nova.mek_ex.common.block.entity.TileEntityAntimatterSuperchargedCoil;
+import committee.nova.mek_ex.common.block.entity.TileEntityEnvironmentalRadiationGenerator;
 import mekanism.common.capabilities.Capabilities;
 import mekanism.common.registration.impl.TileEntityTypeDeferredRegister;
 import mekanism.common.registration.impl.TileEntityTypeRegistryObject;
@@ -54,6 +55,12 @@ public final class MEXGenTileEntityTypes {
             .withSimple(Capabilities.CONFIGURABLE).build();
 
     public static final TileEntityTypeRegistryObject<TileEntityNeutronActivator> NEUTRON_ACTIVATOR = TILE_ENTITY_TYPES.mekBuilder(MEXBlocks.neutron_activator, TileEntityNeutronActivator::new)
+            .clientTicker(TileEntityMekanism::tickClient)
+            .serverTicker(TileEntityMekanism::tickServer)
+            .withSimple(Capabilities.CONFIG_CARD)
+            .build();
+
+    public static final TileEntityTypeRegistryObject<TileEntityEnvironmentalRadiationGenerator> ENVIRONMENTAL_RADIATION_GENERATOR = TILE_ENTITY_TYPES.mekBuilder(MEXBlocks.environmental_radiation_generator, TileEntityEnvironmentalRadiationGenerator::new)
             .clientTicker(TileEntityMekanism::tickClient)
             .serverTicker(TileEntityMekanism::tickServer)
             .withSimple(Capabilities.CONFIG_CARD)

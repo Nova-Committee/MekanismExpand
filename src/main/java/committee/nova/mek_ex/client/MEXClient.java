@@ -1,6 +1,7 @@
 package committee.nova.mek_ex.client;
 
 import committee.nova.mek_ex.MekEXMod;
+import committee.nova.mek_ex.client.render.RenderEnvironmentalRadiationGenerator;
 import committee.nova.mek_ex.client.render.RenderWindGenerator;
 import committee.nova.mek_ex.client.render.RenderNuclearControlTank;
 import committee.nova.mek_ex.client.render.item.RenderWindGeneratorItem;
@@ -10,6 +11,7 @@ import committee.nova.mek_ex.client.screen.GuiEliteWindGenerator;
 import committee.nova.mek_ex.client.screen.GuiUltimateWindGenerator;
 import committee.nova.mek_ex.client.screen.GuiNuclearControlTank;
 import committee.nova.mek_ex.client.screen.GuiNeutronActivator;
+import committee.nova.mek_ex.client.screen.GuiEnvironmentalRadiationGenerator;
 import committee.nova.mek_ex.init.registry.MEXBlocks;
 import committee.nova.mek_ex.init.registry.MEXContainerTypes;
 import committee.nova.mek_ex.init.registry.MEXGenTileEntityTypes;
@@ -32,6 +34,7 @@ public class MEXClient {
         event.registerBlockEntityRenderer(MEXGenTileEntityTypes.ADVANCED_WIND_GENERATOR.get(), context -> new RenderWindGenerator<>(context, MekEXMod.rl("textures/block/wind_advanced.png")));
         event.registerBlockEntityRenderer(MEXGenTileEntityTypes.ELITE_WIND_GENERATOR.get(), context -> new RenderWindGenerator<>(context, MekEXMod.rl("textures/block/wind_elite.png")));
         event.registerBlockEntityRenderer(MEXGenTileEntityTypes.ULTIMATE_WIND_GENERATOR.get(), context -> new RenderWindGenerator<>(context, MekEXMod.rl("textures/block/wind_ultimate.png")));
+        event.registerBlockEntityRenderer(MEXGenTileEntityTypes.ENVIRONMENTAL_RADIATION_GENERATOR.get(), RenderEnvironmentalRadiationGenerator::new);
         ClientRegistrationUtil.bindTileEntityRenderer(event, RenderNuclearControlTank::new,
               MEXGenTileEntityTypes.NUCLEAR_CONTROL_TANK, MEXGenTileEntityTypes.NUCLEAR_CONTROL_VALVE);
     }
@@ -45,6 +48,7 @@ public class MEXClient {
         ClientRegistrationUtil.registerScreen(event, MEXContainerTypes.ULTIMATE_WIND_GENERATOR, GuiUltimateWindGenerator::new);
         ClientRegistrationUtil.registerScreen(event, MEXContainerTypes.NUCLEAR_CONTROL_TANK, GuiNuclearControlTank::new);
         ClientRegistrationUtil.registerScreen(event, MEXContainerTypes.NEUTRON_ACTIVATOR, GuiNeutronActivator::new);
+        ClientRegistrationUtil.registerScreen(event, MEXContainerTypes.ENVIRONMENTAL_RADIATION_GENERATOR, GuiEnvironmentalRadiationGenerator::new);
     }
 
     @SubscribeEvent

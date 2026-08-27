@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {"tag": "c:circuits/ultimate"},
+    "H": {"item": "mekanism:hdpe_sheet"},
+    "I": {"tag": "c:ingots/steel"},
+    "R": {"item": "minecraft:redstone"},
+    "P": {"tag": "c:pellets/polonium"}
+  },
+  "pattern": ["RHR", "CPC", "III"],
+  "result": {"count": 1, "id": "mek_ex:environmental_radiation_generator"}
+}

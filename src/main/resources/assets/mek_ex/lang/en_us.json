@@ -6,15 +6,22 @@
   "block.mek_ex.nuclear_control_tank": "Nuclear Control Tank",
   "block.mek_ex.nuclear_control_valve": "Nuclear Control Tank Valve",
   "block.mek_ex.neutron_activator": "Neutron Activator",
+  "block.mek_ex.environmental_radiation_generator": "Environmental Radiation Generator",
   "block.mek_ex.antimatter_supercharged_coil": "Antimatter Supercharged Coil",
 
   "description.mek_ex.nuclear_control_tank": "The casing used in the Nuclear Control Tank multiblock, a structure capable of storing great amounts of fluid and chemicals and radioactive materials.",
   "description.mek_ex.nuclear_control_valve": "A valve that can be placed on a Nuclear Control Tank multiblock, allowing for fluids and chemicals and and radioactive materials. to be inserted and extracted via external piping.",
   "description.mek_ex.neutron_activator": "A powered and self-radiation chemical activating machine.",
+  "description.mek_ex.environmental_radiation_generator": "Consumes environmental radiation, stores it safely, and generates energy from the absorbed radiation.",
   "description.mek_ex.antimatter_supercharged_coil": "A supercharged coil that increases SPS processing speed fivefold and produces purple lightning.",
 
   "gui.mek_ex.upgrades.capacity_effect": "Energy storage multiplier: 1.5x per upgrade",
   "gui.mek_ex.nuclear_control_tank":"Nuclear Control Tank",
+  "gui.mek_ex.environmental_radiation_generator": "Environmental Radiation Generator",
+  "gui.mek_ex.radiation_storage": "Rad: %s/%s",
+  "gui.mek_ex.environmental_radiation": "Radiation: %s",
+  "gui.mek_ex.generation_rate": "Power: %s",
+  "gui.mek_ex.max_output": "Max output: %s",
 
   "container.mek_ex.basic_wind_generator": "Basic Wind Generator",
   "container.mek_ex.advanced_wind_generator": "Advanced Wind Generator",
@@ -22,6 +29,7 @@
   "container.mek_ex.ultimate_wind_generator": "Ultimate Wind Generator",
   "container.mek_ex.nuclear_control_tank": "Nuclear Control Tank",
   "container.mek_ex.neutron_activator": "Neutron Activator",
+  "container.mek_ex.environmental_radiation_generator": "Environmental Radiation Generator",
   "gui.mek_ex.neutron_activator": "Neutron Activator",
 
   "item.mek_ex.upgrade_capacity": "Capacity Upgrade",
@@ -29,5 +37,6 @@
   "upgrade.mek_ex.capacity.desc": "Increases generator energy storage by 50% per upgrade. Maximum of 4 upgrades.",
   "upgrade.mek_ex.capacity": "Capacity",
 
-  "itemGroup.mek_ex.mekanism_expand": "Mekanism: Expand"
+  "itemGroup.mek_ex.mekanism_expand": "Mekanism: Expand",
+  "sound_event.mek_ex.environmental_radiation_generator": "Environmental Radiation Generator running"
 }

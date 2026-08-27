@@ -8,6 +8,7 @@ import committee.nova.mek_ex.common.block.entity.TileEntityNuclearControlTank;
 import committee.nova.mek_ex.common.block.entity.TileEntityNuclearControlValve;
 import committee.nova.mek_ex.common.block.entity.TileEntityNeutronActivator;
 import committee.nova.mek_ex.common.block.entity.TileEntityAntimatterSuperchargedCoil;
+import committee.nova.mek_ex.common.block.entity.TileEntityEnvironmentalRadiationGenerator;
 import committee.nova.mek_ex.common.upgrade.MEXUpgrades;
 import committee.nova.mek_ex.init.enums.MEXLang;
 import committee.nova.mek_ex.init.enums.MEXWindTier;
@@ -34,11 +35,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public final class MEXBlockTypes {
 
-    private static final AttributeUpgradeSupport WIND_UPGRADES = AttributeUpgradeSupport.create(Upgrade.MUFFLING, MEXUpgrades.capacity());
+    private static final AttributeUpgradeSupport GENERATOR_UPGRADES = AttributeUpgradeSupport.create(Upgrade.MUFFLING, MEXUpgrades.capacity());
     private static final AttributeHasBounding.HandleBoundingBlock WIND_BOUNDING = new AttributeHasBounding.HandleBoundingBlock() {
         @Override
         public <DATA> boolean handle(Level level, BlockPos pos, BlockState state, DATA data,
@@ -59,6 +61,21 @@ public final class MEXBlockTypes {
           Block.box(0, 0, 0, 16, 16, 16),
           Block.box(0, 0, 0, 16, 16, 16)
     };
+    private static final VoxelShape ENVIRONMENTAL_RADIATION_GENERATOR_FRAME = Shapes.or(
+          Block.box(0, 0, 0, 16, 5, 16),
+          Block.box(4, 5, 0, 12, 13, 3),
+          Block.box(4, 5, 13, 12, 13, 16),
+          Block.box(0, 5, 4, 3, 13, 12),
+          Block.box(13, 5, 4, 16, 13, 12),
+          Block.box(3, 12, 3, 13, 14, 13),
+          Block.box(4, 14, 4, 12, 16, 12)
+    ).optimize();
+    private static final VoxelShape[] ENVIRONMENTAL_RADIATION_GENERATOR_SHAPE = {
+          ENVIRONMENTAL_RADIATION_GENERATOR_FRAME,
+          ENVIRONMENTAL_RADIATION_GENERATOR_FRAME,
+          ENVIRONMENTAL_RADIATION_GENERATOR_FRAME,
+          ENVIRONMENTAL_RADIATION_GENERATOR_FRAME
+    };
 
     private MEXBlockTypes() {
     }
@@ -68,7 +85,7 @@ public final class MEXBlockTypes {
           .withGui(() -> MEXContainerTypes.BASIC_WIND_GENERATOR)
           .withEnergyConfig(MEXWindTier.BASIC::getEnergyStorage)
           .withCustomShape(BlockShapes.WIND_GENERATOR)
-          .with(AttributeCustomSelectionBox.JAVA, WIND_UPGRADES, new mekanism.common.block.attribute.AttributeTier<>(MEXWindTier.BASIC))
+          .with(AttributeCustomSelectionBox.JAVA, GENERATOR_UPGRADES, new mekanism.common.block.attribute.AttributeTier<>(MEXWindTier.BASIC))
           .with(new AttributeUpgradeable(() -> MEXBlocks.advanced_wind_generator))
           .withSound(mekanism.generators.common.registries.GeneratorsSounds.WIND_GENERATOR)
           .withBounding(WIND_BOUNDING)
@@ -80,7 +97,7 @@ public final class MEXBlockTypes {
           .withGui(() -> MEXContainerTypes.ADVANCED_WIND_GENERATOR)
           .withEnergyConfig(MEXWindTier.ADVANCED::getEnergyStorage)
           .withCustomShape(BlockShapes.WIND_GENERATOR)
-          .with(AttributeCustomSelectionBox.JAVA, WIND_UPGRADES, new mekanism.common.block.attribute.AttributeTier<>(MEXWindTier.ADVANCED))
+          .with(AttributeCustomSelectionBox.JAVA, GENERATOR_UPGRADES, new mekanism.common.block.attribute.AttributeTier<>(MEXWindTier.ADVANCED))
           .with(new AttributeUpgradeable(() -> MEXBlocks.elite_wind_generator))
           .withSound(mekanism.generators.common.registries.GeneratorsSounds.WIND_GENERATOR)
           .withBounding(WIND_BOUNDING)
@@ -92,7 +109,7 @@ public final class MEXBlockTypes {
           .withGui(() -> MEXContainerTypes.ELITE_WIND_GENERATOR)
           .withEnergyConfig(MEXWindTier.ELITE::getEnergyStorage)
           .withCustomShape(BlockShapes.WIND_GENERATOR)
-          .with(AttributeCustomSelectionBox.JAVA, WIND_UPGRADES, new mekanism.common.block.attribute.AttributeTier<>(MEXWindTier.ELITE))
+          .with(AttributeCustomSelectionBox.JAVA, GENERATOR_UPGRADES, new mekanism.common.block.attribute.AttributeTier<>(MEXWindTier.ELITE))
           .with(new AttributeUpgradeable(() -> MEXBlocks.ultimate_wind_generator))
           .withSound(mekanism.generators.common.registries.GeneratorsSounds.WIND_GENERATOR)
           .withBounding(WIND_BOUNDING)
@@ -104,7 +121,7 @@ public final class MEXBlockTypes {
           .withGui(() -> MEXContainerTypes.ULTIMATE_WIND_GENERATOR)
           .withEnergyConfig(MEXWindTier.ULTIMATE::getEnergyStorage)
           .withCustomShape(BlockShapes.WIND_GENERATOR)
-          .with(AttributeCustomSelectionBox.JAVA, WIND_UPGRADES, new mekanism.common.block.attribute.AttributeTier<>(MEXWindTier.ULTIMATE))
+          .with(AttributeCustomSelectionBox.JAVA, GENERATOR_UPGRADES, new mekanism.common.block.attribute.AttributeTier<>(MEXWindTier.ULTIMATE))
           .withSound(mekanism.generators.common.registries.GeneratorsSounds.WIND_GENERATOR)
           .withBounding(WIND_BOUNDING)
           .withComputerSupport("ultimateWindGenerator")
@@ -137,6 +154,22 @@ public final class MEXBlockTypes {
           .withSideConfig(TransmissionType.ITEM, TransmissionType.CHEMICAL, TransmissionType.ENERGY)
           .withComputerSupport("neutronActivator")
           .replace(Attributes.ACTIVE)
+          .build();
+
+    /**
+     * Environment radiation generator. It consumes ambient radiation and produces FE;
+     * the top is disabled while every other energy side is configurable between output and none.
+     */
+    public static final Machine<TileEntityEnvironmentalRadiationGenerator> ENVIRONMENTAL_RADIATION_GENERATOR = Machine.MachineBuilder
+          .createMachine(() -> MEXGenTileEntityTypes.ENVIRONMENTAL_RADIATION_GENERATOR, MEXLang.DESCRIPTION_ENVIRONMENTAL_RADIATION_GENERATOR)
+          .withGui(() -> MEXContainerTypes.ENVIRONMENTAL_RADIATION_GENERATOR)
+          .withEnergyConfig(TileEntityEnvironmentalRadiationGenerator::getEnergyUsage, TileEntityEnvironmentalRadiationGenerator::getEnergyStorage)
+          .replace(GENERATOR_UPGRADES)
+          .withCustomShape(ENVIRONMENTAL_RADIATION_GENERATOR_SHAPE)
+          .with(AttributeCustomSelectionBox.JSON)
+          .withSideConfig(TransmissionType.ENERGY)
+          .withSound(MEXSounds.ENVIRONMENTAL_RADIATION_GENERATOR)
+          .withComputerSupport("environmentalRadiationGenerator")
           .build();
 
     public static final BlockTypeTile<TileEntityAntimatterSuperchargedCoil> ANTIMATTER_SUPERCHARGED_COIL = BlockTileBuilder

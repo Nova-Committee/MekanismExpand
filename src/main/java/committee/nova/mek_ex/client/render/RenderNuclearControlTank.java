@@ -16,7 +16,6 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-/** Dynamic-tank renderer specialized for the nuclear-control tank data type. */
 @NothingNullByDefault
 public class RenderNuclearControlTank extends MultiblockTileEntityRenderer<NuclearControlTankMultiblockData, TileEntityNuclearControlTank> {
 

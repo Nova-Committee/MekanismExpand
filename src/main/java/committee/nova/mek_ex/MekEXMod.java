@@ -4,8 +4,10 @@ import committee.nova.mek_ex.common.upgrade.MEXUpgrades;
 import committee.nova.mek_ex.init.registry.MEXBlocks;
 import committee.nova.mek_ex.init.registry.MEXContainerTypes;
 import committee.nova.mek_ex.init.registry.MEXCreativeTabs;
+import committee.nova.mek_ex.init.registry.MEXDataComponents;
 import committee.nova.mek_ex.init.registry.MEXGenTileEntityTypes;
 import committee.nova.mek_ex.init.registry.MEXItems;
+import committee.nova.mek_ex.init.registry.MEXSounds;
 import mekanism.api.Upgrade;
 import org.slf4j.Logger;
 
@@ -36,7 +38,9 @@ public class MekEXMod {
         MEXBlocks.register(modEventBus);
         MEXItems.register(modEventBus);
         MEXContainerTypes.CONTAINER_TYPES.register(modEventBus);
+        MEXDataComponents.DATA_COMPONENTS.register(modEventBus);
         MEXGenTileEntityTypes.TILE_ENTITY_TYPES.register(modEventBus);
+        MEXSounds.register(modEventBus);
         MEXCreativeTabs.CREATIVE_TABS.register(modEventBus);
     }
 }

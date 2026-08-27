@@ -30,6 +30,7 @@ public final class MEXCreativeTabs {
                 output.accept(MEXBlocks.nuclear_control_tank);
                 output.accept(MEXBlocks.nuclear_control_valve);
                 output.accept(MEXBlocks.neutron_activator);
+                output.accept(MEXBlocks.environmental_radiation_generator);
                 output.accept(MEXBlocks.antimatter_supercharged_coil);
             })
         .build());

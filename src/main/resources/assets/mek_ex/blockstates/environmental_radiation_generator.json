@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "facing=north,active=false": {"model": "mek_ex:block/environmental_radiation_generator"},
+    "facing=north,active=true": {"model": "mek_ex:block/environmental_radiation_generator"},
+    "facing=south,active=false": {"model": "mek_ex:block/environmental_radiation_generator", "y": 180},
+    "facing=south,active=true": {"model": "mek_ex:block/environmental_radiation_generator", "y": 180},
+    "facing=east,active=false": {"model": "mek_ex:block/environmental_radiation_generator", "y": 90},
+    "facing=east,active=true": {"model": "mek_ex:block/environmental_radiation_generator", "y": 90},
+    "facing=west,active=false": {"model": "mek_ex:block/environmental_radiation_generator", "y": -90},
+    "facing=west,active=true": {"model": "mek_ex:block/environmental_radiation_generator", "y": -90}
+  }
+}
