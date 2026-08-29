@@ -6,5 +6,5 @@
     "G":{"tag":"c:glass_blocks/cheap"},
     "E":{"item":"mekanism:energy_tablet"}
   },
-  "pattern":[" G ","ENE"," G "],
+  "pattern":[" G ","EAE"," G "],
   "result":{"count":1,"id":"mek_ex:upgrade_capacity"}}
