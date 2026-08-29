@@ -1,4 +1,5 @@
 {
+  "block.mek_ex.potion_nebulizer": "药水雾化机",
   "block.mek_ex.basic_wind_generator": "基础风力发电机",
   "block.mek_ex.advanced_wind_generator": "高级风力发电机",
   "block.mek_ex.elite_wind_generator": "精英风力发电机",
@@ -14,6 +15,7 @@
   "description.mek_ex.neutron_activator": "使用电力与自身辐射进行化学活化的机器。",
   "description.mek_ex.environmental_radiation_generator": "吸收环境辐射并安全储存，将其转化为能量。",
   "description.mek_ex.antimatter_supercharged_coil": "可使超临界移相器处理速率提高五倍，并产生紫色闪电的增压线圈。",
+  "description.mek_ex.potion_nebulizer": "能够雾化药水的机器，雾化后药水时长延长至原来的10倍",
 
   "gui.mek_ex.upgrades.capacity_effect": "储能倍率：每个升级提高至1.5倍",
   "gui.mek_ex.nuclear_control_tank": "核控储罐",
@@ -23,6 +25,8 @@
   "gui.mek_ex.environmental_radiation": "环境辐射：%s",
   "gui.mek_ex.generation_rate": "功率：%s",
   "gui.mek_ex.max_output": "最大输出：%s",
+  "gui.mek_ex.potion_nebulizer": "药水雾化机",
+  "gui.mek_ex.nebulized_potion": "雾化的%s",
 
   "container.mek_ex.basic_wind_generator": "基础风力发电机",
   "container.mek_ex.advanced_wind_generator": "高级风力发电机",
@@ -31,6 +35,7 @@
   "container.mek_ex.nuclear_control_tank": "核控储罐",
   "container.mek_ex.neutron_activator": "中子活化器",
   "container.mek_ex.environmental_radiation_generator": "环境辐射发电机",
+  "container.mek_ex.potion_nebulizer": "药水雾化机",
 
   "item.mek_ex.upgrade_capacity": "增容升级",
 

@@ -17,6 +17,8 @@ public enum MEXLang implements ILangEntry {
     NEUTRON_ACTIVATOR("gui", "neutron_activator"),
     DESCRIPTION_ENVIRONMENTAL_RADIATION_GENERATOR("description", "environmental_radiation_generator"),
     ENVIRONMENTAL_RADIATION_GENERATOR("gui", "environmental_radiation_generator"),
+    DESCRIPTION_POTION_NEBULIZER("description", "potion_nebulizer"),
+    POTION_NEBULIZER("gui", "potion_nebulizer"),
     RADIATION_STORAGE("gui", "radiation_storage"),
     ENVIRONMENTAL_RADIATION("gui", "environmental_radiation"),
     GENERATION_RATE("gui", "generation_rate"),

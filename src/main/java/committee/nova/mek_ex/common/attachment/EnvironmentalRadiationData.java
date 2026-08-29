@@ -7,10 +7,6 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
-/**
- * Immutable item data for preserving an environmental radiation generator's
- * radiation inventory and anti-exploit conversion cycle across block pickup.
- */
 public record EnvironmentalRadiationData(
       double storedRadiation,
       double generationFraction,

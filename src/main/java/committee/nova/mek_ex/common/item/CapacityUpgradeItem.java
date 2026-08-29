@@ -30,7 +30,7 @@ public class CapacityUpgradeItem extends ItemUpgrade {
     public void appendHoverText(@NotNull ItemStack stack, @NotNull net.minecraft.world.item.Item.TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
         if (MekKeyHandler.isKeyPressed(MekanismKeyHandler.detailsKey)) {
             tooltip.add(Component.translatable("upgrade.mek_ex.capacity.desc"));
-            tooltip.add(Component.translatable("mekanism.gui.upgrade.max_installed", 4));
+            tooltip.add(Component.translatable("upgrade.mekanism.max_installed", 4));
         } else {
             tooltip.add(
                     MekanismLang.HOLD_FOR_DETAILS

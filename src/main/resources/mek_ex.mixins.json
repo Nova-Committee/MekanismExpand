@@ -11,7 +11,8 @@
     "TileEntityGeneratorMixin",
     "ItemTierInstallerMixin",
     "SPSValidatorMixin",
-    "SPSMultiblockDataMixin"
+    "SPSMultiblockDataMixin",
+    "FluidStackMixin"
   ],
   "client": [
     "RenderSPSMixin",

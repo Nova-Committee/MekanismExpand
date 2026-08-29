@@ -10,6 +10,7 @@ import committee.nova.mek_ex.common.block.entity.TileEntityNuclearControlValve;
 import committee.nova.mek_ex.common.block.entity.TileEntityNeutronActivator;
 import committee.nova.mek_ex.common.block.entity.TileEntityAntimatterSuperchargedCoil;
 import committee.nova.mek_ex.common.block.entity.TileEntityEnvironmentalRadiationGenerator;
+import committee.nova.mek_ex.common.block.entity.TileEntityPotionNebulizer;
 import mekanism.common.capabilities.Capabilities;
 import mekanism.common.registration.impl.TileEntityTypeDeferredRegister;
 import mekanism.common.registration.impl.TileEntityTypeRegistryObject;
@@ -69,4 +70,8 @@ public final class MEXGenTileEntityTypes {
     public static final TileEntityTypeRegistryObject<TileEntityAntimatterSuperchargedCoil> ANTIMATTER_SUPERCHARGED_COIL = TILE_ENTITY_TYPES.mekBuilder(MEXBlocks.antimatter_supercharged_coil, TileEntityAntimatterSuperchargedCoil::new)
             .serverTicker(TileEntityMekanism::tickServer)
             .build();
+
+    public static final TileEntityTypeRegistryObject<TileEntityPotionNebulizer> POTION_NEBULIZER = TILE_ENTITY_TYPES.mekBuilder(MEXBlocks.potion_nebulizer, TileEntityPotionNebulizer::new)
+            .clientTicker(TileEntityMekanism::tickClient).serverTicker(TileEntityMekanism::tickServer)
+            .withSimple(Capabilities.CONFIG_CARD).build();
 }

@@ -17,9 +17,7 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-/**
- * Renders the builtin/entity wind generator item model with the tier texture.
- */
+
 public final class RenderWindGeneratorItem extends MekanismISTER {
 
     public static final RenderWindGeneratorItem RENDERER = new RenderWindGeneratorItem();

@@ -9,6 +9,7 @@
     "mek_ex:ultimate_wind_generator",
     "mek_ex:neutron_activator",
     "mek_ex:antimatter_supercharged_coil",
-    "mek_ex:environmental_radiation_generator"
+    "mek_ex:environmental_radiation_generator",
+    "mek_ex:potion_nebulizer"
   ]
 }

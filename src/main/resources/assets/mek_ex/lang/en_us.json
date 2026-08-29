@@ -1,4 +1,5 @@
 {
+  "block.mek_ex.potion_nebulizer": "Potion Nebulizer",
   "block.mek_ex.basic_wind_generator": "Basic Wind Generator",
   "block.mek_ex.advanced_wind_generator": "Advanced Wind Generator",
   "block.mek_ex.elite_wind_generator": "Elite Wind Generator",
@@ -14,6 +15,7 @@
   "description.mek_ex.neutron_activator": "A powered and self-radiation chemical activating machine.",
   "description.mek_ex.environmental_radiation_generator": "Consumes environmental radiation, stores it safely, and generates energy from the absorbed radiation.",
   "description.mek_ex.antimatter_supercharged_coil": "A supercharged coil that increases SPS processing speed fivefold and produces purple lightning.",
+  "description.mek_ex.potion_nebulizer": "A machine that can nebulize potion, extending the duration of the nebulize potion to 10 times the original",
 
   "gui.mek_ex.upgrades.capacity_effect": "Energy storage multiplier: 1.5x per upgrade",
   "gui.mek_ex.nuclear_control_tank":"Nuclear Control Tank",
@@ -22,6 +24,9 @@
   "gui.mek_ex.environmental_radiation": "Radiation: %s",
   "gui.mek_ex.generation_rate": "Power: %s",
   "gui.mek_ex.max_output": "Max output: %s",
+  "gui.mek_ex.potion_nebulizer": "Potion Nebulizer",
+  "gui.mek_ex.neutron_activator": "Neutron Activator",
+  "gui.mek_ex.nebulized_potion": "Nebulized %s",
 
   "container.mek_ex.basic_wind_generator": "Basic Wind Generator",
   "container.mek_ex.advanced_wind_generator": "Advanced Wind Generator",
@@ -30,7 +35,7 @@
   "container.mek_ex.nuclear_control_tank": "Nuclear Control Tank",
   "container.mek_ex.neutron_activator": "Neutron Activator",
   "container.mek_ex.environmental_radiation_generator": "Environmental Radiation Generator",
-  "gui.mek_ex.neutron_activator": "Neutron Activator",
+  "container.mek_ex.potion_nebulizer": "Potion Nebulizer",
 
   "item.mek_ex.upgrade_capacity": "Capacity Upgrade",
 

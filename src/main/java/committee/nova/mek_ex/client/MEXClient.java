@@ -12,6 +12,8 @@ import committee.nova.mek_ex.client.screen.GuiUltimateWindGenerator;
 import committee.nova.mek_ex.client.screen.GuiNuclearControlTank;
 import committee.nova.mek_ex.client.screen.GuiNeutronActivator;
 import committee.nova.mek_ex.client.screen.GuiEnvironmentalRadiationGenerator;
+import committee.nova.mek_ex.client.screen.GuiPotionNebulizer;
+import committee.nova.mek_ex.client.render.RenderPotionNebulizer;
 import committee.nova.mek_ex.init.registry.MEXBlocks;
 import committee.nova.mek_ex.init.registry.MEXContainerTypes;
 import committee.nova.mek_ex.init.registry.MEXGenTileEntityTypes;
@@ -35,6 +37,7 @@ public class MEXClient {
         event.registerBlockEntityRenderer(MEXGenTileEntityTypes.ELITE_WIND_GENERATOR.get(), context -> new RenderWindGenerator<>(context, MekEXMod.rl("textures/block/wind_elite.png")));
         event.registerBlockEntityRenderer(MEXGenTileEntityTypes.ULTIMATE_WIND_GENERATOR.get(), context -> new RenderWindGenerator<>(context, MekEXMod.rl("textures/block/wind_ultimate.png")));
         event.registerBlockEntityRenderer(MEXGenTileEntityTypes.ENVIRONMENTAL_RADIATION_GENERATOR.get(), RenderEnvironmentalRadiationGenerator::new);
+        event.registerBlockEntityRenderer(MEXGenTileEntityTypes.POTION_NEBULIZER.get(), RenderPotionNebulizer::new);
         ClientRegistrationUtil.bindTileEntityRenderer(event, RenderNuclearControlTank::new,
               MEXGenTileEntityTypes.NUCLEAR_CONTROL_TANK, MEXGenTileEntityTypes.NUCLEAR_CONTROL_VALVE);
     }
@@ -49,6 +52,7 @@ public class MEXClient {
         ClientRegistrationUtil.registerScreen(event, MEXContainerTypes.NUCLEAR_CONTROL_TANK, GuiNuclearControlTank::new);
         ClientRegistrationUtil.registerScreen(event, MEXContainerTypes.NEUTRON_ACTIVATOR, GuiNeutronActivator::new);
         ClientRegistrationUtil.registerScreen(event, MEXContainerTypes.ENVIRONMENTAL_RADIATION_GENERATOR, GuiEnvironmentalRadiationGenerator::new);
+        ClientRegistrationUtil.registerScreen(event, MEXContainerTypes.POTION_NEBULIZER, GuiPotionNebulizer::new);
     }
 
     @SubscribeEvent

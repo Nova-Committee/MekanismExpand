@@ -9,7 +9,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-/** Block item for the antimatter SPS coil with Mekanism's antimatter name color. */
 public final class AntimatterSuperchargedCoilItem extends ItemBlockTooltip<BlockTile<?, ?>> {
 
     public AntimatterSuperchargedCoilItem(BlockTile<?, ?> block, Item.Properties properties) {

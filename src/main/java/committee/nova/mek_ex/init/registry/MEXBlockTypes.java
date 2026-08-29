@@ -9,6 +9,7 @@ import committee.nova.mek_ex.common.block.entity.TileEntityNuclearControlValve;
 import committee.nova.mek_ex.common.block.entity.TileEntityNeutronActivator;
 import committee.nova.mek_ex.common.block.entity.TileEntityAntimatterSuperchargedCoil;
 import committee.nova.mek_ex.common.block.entity.TileEntityEnvironmentalRadiationGenerator;
+import committee.nova.mek_ex.common.block.entity.TileEntityPotionNebulizer;
 import committee.nova.mek_ex.common.upgrade.MEXUpgrades;
 import committee.nova.mek_ex.init.enums.MEXLang;
 import committee.nova.mek_ex.init.enums.MEXWindTier;
@@ -30,6 +31,7 @@ import mekanism.generators.common.content.blocktype.BlockShapes;
 import mekanism.generators.common.content.blocktype.Generator;
 import mekanism.common.content.blocktype.Machine;
 import mekanism.common.lib.transmitter.TransmissionType;
+import mekanism.common.util.VoxelShapeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -61,6 +63,33 @@ public final class MEXBlockTypes {
           Block.box(0, 0, 0, 16, 16, 16),
           Block.box(0, 0, 0, 16, 16, 16)
     };
+    private static final VoxelShape[] POTION_NEBULIZER_SHAPE = new VoxelShape[4];
+
+    static {
+        VoxelShape potionNebulizerNorth = VoxelShapeUtils.combine(
+              Block.box(1, 0, 1, 15, 2, 15),
+              Block.box(7, 2, 12, 9, 10, 14),
+              Block.box(12, 2, 7, 14, 10, 9),
+              Block.box(2, 2, 7, 4, 10, 9),
+              Block.box(7, 2, 2, 9, 10, 4),
+              Block.box(6.5, 2, 6.5, 9.5, 8, 9.5),
+              Block.box(7.5, 8, 7, 9, 9, 8.75),
+              Block.box(6.75, 8, 7.5, 7.5, 8.75, 8.25),
+              Block.box(4, 9, 4, 12, 9.25, 12),
+              Block.box(6.5, 9.25, 6.5, 9.5, 12.25, 9.5),
+              Block.box(7.5, 12.25, 7.5, 8.5, 12.75, 8.5),
+              Block.box(7, 12.75, 7, 9, 13.75, 9),
+              Block.box(4, 2, 4, 5, 9, 5),
+              Block.box(4, 2, 11, 5, 9, 12),
+              Block.box(11, 2, 11, 12, 9, 12),
+              Block.box(11, 2, 4, 12, 9, 5),
+              Block.box(1, 2, 4, 2, 10, 12),
+              Block.box(6, 4, 1, 10, 8, 1),
+              Block.box(4, 2, 14, 12, 10, 15),
+              Block.box(14, 2, 4, 15, 10, 12)
+        );
+        VoxelShapeUtils.setShape(potionNebulizerNorth, POTION_NEBULIZER_SHAPE);
+    }
     private static final VoxelShape ENVIRONMENTAL_RADIATION_GENERATOR_FRAME = Shapes.or(
           Block.box(0, 0, 0, 16, 5, 16),
           Block.box(4, 5, 0, 12, 13, 3),
@@ -127,7 +156,6 @@ public final class MEXBlockTypes {
           .withComputerSupport("ultimateWindGenerator")
           .build();
 
-    /** Framework casing for the nuclear control tank multiblock. */
     public static final BlockTypeTile<TileEntityNuclearControlTank> NUCLEAR_CONTROL_TANK = BlockTileBuilder
           .createBlock(() -> MEXGenTileEntityTypes.NUCLEAR_CONTROL_TANK, MEXLang.DESCRIPTION_NUCLEAR_CONTROL_TANK)
           .withGui(() -> MEXContainerTypes.NUCLEAR_CONTROL_TANK, MEXLang.NUCLEAR_CONTROL_TANK)
@@ -135,7 +163,6 @@ public final class MEXBlockTypes {
           .externalMultiblock()
           .build();
 
-    /** Valve casing that exposes fluid and chemical capabilities for the tank. */
     public static final BlockTypeTile<TileEntityNuclearControlValve> NUCLEAR_CONTROL_VALVE = BlockTileBuilder
           .createBlock(() -> MEXGenTileEntityTypes.NUCLEAR_CONTROL_VALVE, MEXLang.DESCRIPTION_NUCLEAR_CONTROL_VALVE)
           .withGui(() -> MEXContainerTypes.NUCLEAR_CONTROL_TANK, MEXLang.NUCLEAR_CONTROL_TANK)
@@ -156,10 +183,7 @@ public final class MEXBlockTypes {
           .replace(Attributes.ACTIVE)
           .build();
 
-    /**
-     * Environment radiation generator. It consumes ambient radiation and produces FE;
-     * the top is disabled while every other energy side is configurable between output and none.
-     */
+
     public static final Machine<TileEntityEnvironmentalRadiationGenerator> ENVIRONMENTAL_RADIATION_GENERATOR = Machine.MachineBuilder
           .createMachine(() -> MEXGenTileEntityTypes.ENVIRONMENTAL_RADIATION_GENERATOR, MEXLang.DESCRIPTION_ENVIRONMENTAL_RADIATION_GENERATOR)
           .withGui(() -> MEXContainerTypes.ENVIRONMENTAL_RADIATION_GENERATOR)
@@ -170,6 +194,19 @@ public final class MEXBlockTypes {
           .withSideConfig(TransmissionType.ENERGY)
           .withSound(MEXSounds.ENVIRONMENTAL_RADIATION_GENERATOR)
           .withComputerSupport("environmentalRadiationGenerator")
+          .build();
+
+    public static final Machine<TileEntityPotionNebulizer> POTION_NEBULIZER = Machine.MachineBuilder
+          .createMachine(() -> MEXGenTileEntityTypes.POTION_NEBULIZER, MEXLang.DESCRIPTION_POTION_NEBULIZER)
+          .withGui(() -> MEXContainerTypes.POTION_NEBULIZER)
+          .withEnergyConfig(() -> 2_000L, () -> 100_000L)
+          .without(AttributeParticleFX.class)
+          .with(AttributeUpgradeSupport.create(Upgrade.ENERGY, Upgrade.CHEMICAL))
+          .withCustomShape(POTION_NEBULIZER_SHAPE)
+          .with(AttributeCustomSelectionBox.JSON)
+          .withSideConfig(TransmissionType.ITEM, TransmissionType.FLUID, TransmissionType.CHEMICAL, TransmissionType.ENERGY)
+          .withComputerSupport("potionNebulizer")
+          .replace(Attributes.ACTIVE)
           .build();
 
     public static final BlockTypeTile<TileEntityAntimatterSuperchargedCoil> ANTIMATTER_SUPERCHARGED_COIL = BlockTileBuilder
