@@ -1,0 +1,23 @@
+{
+  "render_type": "minecraft:translucent",
+  "textures": {
+    "bottle": "mek_ex:block/bottle",
+    "particle": "mek_ex:block/models/neutron_activator1"
+  },
+  "elements": [
+    {
+      "name": "bottle_body",
+      "from": [5.5, 10, 5.5],
+      "to": [10.5, 15, 10.5],
+      "rotation": {"angle": 0, "axis": "y", "origin": [8, 10, 6.5]},
+      "faces": {
+        "north": {"uv": [0, 0, 3, 3], "texture": "#bottle"},
+        "east": {"uv": [0, 3, 3, 6], "texture": "#bottle"},
+        "south": {"uv": [3, 0, 6, 3], "texture": "#bottle"},
+        "west": {"uv": [3, 3, 6, 6], "texture": "#bottle"},
+        "up": {"uv": [3, 9, 0, 6], "texture": "#bottle"},
+        "down": {"uv": [9, 0, 6, 3], "texture": "#bottle"}
+      }
+    }
+  ]
+}

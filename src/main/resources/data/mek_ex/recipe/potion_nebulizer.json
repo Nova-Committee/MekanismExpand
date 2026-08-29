@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {"item": "mekanism:basic_chemical_tank"},
+    "G": {"item": "minecraft:glass_bottle"},
+    "C": {"tag": "c:circuits/ultimate"},
+    "I": {"item": "mekanism:steel_casing"},
+    "D": {"item": "mekanism:dynamic_tank"}
+  },
+  "pattern": [" G ", "C#C", "DID"],
+  "result": {"count": 1, "id": "mek_ex:potion_nebulizer"}
+}
