@@ -18,10 +18,10 @@ import net.minecraft.util.profiling.ProfilerFiller;
 @NothingNullByDefault
 public class RenderPotionNebulizer extends MekanismTileEntityRenderer<TileEntityPotionNebulizer> {
 
-    private static final float BOTTLE_MIN_XZ = 5.49F / 16F;
-    private static final float BOTTLE_MAX_XZ = 10.49F / 16F;
-    private static final float BOTTLE_MIN_Y = 9.99F / 16F;
-    private static final float BOTTLE_MAX_Y = 14.99F / 16F;
+    private static final float BOTTLE_MIN_XZ = 5.8F / 16F;
+    private static final float BOTTLE_MAX_XZ = 10.2F / 16F;
+    private static final float BOTTLE_MIN_Y = 10.25F / 16F;
+    private static final float BOTTLE_MAX_Y = 14.75F / 16F;
 
     public RenderPotionNebulizer(BlockEntityRendererProvider.Context context) {
         super(context);
