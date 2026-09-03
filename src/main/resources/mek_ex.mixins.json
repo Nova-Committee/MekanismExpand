@@ -15,6 +15,9 @@
     "FluidStackMixin"
   ],
   "client": [
+    "BlockLightEngineMixin",
+    "HumanoidModelMixin",
+    "GuiModuleTweakerMixin",
     "RenderSPSMixin",
     "RecipeViewerRecipeTypeMixin"
   ],

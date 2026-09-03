@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "mek_ex:item/module_sonar_detection_unit"
+  }
+}

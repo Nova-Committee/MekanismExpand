@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": { "tag": "c:alloys/elite" },
+    "C": { "tag": "c:circuits/elite" },
+    "P": { "item": "mekanism:module_base" },
+    "S": { "item": "mekanism:teleportation_core" },
+    "D": { "item": "mekanism:dictionary" }
+  },
+  "pattern": [
+    "ADA",
+    "CPC",
+    "ASA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "mek_ex:module_sonar_detection_unit"
+  }
+}

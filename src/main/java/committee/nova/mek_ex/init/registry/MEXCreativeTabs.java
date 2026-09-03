@@ -23,6 +23,8 @@ public final class MEXCreativeTabs {
             .icon(MEXItems.capacity_upgrade.get()::getDefaultInstance)
             .displayItems((parameters, output) -> {
                 output.accept(MEXItems.capacity_upgrade);
+                output.accept(MEXItems.MODULE_SONAR_DETECTION);
+                output.accept(MEXItems.electric_skateboard);
                 output.accept(MEXBlocks.basic_wind_generator);
                 output.accept(MEXBlocks.advanced_wind_generator);
                 output.accept(MEXBlocks.elite_wind_generator);

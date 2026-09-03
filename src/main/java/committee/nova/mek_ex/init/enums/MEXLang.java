@@ -26,7 +26,22 @@ public enum MEXLang implements ILangEntry {
     DESCRIPTION_ANTIMATTER_SUPERCHARGED_COIL("description", "antimatter_supercharged_coil"),
     CAPACITY_UPGRADE("upgrade", "capacity"),
     CAPACITY_UPGRADE_DESCRIPTION("upgrade", "capacity.desc"),
-    CAPACITY_UPGRADE_EFFECT("gui", "upgrades.capacity_effect");
+    CAPACITY_UPGRADE_EFFECT("gui", "upgrades.capacity_effect"),
+    MODULE_SONAR_DETECTION("module", "sonar_detection_unit"),
+    SONAR_FILTERS("gui", "sonar_filters"),
+    SONAR_CONFIGURE_FILTERS("gui", "sonar_configure_filters"),
+    SONAR_ADD_ITEM("gui", "sonar_add_item"),
+    SONAR_ADD_TAG("gui", "sonar_add_tag"),
+    SONAR_ADD_MODID("gui", "sonar_add_modid"),
+    SONAR_TOGGLE("gui", "sonar_toggle"),
+    SONAR_REMOVE("gui", "sonar_remove"),
+    SONAR_DONE("gui", "sonar_done"),
+    SONAR_CLICK_BLOCK_ITEM("gui", "sonar_click_block_item"),
+    SKATEBOARD_GEAR("gui", "skateboard_gear"),
+    SKATEBOARD_MAX_SPEED("gui", "skateboard_max_speed"),
+    SKATEBOARD_DRIVE_COST("gui", "skateboard_drive_cost"),
+    SKATEBOARD_GEAR_UP("gui", "skateboard_gear_up"),
+    SKATEBOARD_GEAR_DOWN("gui", "skateboard_gear_down");
 
     private final String key;
 

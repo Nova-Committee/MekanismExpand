@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": ["IRI", "BEB", "RCR"],
+  "key": {
+    "I": {"tag": "c:circuits/ultimate"},
+    "B": {"tag": "c:storage_blocks/steel"},
+    "E": {"item": "mekanism:basic_energy_cube"},
+    "C": {"item": "mekanism:hdpe_elytra"},
+    "R": {"tag": "c:storage_blocks/refined_glowstone"}
+  },
+  "result": {"id": "mek_ex:electric_skateboard", "count": 1}
+}
