@@ -1,4 +1,6 @@
 {
+  "itemGroup.mek_ex.mekanism_expand": "Mekanism: Expand",
+
   "block.mek_ex.potion_nebulizer": "Potion Nebulizer",
   "block.mek_ex.basic_wind_generator": "Basic Wind Generator",
   "block.mek_ex.advanced_wind_generator": "Advanced Wind Generator",
@@ -16,6 +18,7 @@
   "description.mek_ex.environmental_radiation_generator": "Consumes environmental radiation, stores it safely, and generates energy from the absorbed radiation.",
   "description.mek_ex.antimatter_supercharged_coil": "A supercharged coil that increases SPS processing speed fivefold and produces purple lightning.",
   "description.mek_ex.potion_nebulizer": "A machine that can nebulize potion, extending the duration of the nebulize potion to 10 times the original",
+  "description.mek_ex.sonar_detection_unit": "Scans nearby blocks matching configured filters and outlines them. Stack up to 4 for larger range.",
 
   "gui.mek_ex.upgrades.capacity_effect": "Energy storage multiplier: 1.5x per upgrade",
   "gui.mek_ex.nuclear_control_tank":"Nuclear Control Tank",
@@ -27,6 +30,19 @@
   "gui.mek_ex.potion_nebulizer": "Potion Nebulizer",
   "gui.mek_ex.neutron_activator": "Neutron Activator",
   "gui.mek_ex.nebulized_potion": "Nebulized %s",
+  "gui.mek_ex.sonar_configure_filters": "Configure Filters",
+  "gui.mek_ex.sonar_add_item": "Item",
+  "gui.mek_ex.sonar_add_tag": "Tag",
+  "gui.mek_ex.sonar_add_modid": "Mod ID",
+  "gui.mek_ex.sonar_toggle": "Toggle",
+  "gui.mek_ex.sonar_remove": "Remove",
+  "gui.mek_ex.sonar_done": "Done",
+  "gui.mek_ex.skateboard_gear": "Gear: %s",
+  "gui.mek_ex.skateboard_max_speed": "Max: %s km/h",
+  "gui.mek_ex.skateboard_drive_cost": "Drain: %s/t",
+  "gui.mek_ex.skateboard_gear_up": "+",
+  "gui.mek_ex.skateboard_gear_down": "-",
+  "gui.mek_ex.sonar_filters": "Sonar Filters",
 
   "container.mek_ex.basic_wind_generator": "Basic Wind Generator",
   "container.mek_ex.advanced_wind_generator": "Advanced Wind Generator",
@@ -37,31 +53,22 @@
   "container.mek_ex.environmental_radiation_generator": "Environmental Radiation Generator",
   "container.mek_ex.potion_nebulizer": "Potion Nebulizer",
   "container.mek_ex.electric_skateboard": "Electric Skateboard",
+
   "item.mek_ex.upgrade_capacity": "Capacity Upgrade",
   "item.mek_ex.electric_skateboard": "Electric Skateboard",
   "item.mek_ex.module_sonar_detection_unit": "Sonar Detection Unit",
+
   "module.mek_ex.sonar_detection_unit": "Sonar Detection Unit",
-  "description.mek_ex.sonar_detection_unit": "Scans nearby blocks matching configured filters and outlines them. Stack up to 4 for larger range.",
   "module.mek_ex.sonar_filters": "Filters",
-  "gui.mek_ex.sonar_filters": "Sonar Filters",
-  "gui.mek_ex.sonar_configure_filters": "Configure Filters",
-  "gui.mek_ex.sonar_add_item": "Item",
-  "gui.mek_ex.sonar_add_tag": "Tag",
-  "gui.mek_ex.sonar_add_modid": "Mod ID",
-  "gui.mek_ex.sonar_toggle": "Toggle",
-  "gui.mek_ex.sonar_remove": "Remove",
-  "gui.mek_ex.sonar_done": "Done",
-  "gui.mek_ex.sonar_click_block_item": "Click with a block item",
-  "gui.mek_ex.skateboard_gear": "Gear: %s",
-  "gui.mek_ex.skateboard_max_speed": "Max: %s km/h",
-  "gui.mek_ex.skateboard_drive_cost": "Drain: %s/t",
-  "gui.mek_ex.skateboard_gear_up": "+",
-  "gui.mek_ex.skateboard_gear_down": "-",
 
   "upgrade.mek_ex.capacity.desc": "Increases generator energy storage by 50% per upgrade. Maximum of 4 upgrades.",
   "upgrade.mek_ex.capacity": "Capacity",
 
-  "itemGroup.mek_ex.mekanism_expand": "Mekanism: Expand",
+  "sound_event.mek_ex.environmental_radiation_generator": "Environmental Radiation Generator running",
 
-  "sound_event.mek_ex.environmental_radiation_generator": "Environmental Radiation Generator running"
+  "entity.mek_ex.electric_skateboard": "Electric Skateboard",
+
+  "config.jade.plugin_mek_ex.entity_data_provider": "MekEX Entity Data",
+  "config.jade.plugin_mek_ex.tooltip_renderer": "MekEX Energy Display",
+  "config.jade.plugin_mek_ex.remove_builtin": "Hide Jade Energy for MekEX"
 }

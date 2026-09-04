@@ -39,7 +39,7 @@ public abstract class GuiModuleTweakerMixin extends GuiMekanism<ModuleTweakerCon
 
     @Inject(method = "addGuiElements", at = @At("TAIL"), remap = false)
     private void mek_ex$addSonarFilterButton(CallbackInfo ci) {
-        mek_ex$sonarFilterButton = addRenderableWidget(new TranslationButton(this, 152, 158, 104, 16, MEXLang.SONAR_CONFIGURE_FILTERS, (element, mouseX, mouseY) -> {
+        mek_ex$sonarFilterButton = addRenderableWidget(new TranslationButton(this, 152, 128, 96, 16, MEXLang.SONAR_CONFIGURE_FILTERS, (element, mouseX, mouseY) -> {
             mek_ex$openSonarFilters();
             return true;
         }));

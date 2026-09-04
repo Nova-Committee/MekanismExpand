@@ -36,7 +36,6 @@ public enum MEXLang implements ILangEntry {
     SONAR_TOGGLE("gui", "sonar_toggle"),
     SONAR_REMOVE("gui", "sonar_remove"),
     SONAR_DONE("gui", "sonar_done"),
-    SONAR_CLICK_BLOCK_ITEM("gui", "sonar_click_block_item"),
     SKATEBOARD_GEAR("gui", "skateboard_gear"),
     SKATEBOARD_MAX_SPEED("gui", "skateboard_max_speed"),
     SKATEBOARD_DRIVE_COST("gui", "skateboard_drive_cost"),

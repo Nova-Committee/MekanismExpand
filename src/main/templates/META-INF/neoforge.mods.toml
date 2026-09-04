@@ -104,3 +104,10 @@ file="META-INF/accesstransformer.cfg"
     ordering = "AFTER"
     side = "BOTH"
 
+[[dependencies.${mod_id}]]
+    modId="jade"
+    type="optional"
+    versionRange="[15.0.0,)"
+    ordering="AFTER"
+    side="BOTH"
+

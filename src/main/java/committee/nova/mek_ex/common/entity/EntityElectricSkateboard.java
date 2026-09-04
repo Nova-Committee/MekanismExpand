@@ -504,7 +504,8 @@ public class EntityElectricSkateboard extends Entity implements HasCustomInvento
         double maxForward = getMaxForwardSpeed();
         double maxReverse = getMaxReverseSpeed();
 
-        float steering = (inputLeft ? 1F : 0F) - (inputRight ? 1F : 0F);
+        // Positive yaw turns right in Minecraft; A (left) must decrease yaw.
+        float steering = (inputRight ? 1F : 0F) - (inputLeft ? 1F : 0F);
         entityData.set(STEERING, steering);
         if (steering != 0F) {
             float speedFactor = (float) Mth.clamp(horizontalSpeed / maxForward, 0D, 1D);
@@ -601,7 +602,7 @@ public class EntityElectricSkateboard extends Entity implements HasCustomInvento
         inputLeft = left;
         inputRight = right;
         inputJump = jump;
-        entityData.set(STEERING, (left ? 1F : 0F) - (right ? 1F : 0F));
+        entityData.set(STEERING, (right ? 1F : 0F) - (left ? 1F : 0F));
         inputDriver = sender.getUUID();
         lastInputTick = level().getGameTime();
     }
@@ -615,7 +616,7 @@ public class EntityElectricSkateboard extends Entity implements HasCustomInvento
         inputLeft = left;
         inputRight = right;
         inputJump = jump;
-        entityData.set(STEERING, (left ? 1F : 0F) - (right ? 1F : 0F));
+        entityData.set(STEERING, (right ? 1F : 0F) - (left ? 1F : 0F));
     }
 
     private void clearDriverInput() {

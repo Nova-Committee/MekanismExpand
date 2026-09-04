@@ -1,4 +1,6 @@
 {
+  "itemGroup.mek_ex.mekanism_expand": "通用机械：拓展",
+
   "block.mek_ex.potion_nebulizer": "药水雾化机",
   "block.mek_ex.basic_wind_generator": "基础风力发电机",
   "block.mek_ex.advanced_wind_generator": "高级风力发电机",
@@ -16,6 +18,7 @@
   "description.mek_ex.environmental_radiation_generator": "吸收环境辐射并安全储存，将其转化为能量。",
   "description.mek_ex.antimatter_supercharged_coil": "可使超临界移相器处理速率提高五倍，并产生紫色闪电的增压线圈。",
   "description.mek_ex.potion_nebulizer": "能够雾化药水的机器，雾化后药水时长延长至原来的10倍",
+  "description.mek_ex.sonar_detection_unit": "扫描附近匹配筛选条件的方块并以轮廓高亮。最多装配 4 个以扩大探测范围。",
 
   "gui.mek_ex.upgrades.capacity_effect": "储能倍率：每个升级提高至1.5倍",
   "gui.mek_ex.nuclear_control_tank": "核控储罐",
@@ -27,6 +30,19 @@
   "gui.mek_ex.max_output": "最大输出：%s",
   "gui.mek_ex.potion_nebulizer": "药水雾化机",
   "gui.mek_ex.nebulized_potion": "雾化的%s",
+  "gui.mek_ex.sonar_filters": "声呐筛选",
+  "gui.mek_ex.sonar_configure_filters": "配置筛选",
+  "gui.mek_ex.sonar_add_item": "物品",
+  "gui.mek_ex.sonar_add_tag": "标签",
+  "gui.mek_ex.sonar_add_modid": "模组ID",
+  "gui.mek_ex.sonar_toggle": "开关",
+  "gui.mek_ex.sonar_remove": "删除",
+  "gui.mek_ex.sonar_done": "完成",
+  "gui.mek_ex.skateboard_gear": "档位：%s",
+  "gui.mek_ex.skateboard_max_speed": "最高：%s km/h",
+  "gui.mek_ex.skateboard_drive_cost": "耗电：%s/t",
+  "gui.mek_ex.skateboard_gear_up": "+",
+  "gui.mek_ex.skateboard_gear_down": "-",
 
   "container.mek_ex.basic_wind_generator": "基础风力发电机",
   "container.mek_ex.advanced_wind_generator": "高级风力发电机",
@@ -41,27 +57,18 @@
   "item.mek_ex.upgrade_capacity": "增容升级",
   "item.mek_ex.electric_skateboard": "电滑板",
   "item.mek_ex.module_sonar_detection_unit": "声呐侦测单元",
+
   "module.mek_ex.sonar_detection_unit": "声呐侦测单元",
-  "description.mek_ex.sonar_detection_unit": "扫描附近匹配筛选条件的方块并以轮廓高亮。最多装配 4 个以扩大探测范围。",
   "module.mek_ex.sonar_filters": "筛选",
-  "gui.mek_ex.sonar_filters": "声呐筛选",
-  "gui.mek_ex.sonar_configure_filters": "配置筛选",
-  "gui.mek_ex.sonar_add_item": "物品",
-  "gui.mek_ex.sonar_add_tag": "标签",
-  "gui.mek_ex.sonar_add_modid": "模组ID",
-  "gui.mek_ex.sonar_toggle": "开关",
-  "gui.mek_ex.sonar_remove": "删除",
-  "gui.mek_ex.sonar_done": "完成",
-  "gui.mek_ex.sonar_click_block_item": "手持方块物品点击添加",
-  "gui.mek_ex.skateboard_gear": "档位：%s",
-  "gui.mek_ex.skateboard_max_speed": "最高：%s km/h",
-  "gui.mek_ex.skateboard_drive_cost": "耗电：%s/t",
-  "gui.mek_ex.skateboard_gear_up": "+",
-  "gui.mek_ex.skateboard_gear_down": "-",
 
   "upgrade.mek_ex.capacity.desc": "每个升级使发电机储电量提高50%，最多安装4个。",
   "upgrade.mek_ex.capacity": "增容",
 
-  "itemGroup.mek_ex.mekanism_expand": "通用机械：拓展",
-  "sound_event.mek_ex.environmental_radiation_generator": "环境辐射发电机运行"
+  "sound_event.mek_ex.environmental_radiation_generator": "环境辐射发电机运行",
+
+  "entity.mek_ex.electric_skateboard": "电滑板",
+
+  "config.jade.plugin_mek_ex.entity_data_provider": "MekEX 实体数据",
+  "config.jade.plugin_mek_ex.tooltip_renderer": "MekEX 能量显示",
+  "config.jade.plugin_mek_ex.remove_builtin": "隐藏 Jade 默认能量条（MekEX）"
 }

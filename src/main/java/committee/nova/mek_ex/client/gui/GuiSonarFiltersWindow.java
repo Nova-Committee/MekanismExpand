@@ -8,6 +8,7 @@ import committee.nova.mek_ex.common.gear.config.ModuleSonarFiltersConfig;
 import committee.nova.mek_ex.init.enums.MEXLang;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 import mekanism.api.gear.IModule;
 import mekanism.client.gui.IGuiWrapper;
@@ -20,8 +21,11 @@ import mekanism.common.network.PacketUtils;
 import mekanism.common.network.to_server.PacketUpdateModuleSettings;
 import mekanism.common.util.text.InputValidator;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 public class GuiSonarFiltersWindow extends GuiWindow {
@@ -50,25 +54,17 @@ public class GuiSonarFiltersWindow extends GuiWindow {
         addChild(new GuiInnerScreen(gui(), relativeX + 6, relativeY + 16, 164, 100));
         addChild(new TranslationButton(gui(), relativeX + 6, relativeY + 120, 52, 16, MEXLang.SONAR_ADD_ITEM, (e, mx, my) -> {
             mode = Mode.ADD_ITEM;
-            if (textField != null) {
-                textField.setVisible(false);
-            }
+            showTextField();
             return true;
         }));
         addChild(new TranslationButton(gui(), relativeX + 62, relativeY + 120, 52, 16, MEXLang.SONAR_ADD_TAG, (e, mx, my) -> {
             mode = Mode.ADD_TAG;
-            if (textField != null) {
-                textField.setVisible(true);
-                textField.setFocused(true);
-            }
+            showTextField();
             return true;
         }));
         addChild(new TranslationButton(gui(), relativeX + 118, relativeY + 120, 52, 16, MEXLang.SONAR_ADD_MODID, (e, mx, my) -> {
             mode = Mode.ADD_MODID;
-            if (textField != null) {
-                textField.setVisible(true);
-                textField.setFocused(true);
-            }
+            showTextField();
             return true;
         }));
         addChild(new TranslationButton(gui(), relativeX + 6, relativeY + 140, 52, 16, MEXLang.SONAR_TOGGLE, (e, mx, my) -> {
@@ -98,12 +94,32 @@ public class GuiSonarFiltersWindow extends GuiWindow {
         textField.configureDigitalBorderInput(this::applyText);
     }
 
+    private void showTextField() {
+        if (textField != null) {
+            textField.setVisible(true);
+            textField.setFocused(true);
+        }
+    }
+
     private void applyText() {
         String text = textField.getText().trim();
         if (text.isEmpty()) {
             return;
         }
-        if (mode == Mode.ADD_TAG) {
+        if (mode == Mode.ADD_ITEM) {
+            ResourceLocation id = ResourceLocation.tryParse(text);
+            if (id == null) {
+                return;
+            }
+            Optional<Item> item = BuiltInRegistries.ITEM.getOptional(id);
+            if (item.isEmpty() || !(item.get() instanceof BlockItem)) {
+                return;
+            }
+            SonarItemStackFilter filter = new SonarItemStackFilter();
+            filter.setItemStack(new ItemStack(item.get()));
+            filters.add(filter);
+            save();
+        } else if (mode == Mode.ADD_TAG) {
             SonarTagFilter filter = new SonarTagFilter();
             filter.setTagName(text);
             filters.add(filter);
@@ -121,17 +137,6 @@ public class GuiSonarFiltersWindow extends GuiWindow {
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if (mode == Mode.ADD_ITEM) {
-            ItemStack carried = gui().getCarriedItem();
-            if (!carried.isEmpty() && carried.getItem() instanceof BlockItem) {
-                SonarItemStackFilter filter = new SonarItemStackFilter();
-                filter.setItemStack(carried.copyWithCount(1));
-                filters.add(filter);
-                save();
-                mode = Mode.LIST;
-                return true;
-            }
-        }
         int listLeft = gui().getGuiLeft() + relativeX + 10;
         int listTop = gui().getGuiTop() + relativeY + 20;
         if (mouseX >= listLeft && mouseX <= listLeft + 156) {
@@ -164,15 +169,15 @@ public class GuiSonarFiltersWindow extends GuiWindow {
                 break;
             }
         }
-        if (mode == Mode.ADD_ITEM) {
-            graphics.drawString(font(), MEXLang.SONAR_CLICK_BLOCK_ITEM.translate(), relativeX + 10, relativeY + 104, 0xFFE0C060, false);
-        }
     }
 
     private static Component describe(SonarFilter<?> filter) {
         String prefix = filter.isEnabled() ? "[ON] " : "[OFF] ";
         return switch (filter) {
-            case SonarItemStackFilter item -> Component.literal(prefix + "Item: " + item.getItemStack().getHoverName().getString());
+            case SonarItemStackFilter item -> {
+                ResourceLocation key = BuiltInRegistries.ITEM.getKey(item.getItemStack().getItem());
+                yield Component.literal(prefix + "Item: " + key);
+            }
             case SonarTagFilter tag -> Component.literal(prefix + "Tag: " + tag.getTagName());
             case SonarModIDFilter mod -> Component.literal(prefix + "Mod: " + mod.getModID());
             default -> Component.literal(prefix + filter.getType().getSerializedName());

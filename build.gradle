@@ -95,7 +95,8 @@ dependencies {
     implementation(files("src/libs/MekanismGenerators-1.21.1-10.7.19.85.jar"))
     implementation(files("src/libs/jei-1.21.1-neoforge-19.44.0.403.jar"))
     runtimeOnly(files("src/libs/create-1.21.1-6.0.10.jar"))
-
+    compileOnly("curse.maven:jade-324717:8591319")
+    runtimeOnly("curse.maven:jade-324717:8591319")
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
