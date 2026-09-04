@@ -40,6 +40,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.neoforged.neoforge.entity.PartEntity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -54,6 +55,7 @@ public class EntityElectricSkateboard extends Entity implements HasCustomInvento
     public static final long MAX_ENERGY = 1_000_000L;
     public static final int MIN_GEAR = 1;
     public static final int MAX_GEAR = 3;
+    private static final int PART_COUNT = 5;
     private static final double ACCELERATION = 0.035D;
     private static final double BRAKING = 0.14D;
     private static final double COASTING_DAMPING = 0.91D;
@@ -72,6 +74,7 @@ public class EntityElectricSkateboard extends Entity implements HasCustomInvento
     private final BasicEnergyContainer energyContainer = BasicEnergyContainer.input(MAX_ENERGY, this);
     private final EnergyInventorySlot batterySlot = EnergyInventorySlot.fill(energyContainer, this, 136, 32);
     private final List<IInventorySlot> inventorySlots = List.of(batterySlot);
+    private final ElectricSkateboardPart[] parts = new ElectricSkateboardPart[PART_COUNT];
     private UUID owner;
     private SecurityMode securityMode = SecurityMode.PUBLIC;
     private boolean inputForward;
@@ -97,14 +100,41 @@ public class EntityElectricSkateboard extends Entity implements HasCustomInvento
     public EntityElectricSkateboard(EntityType<? extends EntityElectricSkateboard> type, Level level) {
         super(type, level);
         noCulling = false;
+        for (int i = 0; i < PART_COUNT; i++) {
+            parts[i] = new ElectricSkateboardPart(this, BOARD_WIDTH, BOARD_HEIGHT);
+        }
         setYRot(0);
         setBoundingBox(makeBoundingBox());
+        updatePartPositions();
+    }
+
+    @Override
+    public void setId(int id) {
+        super.setId(id);
+        for (int i = 0; i < parts.length; i++) {
+            parts[i].setId(id + i + 1);
+        }
+    }
+
+    @Override
+    public boolean isMultipartEntity() {
+        return true;
+    }
+
+    @Override
+    public PartEntity<?>[] getParts() {
+        return parts;
     }
 
     @Override
     protected @NotNull AABB makeBoundingBox() {
-        // Selection/broadphase AABB only. Actual block collision uses a yaw-oriented OBB in move().
-        return orientedBoardAabb(getX(), getY(), getZ(), getYRot());
+        float half = BOARD_WIDTH * 0.5F;
+        return new AABB(getX() - half, getY(), getZ() - half, getX() + half, getY() + BOARD_HEIGHT, getZ() + half);
+    }
+
+    @Override
+    public float getPickRadius() {
+        return (BOARD_LENGTH - BOARD_WIDTH) * 0.5F;
     }
 
     @Override
@@ -113,6 +143,7 @@ public class EntityElectricSkateboard extends Entity implements HasCustomInvento
         super.setYRot(yRot);
         if (previous != yRot) {
             setBoundingBox(makeBoundingBox());
+            updatePartPositions();
         }
     }
 
@@ -120,12 +151,34 @@ public class EntityElectricSkateboard extends Entity implements HasCustomInvento
     public void absMoveTo(double x, double y, double z, float yRot, float xRot) {
         super.absMoveTo(x, y, z, yRot, xRot);
         setBoundingBox(makeBoundingBox());
+        updatePartPositions();
+    }
+
+    private void updatePartPositions() {
+        float yaw = getYRot() * Mth.DEG_TO_RAD;
+        double forwardX = -Mth.sin(yaw);
+        double forwardZ = Mth.cos(yaw);
+        double first = -BOARD_LENGTH * 0.5D + BOARD_WIDTH * 0.5D;
+        double last = BOARD_LENGTH * 0.5D - BOARD_WIDTH * 0.5D;
+        for (int i = 0; i < parts.length; i++) {
+            ElectricSkateboardPart part = parts[i];
+            double t = parts.length == 1 ? 0.5D : (double) i / (parts.length - 1);
+            double along = first + (last - first) * t;
+            double px = getX() + forwardX * along;
+            double py = getY();
+            double pz = getZ() + forwardZ * along;
+            part.xo = part.getX();
+            part.yo = part.getY();
+            part.zo = part.getZ();
+            part.setPos(px, py, pz);
+        }
     }
 
     @Override
     public void move(@NotNull MoverType type, @NotNull Vec3 requested) {
         if (noPhysics) {
             setPos(getX() + requested.x, getY() + requested.y, getZ() + requested.z);
+            updatePartPositions();
             return;
         }
         if (type == MoverType.PISTON) {
@@ -143,6 +196,7 @@ public class EntityElectricSkateboard extends Entity implements HasCustomInvento
         Vec3 allowed = collideOriented(requested);
         if (allowed.lengthSqr() > 1.0E-7) {
             setPos(getX() + allowed.x, getY() + allowed.y, getZ() + allowed.z);
+            updatePartPositions();
         }
 
         boolean hitX = !Mth.equal(requested.x, allowed.x);
@@ -170,6 +224,27 @@ public class EntityElectricSkateboard extends Entity implements HasCustomInvento
             }
             tryCheckInsideBlocks();
         }
+    }
+
+    private void applySteeringYaw(float deltaYaw) {
+        float oldYaw = getYRot();
+        float newYaw = Mth.wrapDegrees(oldYaw + deltaYaw);
+        if (!intersectsSolid(getX(), getY(), getZ(), oldYaw) && intersectsSolid(getX(), getY(), getZ(), newYaw)) {
+            float low = 0.0F;
+            float high = 1.0F;
+            for (int i = 0; i < 8; i++) {
+                float mid = (low + high) * 0.5F;
+                float testYaw = Mth.wrapDegrees(oldYaw + deltaYaw * mid);
+                if (intersectsSolid(getX(), getY(), getZ(), testYaw)) {
+                    high = mid;
+                } else {
+                    low = mid;
+                }
+            }
+            newYaw = Mth.wrapDegrees(oldYaw + deltaYaw * low);
+        }
+        setYRot(newYaw);
+        setYBodyRot(newYaw);
     }
 
     private Vec3 collideOriented(Vec3 motion) {
@@ -256,45 +331,46 @@ public class EntityElectricSkateboard extends Entity implements HasCustomInvento
         return false;
     }
 
+    /** Yaw-oriented board OBB vs block AABB via separating axes (world X/Y/Z + board right/forward). */
     private static boolean obbIntersectsAabb(double x, double y, double z, float yawDegrees, AABB block) {
+        double halfLength = BOARD_LENGTH * 0.5D;
+        double halfWidth = BOARD_WIDTH * 0.5D;
+        double halfHeight = BOARD_HEIGHT * 0.5D;
+        double boardCY = y + halfHeight;
+
+        double aabbCX = (block.minX + block.maxX) * 0.5D;
+        double aabbCY = (block.minY + block.maxY) * 0.5D;
+        double aabbCZ = (block.minZ + block.maxZ) * 0.5D;
+        double extentX = (block.maxX - block.minX) * 0.5D;
+        double extentY = (block.maxY - block.minY) * 0.5D;
+        double extentZ = (block.maxZ - block.minZ) * 0.5D;
+
+        double dx = x - aabbCX;
+        double dy = boardCY - aabbCY;
+        double dz = z - aabbCZ;
+
         float yaw = yawDegrees * Mth.DEG_TO_RAD;
         double forwardX = -Mth.sin(yaw);
         double forwardZ = Mth.cos(yaw);
         double rightX = Mth.cos(yaw);
         double rightZ = Mth.sin(yaw);
-        double halfLength = BOARD_LENGTH * 0.5D;
-        double halfWidth = BOARD_WIDTH * 0.5D;
 
-        double minR = Double.POSITIVE_INFINITY;
-        double maxR = Double.NEGATIVE_INFINITY;
-        double minU = Double.POSITIVE_INFINITY;
-        double maxU = Double.NEGATIVE_INFINITY;
-        double minF = Double.POSITIVE_INFINITY;
-        double maxF = Double.NEGATIVE_INFINITY;
-        for (int ix = 0; ix <= 1; ix++) {
-            for (int iy = 0; iy <= 1; iy++) {
-                for (int iz = 0; iz <= 1; iz++) {
-                    double px = ix == 0 ? block.minX : block.maxX;
-                    double py = iy == 0 ? block.minY : block.maxY;
-                    double pz = iz == 0 ? block.minZ : block.maxZ;
-                    double dx = px - x;
-                    double dy = py - y;
-                    double dz = pz - z;
-                    double localRight = dx * rightX + dz * rightZ;
-                    double localUp = dy;
-                    double localForward = dx * forwardX + dz * forwardZ;
-                    minR = Math.min(minR, localRight);
-                    maxR = Math.max(maxR, localRight);
-                    minU = Math.min(minU, localUp);
-                    maxU = Math.max(maxU, localUp);
-                    minF = Math.min(minF, localForward);
-                    maxF = Math.max(maxF, localForward);
-                }
-            }
+        if (Math.abs(dx) > extentX + halfWidth * Math.abs(rightX) + halfLength * Math.abs(forwardX)) {
+            return false;
         }
-        return maxR >= -halfWidth && minR <= halfWidth
-              && maxU >= 0.0D && minU <= BOARD_HEIGHT
-              && maxF >= -halfLength && minF <= halfLength;
+        if (Math.abs(dy) > extentY + halfHeight) {
+            return false;
+        }
+        if (Math.abs(dz) > extentZ + halfWidth * Math.abs(rightZ) + halfLength * Math.abs(forwardZ)) {
+            return false;
+        }
+        if (Math.abs(dx * rightX + dz * rightZ) > extentX * Math.abs(rightX) + extentZ * Math.abs(rightZ) + halfWidth) {
+            return false;
+        }
+        if (Math.abs(dx * forwardX + dz * forwardZ) > extentX * Math.abs(forwardX) + extentZ * Math.abs(forwardZ) + halfLength) {
+            return false;
+        }
+        return true;
     }
 
     private static AABB orientedBoardAabb(double x, double y, double z, float yRotDegrees) {
@@ -378,6 +454,7 @@ public class EntityElectricSkateboard extends Entity implements HasCustomInvento
             setDeltaMovement(Vec3.ZERO);
         }
         setBoundingBox(makeBoundingBox());
+        updatePartPositions();
     }
 
     private void tickServerState() {
@@ -510,8 +587,7 @@ public class EntityElectricSkateboard extends Entity implements HasCustomInvento
         if (steering != 0F) {
             float speedFactor = (float) Mth.clamp(horizontalSpeed / maxForward, 0D, 1D);
             float turn = STEERING_DEGREES_PER_TICK * (0.35F + speedFactor * 0.65F);
-            setYRot(Mth.wrapDegrees(getYRot() + steering * turn));
-            setYBodyRot(getYRot());
+            applySteeringYaw(steering * turn);
         }
 
         Vec3 heading = getForward();
