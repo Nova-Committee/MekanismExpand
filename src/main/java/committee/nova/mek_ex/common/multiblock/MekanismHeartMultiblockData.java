@@ -2,9 +2,14 @@ package committee.nova.mek_ex.common.multiblock;
 
 import committee.nova.mek_ex.common.chunk.MekanismHeartChunkManager;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.IdentityHashMap;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 import mekanism.api.Action;
 import mekanism.api.AutomationType;
+import mekanism.api.energy.IEnergyContainer;
 import mekanism.api.energy.IStrictEnergyHandler;
 import mekanism.api.functions.ConstantPredicates;
 import mekanism.common.capabilities.energy.BasicEnergyContainer;
@@ -12,6 +17,8 @@ import mekanism.common.capabilities.energy.VariableCapacityEnergyContainer;
 import mekanism.common.integration.energy.EnergyCompatUtils;
 import mekanism.common.inventory.container.sync.dynamic.ContainerSync;
 import mekanism.common.lib.math.voxel.VoxelCuboid.CuboidRelative;
+import mekanism.common.lib.multiblock.IInternalMultiblock;
+import mekanism.common.lib.multiblock.IMultiblock;
 import mekanism.common.lib.multiblock.MultiblockCache.CacheSubstance;
 import mekanism.common.lib.multiblock.MultiblockData;
 import mekanism.common.lib.multiblock.Structure;
@@ -44,6 +51,7 @@ public class MekanismHeartMultiblockData extends MultiblockData {
     private int providerCount;
     private int scanTicker;
     private final List<BlockPos> cachedReceivers = new ArrayList<>();
+    private final List<BlockPos> cachedMultiblockAnchors = new ArrayList<>();
 
     public MekanismHeartMultiblockData(BlockEntity tile) {
         super(tile);
@@ -125,35 +133,76 @@ public class MekanismHeartMultiblockData extends MultiblockData {
     }
 
     private long distributeEnergy(ServerLevel world) {
-        if (++scanTicker >= 20 || cachedReceivers.isEmpty()) {
+        if (++scanTicker >= 20 || (cachedReceivers.isEmpty() && cachedMultiblockAnchors.isEmpty())) {
             scanTicker = 0;
             refreshReceivers(world);
         }
         long totalOutput = 0L;
         receiverCount = 0;
+        Set<UUID> poweredIds = new HashSet<>();
+        IdentityHashMap<MultiblockData, Boolean> poweredAnonymous = new IdentityHashMap<>();
+
+        for (BlockPos pos : cachedMultiblockAnchors) {
+            if (isInsideOwnBounds(pos)) {
+                continue;
+            }
+            BlockEntity tile = world.getBlockEntity(pos);
+            if (tile == null) {
+                continue;
+            }
+            MultiblockData target = resolveEnergyMultiblock(tile);
+            if (target == null || target == this || target instanceof MekanismHeartMultiblockData) {
+                continue;
+            }
+            if (target.inventoryID != null) {
+                if (!poweredIds.add(target.inventoryID)) {
+                    continue;
+                }
+            } else if (poweredAnonymous.put(target, Boolean.TRUE) != null) {
+                continue;
+            }
+            long accepted = insertIntoMultiblock(target);
+            if (accepted > 0) {
+                receiverCount++;
+                totalOutput += accepted;
+                consumeOutput(accepted);
+            }
+        }
+
         for (BlockPos pos : cachedReceivers) {
-            if (getBounds() != null && getBounds().getRelativeLocation(pos) != CuboidRelative.OUTSIDE) {
+            if (isInsideOwnBounds(pos)) {
                 continue;
             }
             BlockEntity tile = world.getBlockEntity(pos);
             if (tile == null || tile instanceof committee.nova.mek_ex.common.block.entity.TileEntityMekanismHeart) {
                 continue;
             }
+            MultiblockData owned = resolveEnergyMultiblock(tile);
+            if (owned != null && owned != this && !(owned instanceof MekanismHeartMultiblockData)) {
+                continue;
+            }
             long accepted = insertInto(world, pos, tile);
             if (accepted > 0) {
                 receiverCount++;
                 totalOutput += accepted;
-                energyContainer.extract(accepted, Action.EXECUTE, AutomationType.INTERNAL);
-                if (energyContainer.isEmpty()) {
-                    energyContainer.setEnergy(CREATIVE_ENERGY);
-                }
+                consumeOutput(accepted);
             }
         }
         return totalOutput;
     }
 
+    private void consumeOutput(long accepted) {
+        energyContainer.extract(accepted, Action.EXECUTE, AutomationType.INTERNAL);
+        if (energyContainer.isEmpty()) {
+            energyContainer.setEnergy(CREATIVE_ENERGY);
+        }
+    }
+
     private void refreshReceivers(ServerLevel world) {
         cachedReceivers.clear();
+        cachedMultiblockAnchors.clear();
+        Set<UUID> seenIds = new HashSet<>();
+        IdentityHashMap<MultiblockData, Boolean> seenAnonymous = new IdentityHashMap<>();
         AABB box = transferBox();
         int minChunkX = SectionPos.blockToSectionCoord((int) Math.floor(box.minX));
         int maxChunkX = SectionPos.blockToSectionCoord((int) Math.floor(box.maxX - 1));
@@ -169,8 +218,22 @@ public class MekanismHeartMultiblockData extends MultiblockData {
                     if (!box.contains(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5)) {
                         continue;
                     }
+                    if (isInsideOwnBounds(pos)) {
+                        continue;
+                    }
                     BlockEntity be = chunk.getBlockEntity(pos);
                     if (be == null || be instanceof committee.nova.mek_ex.common.block.entity.TileEntityMekanismHeart) {
+                        continue;
+                    }
+                    MultiblockData multiblock = resolveEnergyMultiblock(be);
+                    if (multiblock != null && multiblock != this && !(multiblock instanceof MekanismHeartMultiblockData)) {
+                        if (multiblock.inventoryID != null) {
+                            if (seenIds.add(multiblock.inventoryID)) {
+                                cachedMultiblockAnchors.add(pos.immutable());
+                            }
+                        } else if (seenAnonymous.put(multiblock, Boolean.TRUE) == null) {
+                            cachedMultiblockAnchors.add(pos.immutable());
+                        }
                         continue;
                     }
                     if (hasEnergyHandler(world, pos, be)) {
@@ -179,6 +242,39 @@ public class MekanismHeartMultiblockData extends MultiblockData {
                 }
             }
         }
+    }
+
+    @Nullable
+    private static MultiblockData resolveEnergyMultiblock(BlockEntity tile) {
+        if (tile instanceof IMultiblock<?> multiblock) {
+            MultiblockData data = multiblock.getMultiblock();
+            if (data.isFormed() && !data.getEnergyContainers(null).isEmpty()) {
+                return data;
+            }
+        }
+        if (tile instanceof IInternalMultiblock internal) {
+            MultiblockData data = internal.getMultiblock();
+            if (data != null && data.isFormed() && !data.getEnergyContainers(null).isEmpty()) {
+                return data;
+            }
+        }
+        return null;
+    }
+
+    private long insertIntoMultiblock(MultiblockData target) {
+        long accepted = 0L;
+        for (IEnergyContainer container : target.getEnergyContainers(null)) {
+            long remainder = container.insert(CREATIVE_ENERGY, Action.EXECUTE, AutomationType.INTERNAL);
+            long got = CREATIVE_ENERGY - remainder;
+            if (got > 0) {
+                accepted += got;
+            }
+        }
+        return accepted;
+    }
+
+    private boolean isInsideOwnBounds(BlockPos pos) {
+        return getBounds() != null && getBounds().getRelativeLocation(pos) != CuboidRelative.OUTSIDE;
     }
 
     private boolean hasEnergyHandler(Level world, BlockPos pos, BlockEntity tile) {

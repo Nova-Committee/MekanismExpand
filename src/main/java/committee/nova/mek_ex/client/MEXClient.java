@@ -13,7 +13,6 @@ import committee.nova.mek_ex.init.registry.MEXItems;
 
 import committee.nova.mek_ex.client.render.RenderPotionNebulizer;
 import committee.nova.mek_ex.client.render.RenderMekanismHeart;
-import committee.nova.mek_ex.client.render.MekanismHeartClientEffects;
 import committee.nova.mek_ex.client.render.RenderElectricSkateboard;
 import committee.nova.mek_ex.client.model.ElectricSkateboardModel;
 import committee.nova.mek_ex.init.registry.MEXBlocks;
@@ -43,7 +42,6 @@ public class MEXClient {
         NeoForge.EVENT_BUS.addListener(ElectricSkateboardHud::render);
         NeoForge.EVENT_BUS.addListener(SonarDetectionClient::onClientTick);
         NeoForge.EVENT_BUS.addListener(SonarDetectionClient::render);
-        NeoForge.EVENT_BUS.addListener(MekanismHeartClientEffects::render);
     }
 
     @SubscribeEvent

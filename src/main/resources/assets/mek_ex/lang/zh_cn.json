@@ -18,7 +18,7 @@
   "description.mek_ex.neutron_activator": "使用电力与自身辐射进行化学活化的机器。",
   "description.mek_ex.environmental_radiation_generator": "吸收环境辐射并安全储存，将其转化为能量。",
   "description.mek_ex.antimatter_supercharged_coil": "可使超临界移相器处理速率提高十倍，并产生紫色闪电的增压线圈。",
-  "description.mek_ex.mekanism_heart": "反物质块。按机械之心模板与结构玻璃、终极感应单元/供应器组成多方块后，提供近乎无限储能，并以结构中心向 18×18×18 范围无线输电。",
+  "description.mek_ex.mekanism_heart": "反物质块。按机械之心模板与结构玻璃、终极感应单元/供应器组成多方块后，提供近乎无限储能，并以结构中心向 18×18×18 范围无线供电，可直接为范围内的其他多方块结构充能。",
   "multiblock.mek_ex.mekanism_heart.invalid_block": "机械之心结构不匹配：该位置方块不正确。",
   "description.mek_ex.potion_nebulizer": "能够雾化药水的机器，雾化后药水时长延长至原来的10倍",
   "description.mek_ex.sonar_detection_unit": "扫描附近匹配筛选条件的方块并以轮廓高亮。最多装配 4 个以扩大探测范围。",
