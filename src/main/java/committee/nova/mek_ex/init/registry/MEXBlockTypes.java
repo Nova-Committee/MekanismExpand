@@ -10,6 +10,7 @@ import committee.nova.mek_ex.common.block.entity.TileEntityNeutronActivator;
 import committee.nova.mek_ex.common.block.entity.TileEntityAntimatterSuperchargedCoil;
 import committee.nova.mek_ex.common.block.entity.TileEntityEnvironmentalRadiationGenerator;
 import committee.nova.mek_ex.common.block.entity.TileEntityPotionNebulizer;
+import committee.nova.mek_ex.common.block.entity.TileEntityMekanismHeart;
 import committee.nova.mek_ex.common.upgrade.MEXUpgrades;
 import committee.nova.mek_ex.init.enums.MEXLang;
 import committee.nova.mek_ex.init.enums.MEXWindTier;
@@ -214,5 +215,10 @@ public final class MEXBlockTypes {
           .with(new AttributeStateFacing(BlockStateProperties.FACING, FacePlacementType.SELECTED_FACE))
           .withCustomShape(mekanism.common.content.blocktype.BlockShapes.SUPERCHARGED_COIL)
           .internalMultiblock()
+          .build();
+
+    public static final BlockTypeTile<TileEntityMekanismHeart> BLOCK_ANTIMATTER = BlockTileBuilder
+          .createBlock(() -> MEXGenTileEntityTypes.BLOCK_ANTIMATTER, MEXLang.DESCRIPTION_MEKANISM_HEART)
+          .externalMultiblock()
           .build();
 }

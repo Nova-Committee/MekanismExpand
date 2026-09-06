@@ -11,12 +11,15 @@
   "block.mek_ex.neutron_activator": "Neutron Activator",
   "block.mek_ex.environmental_radiation_generator": "Environmental Radiation Generator",
   "block.mek_ex.antimatter_supercharged_coil": "Antimatter Supercharged Coil",
+  "block.mek_ex.block_antimatter": "Block of Antimatter",
 
   "description.mek_ex.nuclear_control_tank": "The casing used in the Nuclear Control Tank multiblock, a structure capable of storing great amounts of fluid and chemicals and radioactive materials.",
   "description.mek_ex.nuclear_control_valve": "A valve that can be placed on a Nuclear Control Tank multiblock, allowing for fluids and chemicals and and radioactive materials. to be inserted and extracted via external piping.",
   "description.mek_ex.neutron_activator": "A powered and self-radiation chemical activating machine.",
   "description.mek_ex.environmental_radiation_generator": "Consumes environmental radiation, stores it safely, and generates energy from the absorbed radiation.",
-  "description.mek_ex.antimatter_supercharged_coil": "A supercharged coil that increases SPS processing speed fivefold and produces purple lightning.",
+  "description.mek_ex.antimatter_supercharged_coil": "A supercharged coil that increases SPS processing speed tenfold and produces purple lightning.",
+  "description.mek_ex.mekanism_heart": "Block of Antimatter. When arranged with structural glass and ultimate induction cells/providers into the Mekanism Heart template, it forms a near-infinite energy multiblock that wirelessly powers an 18x18x18 area around its center.",
+  "multiblock.mek_ex.mekanism_heart.invalid_block": "Mekanism Heart mismatch: incorrect block at this position.",
   "description.mek_ex.potion_nebulizer": "A machine that can nebulize potion, extending the duration of the nebulize potion to 10 times the original",
   "description.mek_ex.sonar_detection_unit": "Scans nearby blocks matching configured filters and outlines them. Stack up to 4 for larger range.",
 

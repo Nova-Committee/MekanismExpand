@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "c:pellets/antimatter"
+    },
+    "P": {
+      "item": "mekanism:pellet_antimatter"
+    }
+  },
+  "pattern": [
+    "###",
+    "#P#",
+    "###"
+  ],
+  "result": {
+    "count": 1,
+    "id": "mek_ex:block_antimatter"
+  }
+}

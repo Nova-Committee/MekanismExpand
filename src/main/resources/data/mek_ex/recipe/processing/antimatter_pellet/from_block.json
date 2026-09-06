@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "mek_ex:block_antimatter"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "mekanism:pellet_antimatter"
+  }
+}

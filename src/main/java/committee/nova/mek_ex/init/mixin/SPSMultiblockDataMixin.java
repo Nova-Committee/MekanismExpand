@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public abstract class SPSMultiblockDataMixin {
 
     @Unique
-    private static final long MEX_ANTIMATTER_COIL_SPEED_MULTIPLIER = 5L;
+    private static final long MEX_ANTIMATTER_COIL_SPEED_MULTIPLIER = 10L;
 
     @Redirect(method = "tick", at = @At(value = "INVOKE", target = "Lmekanism/common/config/value/CachedLongValue;get()J"))
     private long adjustEnergyPerInput(CachedLongValue config) {

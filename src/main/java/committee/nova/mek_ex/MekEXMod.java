@@ -1,5 +1,6 @@
 package committee.nova.mek_ex;
 
+import committee.nova.mek_ex.common.chunk.MekanismHeartChunkManager;
 import committee.nova.mek_ex.common.upgrade.MEXUpgrades;
 import committee.nova.mek_ex.common.network.ElectricSkateboardGearPayload;
 import committee.nova.mek_ex.common.network.ElectricSkateboardInputPayload;
@@ -26,6 +27,7 @@ import net.minecraft.resources.ResourceLocation;
 import mekanism.api.security.IEntitySecurityUtils;
 import mekanism.common.integration.energy.EnergyCompatUtils;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.common.world.chunk.RegisterTicketControllersEvent;
 
 @Mod(MekEXMod.MOD_ID)
 public class MekEXMod {
@@ -54,9 +56,14 @@ public class MekEXMod {
         MEXSounds.register(modEventBus);
         MEXCreativeTabs.CREATIVE_TABS.register(modEventBus);
         modEventBus.addListener(MekEXMod::registerCapabilities);
+        modEventBus.addListener(MekEXMod::registerTicketControllers);
         modEventBus.addListener(MekEXMod::enqueueIMC);
         modEventBus.addListener(ElectricSkateboardInputPayload::register);
         modEventBus.addListener(ElectricSkateboardGearPayload::register);
+    }
+
+    private static void registerTicketControllers(RegisterTicketControllersEvent event) {
+        event.register(MekanismHeartChunkManager.CONTROLLER);
     }
 
     private static void enqueueIMC(InterModEnqueueEvent event) {

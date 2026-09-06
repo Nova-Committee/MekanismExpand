@@ -24,6 +24,8 @@ public enum MEXLang implements ILangEntry {
     GENERATION_RATE("gui", "generation_rate"),
     MAX_OUTPUT("gui", "max_output"),
     DESCRIPTION_ANTIMATTER_SUPERCHARGED_COIL("description", "antimatter_supercharged_coil"),
+    DESCRIPTION_MEKANISM_HEART("description", "mekanism_heart"),
+    MEKANISM_HEART_INVALID_BLOCK("multiblock", "mekanism_heart.invalid_block"),
     CAPACITY_UPGRADE("upgrade", "capacity"),
     CAPACITY_UPGRADE_DESCRIPTION("upgrade", "capacity.desc"),
     CAPACITY_UPGRADE_EFFECT("gui", "upgrades.capacity_effect"),

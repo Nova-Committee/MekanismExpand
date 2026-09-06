@@ -12,6 +12,8 @@ import committee.nova.mek_ex.common.network.ElectricSkateboardInputPayload;
 import committee.nova.mek_ex.init.registry.MEXItems;
 
 import committee.nova.mek_ex.client.render.RenderPotionNebulizer;
+import committee.nova.mek_ex.client.render.RenderMekanismHeart;
+import committee.nova.mek_ex.client.render.MekanismHeartClientEffects;
 import committee.nova.mek_ex.client.render.RenderElectricSkateboard;
 import committee.nova.mek_ex.client.model.ElectricSkateboardModel;
 import committee.nova.mek_ex.init.registry.MEXBlocks;
@@ -41,6 +43,7 @@ public class MEXClient {
         NeoForge.EVENT_BUS.addListener(ElectricSkateboardHud::render);
         NeoForge.EVENT_BUS.addListener(SonarDetectionClient::onClientTick);
         NeoForge.EVENT_BUS.addListener(SonarDetectionClient::render);
+        NeoForge.EVENT_BUS.addListener(MekanismHeartClientEffects::render);
     }
 
     @SubscribeEvent
@@ -53,6 +56,7 @@ public class MEXClient {
         event.registerBlockEntityRenderer(MEXGenTileEntityTypes.POTION_NEBULIZER.get(), RenderPotionNebulizer::new);
         ClientRegistrationUtil.bindTileEntityRenderer(event, RenderNuclearControlTank::new,
               MEXGenTileEntityTypes.NUCLEAR_CONTROL_TANK, MEXGenTileEntityTypes.NUCLEAR_CONTROL_VALVE);
+        event.registerBlockEntityRenderer(MEXGenTileEntityTypes.BLOCK_ANTIMATTER.get(), RenderMekanismHeart::new);
         event.registerEntityRenderer(MEXEntityTypes.ELECTRIC_SKATEBOARD.get(), RenderElectricSkateboard::new);
     }
 

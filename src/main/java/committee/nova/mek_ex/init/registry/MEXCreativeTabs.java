@@ -34,6 +34,7 @@ public final class MEXCreativeTabs {
                 output.accept(MEXBlocks.neutron_activator);
                 output.accept(MEXBlocks.environmental_radiation_generator);
                 output.accept(MEXBlocks.antimatter_supercharged_coil);
+                output.accept(MEXBlocks.block_antimatter);
                 output.accept(MEXBlocks.potion_nebulizer);
             })
         .build());

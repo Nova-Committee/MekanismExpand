@@ -11,6 +11,7 @@ import committee.nova.mek_ex.common.block.entity.TileEntityNeutronActivator;
 import committee.nova.mek_ex.common.block.entity.TileEntityAntimatterSuperchargedCoil;
 import committee.nova.mek_ex.common.block.entity.TileEntityEnvironmentalRadiationGenerator;
 import committee.nova.mek_ex.common.block.entity.TileEntityPotionNebulizer;
+import committee.nova.mek_ex.common.block.entity.TileEntityMekanismHeart;
 import committee.nova.mek_ex.common.item.AntimatterSuperchargedCoilItem;
 import committee.nova.mek_ex.common.item.WindGeneratorItem;
 import mekanism.common.attachments.containers.ContainerType;
@@ -20,13 +21,13 @@ import mekanism.common.attachments.containers.item.ItemSlotsBuilder;
 import mekanism.common.block.prefab.BlockTile;
 import mekanism.common.block.prefab.BlockBasicMultiblock;
 import mekanism.common.item.block.ItemBlockTooltip;
+import mekanism.common.content.blocktype.BlockTypeTile;
 import mekanism.common.registration.impl.BlockDeferredRegister;
 import mekanism.common.registration.impl.BlockRegistryObject;
 import mekanism.generators.common.content.blocktype.Generator;
 import mekanism.common.content.blocktype.Machine;
 import mekanism.common.recipe.MekanismRecipeType;
 import mekanism.common.recipe.lookup.cache.InputRecipeCache.SingleChemical;
-import mekanism.common.content.blocktype.BlockTypeTile;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
 
@@ -67,6 +68,13 @@ public final class MEXBlocks {
     public static final BlockRegistryObject<BlockTile.BlockTileModel<TileEntityEnvironmentalRadiationGenerator, Machine<TileEntityEnvironmentalRadiationGenerator>>, ItemBlockTooltip<BlockTile.BlockTileModel<TileEntityEnvironmentalRadiationGenerator, Machine<TileEntityEnvironmentalRadiationGenerator>>>> environmental_radiation_generator = BLOCKS.registerDetails("environmental_radiation_generator", () -> new BlockTile.BlockTileModel<>(MEXBlockTypes.ENVIRONMENTAL_RADIATION_GENERATOR, properties -> properties.mapColor(MapColor.COLOR_GREEN)));
 
     public static final BlockRegistryObject<BlockTile.BlockTileModel<TileEntityAntimatterSuperchargedCoil, BlockTypeTile<TileEntityAntimatterSuperchargedCoil>>, AntimatterSuperchargedCoilItem> antimatter_supercharged_coil = BLOCKS.register("antimatter_supercharged_coil", () -> new BlockTile.BlockTileModel<>(MEXBlockTypes.ANTIMATTER_SUPERCHARGED_COIL, properties -> properties.mapColor(MapColor.COLOR_PURPLE)), AntimatterSuperchargedCoilItem::new);
+
+    public static final BlockRegistryObject<BlockBasicMultiblock<TileEntityMekanismHeart>, ItemBlockTooltip<BlockBasicMultiblock<TileEntityMekanismHeart>>> block_antimatter = BLOCKS.registerDetails("block_antimatter",
+          () -> new BlockBasicMultiblock<>(MEXBlockTypes.BLOCK_ANTIMATTER, properties -> properties
+                .mapColor(MapColor.COLOR_PURPLE)
+                .requiresCorrectToolForDrops()
+                .strength(5.0F, 9.0F)
+                .lightLevel(state -> 8)));
 
     public static final BlockRegistryObject<BlockTile.BlockTileModel<TileEntityPotionNebulizer, Machine<TileEntityPotionNebulizer>>, ItemBlockTooltip<BlockTile.BlockTileModel<TileEntityPotionNebulizer, Machine<TileEntityPotionNebulizer>>>> potion_nebulizer = BLOCKS.registerDetails("potion_nebulizer", () -> new BlockTile.BlockTileModel<>(MEXBlockTypes.POTION_NEBULIZER, properties -> properties.mapColor(MapColor.METAL)))
             .forItemHolder(holder -> holder
