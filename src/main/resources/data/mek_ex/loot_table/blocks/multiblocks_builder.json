@@ -4,7 +4,7 @@
     "rolls": 1.0,
     "entries": [{
       "type": "minecraft:item",
-      "name": "mek_ex:structure_builder",
+      "name": "mek_ex:multiblocks_builder",
       "functions": [{
         "function": "minecraft:copy_name",
         "source": "block_entity"
@@ -23,5 +23,5 @@
       }]
     }]
   }],
-  "random_sequence": "mek_ex:blocks/structure_builder"
+  "random_sequence": "mek_ex:blocks/multiblocks_builder"
 }

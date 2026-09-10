@@ -22,7 +22,7 @@ public record StructureBuilderActionPayload(BlockPos pos, int action, int value)
     public static final int ACTION_CYCLE_RECIPE = 6;
     public static final int ACTION_SET_OPTIONAL_COUNT = 7;
 
-    public static final Type<StructureBuilderActionPayload> TYPE = new Type<>(MekEXMod.rl("structure_builder_action"));
+    public static final Type<StructureBuilderActionPayload> TYPE = new Type<>(MekEXMod.rl("multiblocks_builder_action"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, StructureBuilderActionPayload> STREAM_CODEC = StreamCodec.composite(
           BlockPos.STREAM_CODEC, StructureBuilderActionPayload::pos,

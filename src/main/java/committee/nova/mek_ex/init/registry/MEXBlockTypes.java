@@ -223,13 +223,13 @@ public final class MEXBlockTypes {
           .externalMultiblock()
           .build();
 
-    public static final Machine<TileEntityStructureBuilder> STRUCTURE_BUILDER = Machine.MachineBuilder
-          .createMachine(() -> MEXGenTileEntityTypes.STRUCTURE_BUILDER, MEXLang.DESCRIPTION_STRUCTURE_BUILDER)
-          .withGui(() -> MEXContainerTypes.STRUCTURE_BUILDER)
+    public static final Machine<TileEntityStructureBuilder> MULTIBLOCKS_BUILDER = Machine.MachineBuilder
+          .createMachine(() -> MEXGenTileEntityTypes.MULTIBLOCKS_BUILDER, MEXLang.DESCRIPTION_MULTIBLOCKS_BUILDER)
+          .withGui(() -> MEXContainerTypes.MULTIBLOCKS_BUILDER)
           .withEnergyConfig(() -> TileEntityStructureBuilder.ENERGY_PER_BLOCK, () -> 200_000L)
           .without(AttributeParticleFX.class, AttributeUpgradeSupport.class)
           .withSideConfig(TransmissionType.ITEM, TransmissionType.ENERGY)
-          .withComputerSupport("structureBuilder")
+          .withComputerSupport("multiblocksBuilder")
           .replace(Attributes.ACTIVE)
           .build();
 }

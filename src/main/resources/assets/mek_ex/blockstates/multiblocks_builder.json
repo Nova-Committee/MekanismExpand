@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "facing=north,active=false": {"model": "mek_ex:block/multiblocks_builder"},
+    "facing=north,active=true": {"model": "mek_ex:block/multiblocks_builder"},
+    "facing=south,active=false": {"model": "mek_ex:block/multiblocks_builder", "y": 180},
+    "facing=south,active=true": {"model": "mek_ex:block/multiblocks_builder", "y": 180},
+    "facing=east,active=false": {"model": "mek_ex:block/multiblocks_builder", "y": 90},
+    "facing=east,active=true": {"model": "mek_ex:block/multiblocks_builder", "y": 90},
+    "facing=west,active=false": {"model": "mek_ex:block/multiblocks_builder", "y": 270},
+    "facing=west,active=true": {"model": "mek_ex:block/multiblocks_builder", "y": 270}
+  }
+}

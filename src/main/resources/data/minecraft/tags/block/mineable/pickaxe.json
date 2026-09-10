@@ -12,6 +12,6 @@
     "mek_ex:block_antimatter",
     "mek_ex:environmental_radiation_generator",
     "mek_ex:potion_nebulizer",
-    "mek_ex:structure_builder"
+    "mek_ex:multiblocks_builder"
   ]
 }

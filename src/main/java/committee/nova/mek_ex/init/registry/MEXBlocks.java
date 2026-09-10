@@ -90,8 +90,8 @@ public final class MEXBlocks {
                             .addBasic(2)
                             .build()));
 
-    public static final BlockRegistryObject<BlockTile.BlockTileModel<TileEntityStructureBuilder, Machine<TileEntityStructureBuilder>>, ItemBlockTooltip<BlockTile.BlockTileModel<TileEntityStructureBuilder, Machine<TileEntityStructureBuilder>>>> structure_builder = BLOCKS.registerDetails("structure_builder",
-          () -> new BlockTile.BlockTileModel<>(MEXBlockTypes.STRUCTURE_BUILDER, properties -> properties.mapColor(MapColor.METAL)))
+    public static final BlockRegistryObject<BlockTile.BlockTileModel<TileEntityStructureBuilder, Machine<TileEntityStructureBuilder>>, ItemBlockTooltip<BlockTile.BlockTileModel<TileEntityStructureBuilder, Machine<TileEntityStructureBuilder>>>> multiblocks_builder = BLOCKS.registerDetails("multiblocks_builder",
+          () -> new BlockTile.BlockTileModel<>(MEXBlockTypes.MULTIBLOCKS_BUILDER, properties -> properties.mapColor(MapColor.METAL)))
           .forItemHolder(holder -> holder
                 .addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
                       .addBasic(TileEntityStructureBuilder.MATERIAL_SLOTS)

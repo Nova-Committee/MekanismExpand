@@ -9,5 +9,5 @@
     "T": {"item": "mekanism:configurator"}
   },
   "pattern": ["CPC", "RSR", "CTC"],
-  "result": {"count": 1, "id": "mek_ex:structure_builder"}
+  "result": {"count": 1, "id": "mek_ex:multiblocks_builder"}
 }

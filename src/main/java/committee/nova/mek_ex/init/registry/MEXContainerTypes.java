@@ -28,6 +28,6 @@ public class MEXContainerTypes {
     public static final ContainerTypeRegistryObject<MekanismTileContainer<TileEntityNeutronActivator>> NEUTRON_ACTIVATOR = CONTAINER_TYPES.custom(MEXBlocks.neutron_activator, TileEntityNeutronActivator.class).build();
     public static final ContainerTypeRegistryObject<MekanismTileContainer<TileEntityEnvironmentalRadiationGenerator>> ENVIRONMENTAL_RADIATION_GENERATOR = CONTAINER_TYPES.custom(MEXBlocks.environmental_radiation_generator, TileEntityEnvironmentalRadiationGenerator.class).build();
     public static final ContainerTypeRegistryObject<MekanismTileContainer<TileEntityPotionNebulizer>> POTION_NEBULIZER = CONTAINER_TYPES.custom(MEXBlocks.potion_nebulizer, TileEntityPotionNebulizer.class).build();
-    public static final ContainerTypeRegistryObject<MekanismTileContainer<TileEntityStructureBuilder>> STRUCTURE_BUILDER = CONTAINER_TYPES.custom(MEXBlocks.structure_builder, TileEntityStructureBuilder.class).offset(0, 98).build();
+    public static final ContainerTypeRegistryObject<MekanismTileContainer<TileEntityStructureBuilder>> MULTIBLOCKS_BUILDER = CONTAINER_TYPES.custom(MEXBlocks.multiblocks_builder, TileEntityStructureBuilder.class).offset(0, 98).build();
     public static final ContainerTypeRegistryObject<ElectricSkateboardContainer> ELECTRIC_SKATEBOARD = CONTAINER_TYPES.registerEntity("electric_skateboard", EntityElectricSkateboard.class, ElectricSkateboardContainer::new);
 }

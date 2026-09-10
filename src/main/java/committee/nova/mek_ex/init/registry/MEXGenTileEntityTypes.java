@@ -81,7 +81,7 @@ public final class MEXGenTileEntityTypes {
             .clientTicker(TileEntityMekanism::tickClient).serverTicker(TileEntityMekanism::tickServer)
             .withSimple(Capabilities.CONFIGURABLE).build();
 
-    public static final TileEntityTypeRegistryObject<TileEntityStructureBuilder> STRUCTURE_BUILDER = TILE_ENTITY_TYPES.mekBuilder(MEXBlocks.structure_builder, TileEntityStructureBuilder::new)
+    public static final TileEntityTypeRegistryObject<TileEntityStructureBuilder> MULTIBLOCKS_BUILDER = TILE_ENTITY_TYPES.mekBuilder(MEXBlocks.multiblocks_builder, TileEntityStructureBuilder::new)
             .clientTicker(TileEntityMekanism::tickClient)
             .serverTicker(TileEntityMekanism::tickServer)
             .withSimple(Capabilities.CONFIG_CARD)

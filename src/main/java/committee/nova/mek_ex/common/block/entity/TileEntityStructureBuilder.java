@@ -100,7 +100,7 @@ public class TileEntityStructureBuilder extends TileEntityConfigurableMachine {
     private int cachedPlanKey = Integer.MIN_VALUE;
 
     public TileEntityStructureBuilder(BlockPos pos, BlockState state) {
-        super(MEXBlocks.structure_builder, pos, state);
+        super(MEXBlocks.multiblocks_builder, pos, state);
         configComponent.setupItemIOConfig(new ArrayList<>(materialSlots), Collections.emptyList(), energySlot, true);
         ConfigInfo energyConfig = configComponent.setupInputConfig(TransmissionType.ENERGY, energyContainer);
         // Front is the build face — never accept energy from there.
@@ -292,7 +292,7 @@ public class TileEntityStructureBuilder extends TileEntityConfigurableMachine {
     public Component getSelectedRecipeName() {
         MultiblockBuildRecipe recipe = getSelectedRecipe();
         return recipe == null
-              ? Component.translatable("gui.mek_ex.structure_builder.no_recipe")
+              ? Component.translatable("gui.mek_ex.multiblocks_builder.no_recipe")
               : recipe.displayName();
     }
 
