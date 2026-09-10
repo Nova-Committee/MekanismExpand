@@ -11,6 +11,7 @@ import committee.nova.mek_ex.common.block.entity.TileEntityAntimatterSupercharge
 import committee.nova.mek_ex.common.block.entity.TileEntityEnvironmentalRadiationGenerator;
 import committee.nova.mek_ex.common.block.entity.TileEntityPotionNebulizer;
 import committee.nova.mek_ex.common.block.entity.TileEntityMekanismHeart;
+import committee.nova.mek_ex.common.block.entity.TileEntityStructureBuilder;
 import committee.nova.mek_ex.common.upgrade.MEXUpgrades;
 import committee.nova.mek_ex.init.enums.MEXLang;
 import committee.nova.mek_ex.init.enums.MEXWindTier;
@@ -220,5 +221,15 @@ public final class MEXBlockTypes {
     public static final BlockTypeTile<TileEntityMekanismHeart> BLOCK_ANTIMATTER = BlockTileBuilder
           .createBlock(() -> MEXGenTileEntityTypes.BLOCK_ANTIMATTER, MEXLang.DESCRIPTION_MEKANISM_HEART)
           .externalMultiblock()
+          .build();
+
+    public static final Machine<TileEntityStructureBuilder> STRUCTURE_BUILDER = Machine.MachineBuilder
+          .createMachine(() -> MEXGenTileEntityTypes.STRUCTURE_BUILDER, MEXLang.DESCRIPTION_STRUCTURE_BUILDER)
+          .withGui(() -> MEXContainerTypes.STRUCTURE_BUILDER)
+          .withEnergyConfig(() -> TileEntityStructureBuilder.ENERGY_PER_BLOCK, () -> 200_000L)
+          .without(AttributeParticleFX.class, AttributeUpgradeSupport.class)
+          .withSideConfig(TransmissionType.ITEM, TransmissionType.ENERGY)
+          .withComputerSupport("structureBuilder")
+          .replace(Attributes.ACTIVE)
           .build();
 }

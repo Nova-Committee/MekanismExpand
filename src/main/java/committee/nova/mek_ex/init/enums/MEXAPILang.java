@@ -4,4 +4,5 @@ import mekanism.api.text.APILang;
 
 public class MEXAPILang {
     public static APILang UPGRADE_CAPACITY;
+    public static APILang UPGRADE_VOID;
 }

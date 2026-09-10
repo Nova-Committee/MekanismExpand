@@ -1,0 +1,11 @@
+{
+  "type": "mek_ex:multiblock_build",
+  "mode": "nuclear_control_tank",
+  "title_key": "recipe.mek_ex.multiblock.nuclear_control_tank",
+  "min_size": 3,
+  "max_size": 18,
+  "default_size_x": 5,
+  "default_size_y": 5,
+  "default_size_z": 5,
+  "use_glass": true
+}

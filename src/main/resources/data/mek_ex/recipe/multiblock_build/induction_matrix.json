@@ -1,0 +1,10 @@
+{
+  "type": "mek_ex:multiblock_build",
+  "mode": "induction_matrix",
+  "title_key": "recipe.mek_ex.multiblock.induction_matrix",
+  "min_size": 3,
+  "max_size": 18,
+  "default_size_x": 5,
+  "default_size_y": 5,
+  "default_size_z": 5
+}

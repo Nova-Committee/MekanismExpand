@@ -42,6 +42,7 @@ public class MEXClient {
         NeoForge.EVENT_BUS.addListener(ElectricSkateboardHud::render);
         NeoForge.EVENT_BUS.addListener(SonarDetectionClient::onClientTick);
         NeoForge.EVENT_BUS.addListener(SonarDetectionClient::render);
+        NeoForge.EVENT_BUS.addListener(StructureBuilderPreviewClient::render);
     }
 
     @SubscribeEvent
@@ -69,6 +70,7 @@ public class MEXClient {
         ClientRegistrationUtil.registerScreen(event, MEXContainerTypes.NEUTRON_ACTIVATOR, GuiNeutronActivator::new);
         ClientRegistrationUtil.registerScreen(event, MEXContainerTypes.ENVIRONMENTAL_RADIATION_GENERATOR, GuiEnvironmentalRadiationGenerator::new);
         ClientRegistrationUtil.registerScreen(event, MEXContainerTypes.POTION_NEBULIZER, GuiPotionNebulizer::new);
+        ClientRegistrationUtil.registerScreen(event, MEXContainerTypes.STRUCTURE_BUILDER, GuiStructureBuilder::new);
         ClientRegistrationUtil.registerScreen(event, MEXContainerTypes.ELECTRIC_SKATEBOARD, GuiElectricSkateboard::new);
     }
 

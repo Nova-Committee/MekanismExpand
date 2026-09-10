@@ -4,6 +4,7 @@ import committee.nova.mek_ex.common.chunk.MekanismHeartChunkManager;
 import committee.nova.mek_ex.common.upgrade.MEXUpgrades;
 import committee.nova.mek_ex.common.network.ElectricSkateboardGearPayload;
 import committee.nova.mek_ex.common.network.ElectricSkateboardInputPayload;
+import committee.nova.mek_ex.common.network.StructureBuilderActionPayload;
 import committee.nova.mek_ex.init.registry.MEXBlocks;
 import committee.nova.mek_ex.init.registry.MEXContainerTypes;
 import committee.nova.mek_ex.init.registry.MEXCreativeTabs;
@@ -12,6 +13,8 @@ import committee.nova.mek_ex.init.registry.MEXGenTileEntityTypes;
 import committee.nova.mek_ex.init.registry.MEXItems;
 import committee.nova.mek_ex.init.registry.MEXEntityTypes;
 import committee.nova.mek_ex.init.registry.MEXModules;
+import committee.nova.mek_ex.init.registry.MEXRecipeSerializers;
+import committee.nova.mek_ex.init.registry.MEXRecipeTypes;
 import committee.nova.mek_ex.init.registry.MEXSounds;
 import mekanism.api.MekanismIMC;
 import mekanism.api.Upgrade;
@@ -37,6 +40,7 @@ public class MekEXMod {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public static Upgrade CAPACITY_UPGRADE_TYPE;
+    public static Upgrade VOID_UPGRADE_TYPE;
 
     public static ResourceLocation rl(String path) {
         return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
@@ -46,6 +50,7 @@ public class MekEXMod {
 
         Upgrade.values();
         CAPACITY_UPGRADE_TYPE = MEXUpgrades.capacity();
+        VOID_UPGRADE_TYPE = MEXUpgrades.voidUpgrade();
         MEXBlocks.register(modEventBus);
         MEXItems.register(modEventBus);
         MEXModules.register(modEventBus);
@@ -54,12 +59,15 @@ public class MekEXMod {
         MEXDataComponents.DATA_COMPONENTS.register(modEventBus);
         MEXGenTileEntityTypes.TILE_ENTITY_TYPES.register(modEventBus);
         MEXSounds.register(modEventBus);
+        MEXRecipeTypes.register(modEventBus);
+        MEXRecipeSerializers.register(modEventBus);
         MEXCreativeTabs.CREATIVE_TABS.register(modEventBus);
         modEventBus.addListener(MekEXMod::registerCapabilities);
         modEventBus.addListener(MekEXMod::registerTicketControllers);
         modEventBus.addListener(MekEXMod::enqueueIMC);
         modEventBus.addListener(ElectricSkateboardInputPayload::register);
         modEventBus.addListener(ElectricSkateboardGearPayload::register);
+        modEventBus.addListener(StructureBuilderActionPayload::register);
     }
 
     private static void registerTicketControllers(RegisterTicketControllersEvent event) {

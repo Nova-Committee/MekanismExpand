@@ -1,0 +1,10 @@
+{
+  "type": "mek_ex:multiblock_build",
+  "mode": "thermoelectric_boiler",
+  "title_key": "recipe.mek_ex.multiblock.boiler",
+  "min_size": 4,
+  "max_size": 18,
+  "default_size_x": 5,
+  "default_size_y": 6,
+  "default_size_z": 5
+}

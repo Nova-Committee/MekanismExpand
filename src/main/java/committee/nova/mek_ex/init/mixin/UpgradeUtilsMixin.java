@@ -22,6 +22,8 @@ public class UpgradeUtilsMixin {
     private static void onGetItem(Upgrade upgrade, CallbackInfoReturnable<Holder<Item>> cir) {
         if (upgrade == MekEXMod.CAPACITY_UPGRADE_TYPE) {
             cir.setReturnValue(MEXItems.capacity_upgrade);
+        } else if (upgrade == MekEXMod.VOID_UPGRADE_TYPE) {
+            cir.setReturnValue(MEXItems.void_upgrade);
         }
     }
 
@@ -30,6 +32,10 @@ public class UpgradeUtilsMixin {
         if (upgrade == MekEXMod.CAPACITY_UPGRADE_TYPE) {
             cir.setReturnValue(Collections.singletonList(
                     Component.translatable("gui.mek_ex.upgrades.capacity_effect")
+            ));
+        } else if (upgrade == MekEXMod.VOID_UPGRADE_TYPE) {
+            cir.setReturnValue(Collections.singletonList(
+                    Component.translatable("gui.mek_ex.upgrades.void_effect")
             ));
         }
     }

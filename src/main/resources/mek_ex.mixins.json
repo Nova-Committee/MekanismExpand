@@ -9,6 +9,7 @@
     "EnumUtilsMixin",
     "TileEntityMekanismMixin",
     "TileEntityGeneratorMixin",
+    "TileEntityDigitalMinerMixin",
     "ItemTierInstallerMixin",
     "SPSValidatorMixin",
     "SPSMultiblockDataMixin",

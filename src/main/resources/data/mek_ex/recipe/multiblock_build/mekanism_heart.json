@@ -1,0 +1,10 @@
+{
+  "type": "mek_ex:multiblock_build",
+  "mode": "mekanism_heart",
+  "title_key": "recipe.mek_ex.multiblock.mekanism_heart",
+  "min_size": 9,
+  "max_size": 18,
+  "default_size_x": 9,
+  "default_size_y": 18,
+  "default_size_z": 9
+}

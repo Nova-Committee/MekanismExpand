@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": { "tag": "c:glass_blocks/cheap" },
+    "R": { "item": "mekanism:robit" },
+    "T": { "item": "mekanism:teleportation_core" }
+  },
+  "pattern": [
+    " G ",
+    "RTR",
+    " G "
+  ],
+  "result": {
+    "count": 1,
+    "id": "mek_ex:upgrade_void"
+  }
+}

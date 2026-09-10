@@ -23,6 +23,7 @@ public final class MEXCreativeTabs {
             .icon(MEXItems.capacity_upgrade.get()::getDefaultInstance)
             .displayItems((parameters, output) -> {
                 output.accept(MEXItems.capacity_upgrade);
+                output.accept(MEXItems.void_upgrade);
                 output.accept(MEXItems.MODULE_SONAR_DETECTION);
                 output.accept(MEXItems.electric_skateboard);
                 output.accept(MEXBlocks.basic_wind_generator);
@@ -34,8 +35,9 @@ public final class MEXCreativeTabs {
                 output.accept(MEXBlocks.neutron_activator);
                 output.accept(MEXBlocks.environmental_radiation_generator);
                 output.accept(MEXBlocks.antimatter_supercharged_coil);
-                output.accept(MEXBlocks.block_antimatter);
                 output.accept(MEXBlocks.potion_nebulizer);
+                output.accept(MEXBlocks.structure_builder);
+                output.accept(MEXBlocks.block_antimatter);
             })
         .build());
 

@@ -12,6 +12,7 @@ import committee.nova.mek_ex.common.block.entity.TileEntityAntimatterSupercharge
 import committee.nova.mek_ex.common.block.entity.TileEntityEnvironmentalRadiationGenerator;
 import committee.nova.mek_ex.common.block.entity.TileEntityPotionNebulizer;
 import committee.nova.mek_ex.common.block.entity.TileEntityMekanismHeart;
+import committee.nova.mek_ex.common.block.entity.TileEntityStructureBuilder;
 import mekanism.common.capabilities.Capabilities;
 import mekanism.common.registration.impl.TileEntityTypeDeferredRegister;
 import mekanism.common.registration.impl.TileEntityTypeRegistryObject;
@@ -79,4 +80,10 @@ public final class MEXGenTileEntityTypes {
     public static final TileEntityTypeRegistryObject<TileEntityMekanismHeart> BLOCK_ANTIMATTER = TILE_ENTITY_TYPES.mekBuilder(MEXBlocks.block_antimatter, TileEntityMekanismHeart::new)
             .clientTicker(TileEntityMekanism::tickClient).serverTicker(TileEntityMekanism::tickServer)
             .withSimple(Capabilities.CONFIGURABLE).build();
+
+    public static final TileEntityTypeRegistryObject<TileEntityStructureBuilder> STRUCTURE_BUILDER = TILE_ENTITY_TYPES.mekBuilder(MEXBlocks.structure_builder, TileEntityStructureBuilder::new)
+            .clientTicker(TileEntityMekanism::tickClient)
+            .serverTicker(TileEntityMekanism::tickServer)
+            .withSimple(Capabilities.CONFIG_CARD)
+            .build();
 }

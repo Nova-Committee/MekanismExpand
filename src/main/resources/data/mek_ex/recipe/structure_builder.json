@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {"tag": "c:circuits/elite"},
+    "P": {"item": "mekanism:teleportation_core"},
+    "R": {"item": "minecraft:redstone"},
+    "S": {"item": "mekanism:steel_casing"},
+    "T": {"item": "mekanism:configurator"}
+  },
+  "pattern": ["CPC", "RSR", "CTC"],
+  "result": {"count": 1, "id": "mek_ex:structure_builder"}
+}

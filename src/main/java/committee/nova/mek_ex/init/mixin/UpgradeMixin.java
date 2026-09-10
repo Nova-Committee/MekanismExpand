@@ -22,6 +22,7 @@ import mekanism.api.text.ILangEntry;
 import net.minecraft.network.codec.StreamCodec;
 import com.mojang.serialization.Codec;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.util.ByIdMap;
 
 @Mixin(value = Upgrade.class, remap = false)
 public class UpgradeMixin {
@@ -67,36 +68,36 @@ public class UpgradeMixin {
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void clinitInject(CallbackInfo ci) {
         MekEXMod.CAPACITY_UPGRADE_TYPE = createNew(
-                "capacity",
-                MEXAPILang.UPGRADE_CAPACITY,
-                MEXLang.CAPACITY_UPGRADE_DESCRIPTION,
-                4,
-                EnumColor.DARK_GREEN
+              "capacity",
+              MEXAPILang.UPGRADE_CAPACITY,
+              MEXLang.CAPACITY_UPGRADE_DESCRIPTION,
+              4,
+              EnumColor.DARK_GREEN
+        );
+        MekEXMod.VOID_UPGRADE_TYPE = createNew(
+              "void",
+              MEXAPILang.UPGRADE_VOID,
+              MEXLang.VOID_UPGRADE_DESCRIPTION,
+              8,
+              EnumColor.PURPLE
         );
 
-        // Dynamically resolve enum by index to handle runtime expansion and prevent caching issues
-        BY_ID = index -> {
-            Upgrade[] vals = Upgrade.values();
-            int len = vals.length;
-            int r = index % len;
-            return vals[r < 0 ? r + len : r];
-        };
-
+        Upgrade[] values = Upgrade.values();
+        BY_ID = ByIdMap.continuous(Upgrade::ordinal, values, ByIdMap.OutOfBoundsStrategy.WRAP);
         STREAM_CODEC = net.minecraft.network.codec.ByteBufCodecs.idMapper(BY_ID, Upgrade::ordinal);
-
         CODEC = com.mojang.serialization.Codec.STRING.flatXmap(
-                s -> {
-                    for (Upgrade u : Upgrade.values()) {
-                        if (u.getSerializedName().equals(s)) {
-                            return com.mojang.serialization.DataResult.success(u);
-                        }
-                    }
-                    if ("gas".equals(s)) {
-                        return com.mojang.serialization.DataResult.success(Upgrade.CHEMICAL);
-                    }
-                    return com.mojang.serialization.DataResult.error(() -> "Unknown upgrade: " + s);
-                },
-                u -> com.mojang.serialization.DataResult.success(u.getSerializedName())
+              s -> {
+                  for (Upgrade u : Upgrade.values()) {
+                      if (u.getSerializedName().equals(s)) {
+                          return com.mojang.serialization.DataResult.success(u);
+                      }
+                  }
+                  if ("gas".equals(s)) {
+                      return com.mojang.serialization.DataResult.success(Upgrade.CHEMICAL);
+                  }
+                  return com.mojang.serialization.DataResult.error(() -> "Unknown upgrade: " + s);
+              },
+              u -> com.mojang.serialization.DataResult.success(u.getSerializedName())
         );
     }
 }

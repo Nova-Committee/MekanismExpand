@@ -54,6 +54,6 @@ public class APILangMixin {
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void clinitInject(CallbackInfo ci) {
         MEXAPILang.UPGRADE_CAPACITY = createNew("upgrade", "capacity");
-
+        MEXAPILang.UPGRADE_VOID = createNew("upgrade", "void");
     }
 }

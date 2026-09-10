@@ -12,6 +12,7 @@ import committee.nova.mek_ex.common.block.entity.TileEntityAntimatterSupercharge
 import committee.nova.mek_ex.common.block.entity.TileEntityEnvironmentalRadiationGenerator;
 import committee.nova.mek_ex.common.block.entity.TileEntityPotionNebulizer;
 import committee.nova.mek_ex.common.block.entity.TileEntityMekanismHeart;
+import committee.nova.mek_ex.common.block.entity.TileEntityStructureBuilder;
 import committee.nova.mek_ex.common.item.AntimatterSuperchargedCoilItem;
 import committee.nova.mek_ex.common.item.WindGeneratorItem;
 import mekanism.common.attachments.containers.ContainerType;
@@ -89,7 +90,13 @@ public final class MEXBlocks {
                             .addBasic(2)
                             .build()));
 
-
+    public static final BlockRegistryObject<BlockTile.BlockTileModel<TileEntityStructureBuilder, Machine<TileEntityStructureBuilder>>, ItemBlockTooltip<BlockTile.BlockTileModel<TileEntityStructureBuilder, Machine<TileEntityStructureBuilder>>>> structure_builder = BLOCKS.registerDetails("structure_builder",
+          () -> new BlockTile.BlockTileModel<>(MEXBlockTypes.STRUCTURE_BUILDER, properties -> properties.mapColor(MapColor.METAL)))
+          .forItemHolder(holder -> holder
+                .addAttachmentOnlyContainers(ContainerType.ITEM, () -> ItemSlotsBuilder.builder()
+                      .addBasic(TileEntityStructureBuilder.MATERIAL_SLOTS)
+                      .addEnergy()
+                      .build()));
 
     public static void register(IEventBus bus) {
         BLOCKS.register(bus);

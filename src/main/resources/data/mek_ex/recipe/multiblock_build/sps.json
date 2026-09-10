@@ -1,0 +1,12 @@
+{
+  "type": "mek_ex:multiblock_build",
+  "mode": "sps",
+  "title_key": "recipe.mek_ex.multiblock.sps",
+  "min_size": 7,
+  "max_size": 7,
+  "default_size_x": 7,
+  "default_size_y": 7,
+  "default_size_z": 7,
+  "face": "mekanism:structural_glass",
+  "coil": "mekanism:supercharged_coil"
+}

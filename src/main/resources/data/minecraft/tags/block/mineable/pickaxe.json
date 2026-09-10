@@ -11,6 +11,7 @@
     "mek_ex:antimatter_supercharged_coil",
     "mek_ex:block_antimatter",
     "mek_ex:environmental_radiation_generator",
-    "mek_ex:potion_nebulizer"
+    "mek_ex:potion_nebulizer",
+    "mek_ex:structure_builder"
   ]
 }
