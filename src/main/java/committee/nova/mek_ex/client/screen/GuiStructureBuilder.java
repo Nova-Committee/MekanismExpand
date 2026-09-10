@@ -144,7 +144,7 @@ public class GuiStructureBuilder extends GuiConfigurableTile<TileEntityStructure
 
     private void adjustVisibleAxis(int visibleSlot, int delta) {
         int axis = axisAt(visibleSlot);
-        if (axis < 0 || axis >= sizeAxisCount()) {
+        if (axis < 0 || axis >= sizeAxisCount() || !canAdjustAxis(axis, delta)) {
             return;
         }
         MultiblockBuildRecipe recipe = tile.getSelectedRecipe();
@@ -152,38 +152,42 @@ public class GuiStructureBuilder extends GuiConfigurableTile<TileEntityStructure
             return;
         }
         switch (axis) {
-            case AXIS_X -> {
-                if (!recipe.canChangeSizeX()) {
-                    return;
-                }
-                send(StructureBuilderActionPayload.ACTION_SET_SIZE_X,
-                      recipe.clampSize(MultiblockBuildRecipe.SizeAxis.X, tile.getSizeX() + delta));
-            }
-            case AXIS_Y -> {
-                if (!recipe.canChangeSizeY()) {
-                    return;
-                }
-                send(StructureBuilderActionPayload.ACTION_SET_SIZE_Y,
-                      recipe.clampSize(MultiblockBuildRecipe.SizeAxis.Y, tile.getSizeY() + delta));
-            }
-            case AXIS_Z -> {
-                if (!recipe.canChangeSizeZ()) {
-                    return;
-                }
-                send(StructureBuilderActionPayload.ACTION_SET_SIZE_Z,
-                      recipe.clampSize(MultiblockBuildRecipe.SizeAxis.Z, tile.getSizeZ() + delta));
-            }
-            case AXIS_OPT -> {
-                if (!recipe.hasOptionalCount()) {
-                    return;
-                }
-                send(StructureBuilderActionPayload.ACTION_SET_OPTIONAL_COUNT,
-                      recipe.clampOptionalCount(tile.getSizeX(), tile.getSizeY(), tile.getSizeZ(),
-                            tile.getOptionalCount() + delta));
-            }
+            case AXIS_X -> send(StructureBuilderActionPayload.ACTION_SET_SIZE_X,
+                  recipe.adjustSize(MultiblockBuildRecipe.SizeAxis.X, tile.getSizeX(), delta));
+            case AXIS_Y -> send(StructureBuilderActionPayload.ACTION_SET_SIZE_Y,
+                  recipe.adjustSize(MultiblockBuildRecipe.SizeAxis.Y, tile.getSizeY(), delta));
+            case AXIS_Z -> send(StructureBuilderActionPayload.ACTION_SET_SIZE_Z,
+                  recipe.adjustSize(MultiblockBuildRecipe.SizeAxis.Z, tile.getSizeZ(), delta));
+            case AXIS_OPT -> send(StructureBuilderActionPayload.ACTION_SET_OPTIONAL_COUNT,
+                  recipe.clampOptionalCount(tile.getSizeX(), tile.getSizeY(), tile.getSizeZ(),
+                        tile.getOptionalCount() + delta));
             default -> {
             }
         }
+    }
+
+    private boolean canAdjustAxis(int axis, int delta) {
+        if (delta == 0 || !isAxisAdjustable(axis)) {
+            return false;
+        }
+        MultiblockBuildRecipe recipe = tile.getSelectedRecipe();
+        if (recipe == null) {
+            return false;
+        }
+        return switch (axis) {
+            case AXIS_X -> recipe.adjustSize(MultiblockBuildRecipe.SizeAxis.X, tile.getSizeX(), delta)
+                  != tile.getSizeX();
+            case AXIS_Y -> recipe.adjustSize(MultiblockBuildRecipe.SizeAxis.Y, tile.getSizeY(), delta)
+                  != tile.getSizeY();
+            case AXIS_Z -> recipe.adjustSize(MultiblockBuildRecipe.SizeAxis.Z, tile.getSizeZ(), delta)
+                  != tile.getSizeZ();
+            case AXIS_OPT -> {
+                int next = recipe.clampOptionalCount(tile.getSizeX(), tile.getSizeY(), tile.getSizeZ(),
+                      tile.getOptionalCount() + delta);
+                yield next != tile.getOptionalCount();
+            }
+            default -> false;
+        };
     }
 
     private boolean isAxisAdjustable(int axis) {
@@ -232,12 +236,12 @@ public class GuiStructureBuilder extends GuiConfigurableTile<TileEntityStructure
         int count = sizeAxisCount();
         for (int slot = 0; slot < TileEntityStructureBuilder.SIZE_VISIBLE_AXES; slot++) {
             int axis = axisAt(slot);
-            boolean show = axis < count;
-            boolean on = show && isAxisAdjustable(axis);
-            minusButtons.get(slot).visible = on;
-            minusButtons.get(slot).active = on;
-            plusButtons.get(slot).visible = on;
-            plusButtons.get(slot).active = on;
+            boolean show = axis < count && isAxisAdjustable(axis);
+            minusButtons.get(slot).visible = show;
+            plusButtons.get(slot).visible = show;
+            // Enable decrease/increase independently so limits (and odd-size steps) are respected.
+            minusButtons.get(slot).active = show && canAdjustAxis(axis, -1);
+            plusButtons.get(slot).active = show && canAdjustAxis(axis, 1);
         }
     }
 

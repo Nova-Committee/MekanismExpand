@@ -360,7 +360,16 @@ public class TileEntityStructureBuilder extends TileEntityConfigurableMachine {
         if (recipe == null || !recipe.canChangeSize(axis)) {
             return;
         }
-        int clamped = recipe.clampSize(axis, value);
+        int current = switch (axis) {
+            case X -> sizeX;
+            case Y -> sizeY;
+            case Z -> sizeZ;
+        };
+        // Direction-aware clamp so industrial turbine odd axes can both increase and decrease.
+        int clamped = recipe.clampSize(axis, value, Integer.compare(value, current));
+        if (clamped == current) {
+            return;
+        }
         switch (axis) {
             case X -> sizeX = clamped;
             case Y -> sizeY = clamped;

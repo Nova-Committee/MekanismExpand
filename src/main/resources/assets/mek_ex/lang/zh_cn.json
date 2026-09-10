@@ -85,6 +85,7 @@
   "recipe.mek_ex.multiblock.nuclear_control_tank": "核控储罐",
   "recipe.mek_ex.multiblock.fission_reactor": "裂变反应堆",
   "recipe.mek_ex.multiblock.industrial_turbine": "工业涡轮",
+  "recipe.mek_ex.multiblock.industrial_turbine_no_water_return": "工业涡轮（无需回水）",
   "recipe.mek_ex.multiblock.fusion_reactor": "聚变反应堆",
   "recipe.mek_ex.multiblock.mekanism_heart": "通用之心",
 
@@ -96,7 +97,7 @@
   "container.mek_ex.neutron_activator": "中子活化器",
   "container.mek_ex.environmental_radiation_generator": "环境辐射发电机",
   "container.mek_ex.potion_nebulizer": "药水雾化机",
-  "container.mek_ex.multiblocks_builder": "MultiblocksBuilder",
+  "container.mek_ex.multiblocks_builder": "多方块结构建造机",
   "container.mek_ex.electric_skateboard": "电滑板",
 
   "item.mek_ex.upgrade_capacity": "增容升级",

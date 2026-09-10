@@ -79,6 +79,8 @@ public class MultiblockBuildRecipe implements Recipe<RecipeInput> {
     private final Optional<Block> face;
     private final Optional<Block> coil;
     private final boolean useGlass;
+    /** Industrial turbine: place saturating condensers for closed-loop water return. */
+    private final boolean withCondensers;
     private final List<PortSpec> ports;
     private final Optional<StructurePlan> fixedPlan;
 
@@ -95,6 +97,7 @@ public class MultiblockBuildRecipe implements Recipe<RecipeInput> {
           Optional<Block> face,
           Optional<Block> coil,
           boolean useGlass,
+          boolean withCondensers,
           List<PortSpec> ports,
           Optional<StructurePlan> fixedPlan
     ) {
@@ -110,6 +113,7 @@ public class MultiblockBuildRecipe implements Recipe<RecipeInput> {
         this.face = face;
         this.coil = coil;
         this.useGlass = useGlass;
+        this.withCondensers = withCondensers;
         this.ports = List.copyOf(ports);
         this.fixedPlan = fixedPlan;
         validate();
@@ -217,15 +221,51 @@ public class MultiblockBuildRecipe implements Recipe<RecipeInput> {
         return minSize(axis) < maxSize(axis);
     }
 
+    /**
+     * Step used when adjusting a size axis with +/- controls.
+     * Industrial turbine width/depth must stay odd, so those axes move by 2.
+     */
+    public int sizeStep(SizeAxis axis) {
+        if (mode == Mode.INDUSTRIAL_TURBINE && axis != SizeAxis.Y) {
+            return 2;
+        }
+        return 1;
+    }
+
+    /**
+     * Apply a +/- adjustment from the current size, respecting min/max and mode step rules.
+     */
+    public int adjustSize(SizeAxis axis, int current, int delta) {
+        if (delta == 0) {
+            return clampSize(axis, current);
+        }
+        return clampSize(axis, current + delta * sizeStep(axis), delta);
+    }
+
     public int clampSize(SizeAxis axis, int value) {
+        return clampSize(axis, value, 0);
+    }
+
+    /**
+     * @param direction hint for resolving even values on odd-only axes:
+     *                  negative prefers decrease, positive prefers increase,
+     *                  zero sanitizes toward the lower valid odd size (same as structure assembly).
+     */
+    public int clampSize(SizeAxis axis, int value, int direction) {
         int min = minSize(axis);
         int max = maxSize(axis);
         int clamped = Mth.clamp(value, min, max);
-        if (mode == Mode.INDUSTRIAL_TURBINE && axis != SizeAxis.Y && clamped % 2 == 0) {
-            if (clamped + 1 <= max) {
-                clamped++;
-            } else if (clamped - 1 >= min) {
-                clamped--;
+        if (mode == Mode.INDUSTRIAL_TURBINE && axis != SizeAxis.Y && (clamped & 1) == 0) {
+            int down = clamped - 1;
+            int up = clamped + 1;
+            boolean canDown = down >= min;
+            boolean canUp = up <= max;
+            if (direction < 0) {
+                clamped = canDown ? down : (canUp ? up : clamped);
+            } else if (direction > 0) {
+                clamped = canUp ? up : (canDown ? down : clamped);
+            } else {
+                clamped = canDown ? down : (canUp ? up : clamped);
             }
         }
         return clamped;
@@ -260,7 +300,7 @@ public class MultiblockBuildRecipe implements Recipe<RecipeInput> {
                   opt
             );
             case FUSION_REACTOR -> StructureAssemblers.fusionReactor();
-            case INDUSTRIAL_TURBINE -> StructureAssemblers.industrialTurbine(sx, sy, sz, opt);
+            case INDUSTRIAL_TURBINE -> StructureAssemblers.industrialTurbine(sx, sy, sz, opt, withCondensers);
             case FISSION_REACTOR -> StructureAssemblers.fissionReactor(sx, sy, sz);
             case THERMOELECTRIC_BOILER -> StructureAssemblers.thermoelectricBoiler(sx, sy, sz, opt);
             case INDUCTION_MATRIX -> StructureAssemblers.inductionMatrix(sx, sy, sz, opt);
@@ -380,6 +420,7 @@ public class MultiblockBuildRecipe implements Recipe<RecipeInput> {
           BuiltInRegistries.BLOCK.byNameCodec().optionalFieldOf("face").forGetter(r -> r.face),
           BuiltInRegistries.BLOCK.byNameCodec().optionalFieldOf("coil").forGetter(r -> r.coil),
           Codec.BOOL.optionalFieldOf("use_glass", true).forGetter(r -> r.useGlass),
+          Codec.BOOL.optionalFieldOf("with_condensers", true).forGetter(r -> r.withCondensers),
           PortSpec.CODEC.listOf().optionalFieldOf("ports", List.of()).forGetter(r -> r.ports),
           StructurePlan.CODEC.optionalFieldOf("plan").forGetter(r -> r.fixedPlan)
     ).apply(instance, MultiblockBuildRecipe::new));
@@ -402,6 +443,7 @@ public class MultiblockBuildRecipe implements Recipe<RecipeInput> {
         writeOptionalBlock(buf, recipe.face);
         writeOptionalBlock(buf, recipe.coil);
         buf.writeBoolean(recipe.useGlass);
+        buf.writeBoolean(recipe.withCondensers);
         buf.writeVarInt(recipe.ports.size());
         for (PortSpec port : recipe.ports) {
             buf.writeEnum(port.face());
@@ -424,6 +466,7 @@ public class MultiblockBuildRecipe implements Recipe<RecipeInput> {
         Optional<Block> face = readOptionalBlock(buf);
         Optional<Block> coil = readOptionalBlock(buf);
         boolean useGlass = buf.readBoolean();
+        boolean withCondensers = buf.readBoolean();
         int portCount = buf.readVarInt();
         List<PortSpec> ports = new ArrayList<>(portCount);
         for (int i = 0; i < portCount; i++) {
@@ -432,7 +475,8 @@ public class MultiblockBuildRecipe implements Recipe<RecipeInput> {
             ports.add(new PortSpec(faceDir, block));
         }
         Optional<StructurePlan> plan = buf.readBoolean() ? Optional.of(StructurePlan.STREAM_CODEC.decode(buf)) : Optional.empty();
-        return new MultiblockBuildRecipe(mode, titleKey, minSize, maxSize, dx, dy, dz, frame, wall, face, coil, useGlass, ports, plan);
+        return new MultiblockBuildRecipe(mode, titleKey, minSize, maxSize, dx, dy, dz, frame, wall, face, coil,
+              useGlass, withCondensers, ports, plan);
     }
 
     private static void writeOptionalBlock(RegistryFriendlyByteBuf buf, Optional<Block> block) {

@@ -85,6 +85,7 @@
   "recipe.mek_ex.multiblock.nuclear_control_tank": "Nuclear Control Tank",
   "recipe.mek_ex.multiblock.fission_reactor": "Fission Reactor",
   "recipe.mek_ex.multiblock.industrial_turbine": "Industrial Turbine",
+  "recipe.mek_ex.multiblock.industrial_turbine_no_water_return": "Industrial Turbine (No Water Return)",
   "recipe.mek_ex.multiblock.fusion_reactor": "Fusion Reactor",
   "recipe.mek_ex.multiblock.mekanism_heart": "Mekanism Heart",
 

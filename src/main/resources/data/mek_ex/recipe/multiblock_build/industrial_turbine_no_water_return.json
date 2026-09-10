@@ -1,0 +1,11 @@
+{
+  "type": "mek_ex:multiblock_build",
+  "mode": "industrial_turbine",
+  "title_key": "recipe.mek_ex.multiblock.industrial_turbine_no_water_return",
+  "min_size": 5,
+  "max_size": 18,
+  "default_size_x": 5,
+  "default_size_y": 9,
+  "default_size_z": 5,
+  "with_condensers": false
+}

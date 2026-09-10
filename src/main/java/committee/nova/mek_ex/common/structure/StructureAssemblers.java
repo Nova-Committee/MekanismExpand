@@ -195,10 +195,19 @@ public final class StructureAssemblers {
     }
 
     public static StructurePlan industrialTurbine(int sizeX, int sizeY, int sizeZ) {
-        return industrialTurbine(sizeX, sizeY, sizeZ, -1);
+        return industrialTurbine(sizeX, sizeY, sizeZ, -1, true);
     }
 
     public static StructurePlan industrialTurbine(int sizeX, int sizeY, int sizeZ, int rotorCountHint) {
+        return industrialTurbine(sizeX, sizeY, sizeZ, rotorCountHint, true);
+    }
+
+    /**
+     * @param withCondensers when false, only electromagnetic coils are placed above the complex
+     *                       (open-loop / vented steam, no water return via saturating condensers).
+     */
+    public static StructurePlan industrialTurbine(int sizeX, int sizeY, int sizeZ, int rotorCountHint,
+          boolean withCondensers) {
         sizeX = oddClamp(sizeX, 5, 17);
         sizeZ = oddClamp(sizeZ, 5, 17);
         sizeY = Mth.clamp(sizeY, 5, 18);
@@ -272,7 +281,7 @@ public final class StructureAssemblers {
         int blades = rotors * 2;
         int neededCoils = Math.max(1, (blades + TURBINE_BLADES_PER_COIL - 1) / TURBINE_BLADES_PER_COIL);
         placeTurbineCoilsAndCondensers(entries, sizeX, sizeY, sizeZ, cx, cz, coilStartY,
-              neededCoils, coilState, condenserState);
+              neededCoils, coilState, condenserState, withCondensers);
 
         return plan(sizeX, sizeY, sizeZ, entries);
     }
@@ -282,7 +291,8 @@ public final class StructureAssemblers {
           int sizeX, int sizeY, int sizeZ,
           int cx, int cz, int startY,
           int neededCoils,
-          BlockState coilState, BlockState condenserState
+          BlockState coilState, BlockState condenserState,
+          boolean withCondensers
     ) {
         List<int[]> upperSlots = new ArrayList<>();
         for (int y = startY; y < sizeY - 1; y++) {
@@ -302,7 +312,7 @@ public final class StructureAssemblers {
             if (coilsPlaced < neededCoils) {
                 entries.add(entry(slot[0], slot[1], slot[2], coilState));
                 coilsPlaced++;
-            } else {
+            } else if (withCondensers) {
                 entries.add(entry(slot[0], slot[1], slot[2], condenserState));
             }
         }

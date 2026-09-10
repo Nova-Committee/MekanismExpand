@@ -2,19 +2,28 @@ package committee.nova.mek_ex.client.screen.element;
 
 import committee.nova.mek_ex.init.enums.MEXLang;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.IntSupplier;
 import java.util.function.Supplier;
 import mekanism.client.gui.IGuiWrapper;
 import mekanism.client.gui.element.GuiElement;
 import mekanism.client.gui.tooltip.TooltipUtils;
+import mekanism.client.recipe_viewer.interfaces.IRecipeViewerIngredientHelper;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class GuiStructureMaterialSlot extends GuiElement {
+/**
+ * Required-material icon for the structure builder. Implements
+ * {@link IRecipeViewerIngredientHelper} so JEI/EMI can show recipes (R), usages (U),
+ * and bookmarks (A) when hovering the rendered item, same as normal inventory slots.
+ */
+public class GuiStructureMaterialSlot extends GuiElement implements IRecipeViewerIngredientHelper {
 
     private final Supplier<Item> itemSupplier;
     private final IntSupplier needSupplier;
@@ -38,7 +47,7 @@ public class GuiStructureMaterialSlot extends GuiElement {
 
     public void renderIcon(@NotNull GuiGraphics guiGraphics) {
         Item item = itemSupplier.get();
-        if (item == null) {
+        if (item == null || item == Items.AIR) {
             return;
         }
         gui().renderItem(guiGraphics, new ItemStack(item), relativeX, relativeY);
@@ -55,7 +64,7 @@ public class GuiStructureMaterialSlot extends GuiElement {
         lastItem = item;
         lastNeed = need;
         lastHave = have;
-        if (item == null) {
+        if (item == null || item == Items.AIR) {
             clearTooltip();
             return;
         }
@@ -67,6 +76,21 @@ public class GuiStructureMaterialSlot extends GuiElement {
     }
 
     public boolean hasItem() {
-        return itemSupplier.get() != null;
+        Item item = itemSupplier.get();
+        return item != null && item != Items.AIR;
+    }
+
+    @Override
+    public Optional<?> getIngredient(double mouseX, double mouseY) {
+        Item item = itemSupplier.get();
+        if (item == null || item == Items.AIR) {
+            return Optional.empty();
+        }
+        return Optional.of(new ItemStack(item));
+    }
+
+    @Override
+    public Rect2i getIngredientBounds(double mouseX, double mouseY) {
+        return new Rect2i(getX(), getY(), width, height);
     }
 }
