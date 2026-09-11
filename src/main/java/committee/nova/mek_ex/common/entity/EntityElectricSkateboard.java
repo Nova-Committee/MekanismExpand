@@ -714,7 +714,7 @@ public class EntityElectricSkateboard extends Entity implements HasCustomInvento
     protected void positionRider(@NotNull Entity passenger, @NotNull MoveFunction callback) {
         int index = getPassengers().indexOf(passenger);
         double offset = index == 0 ? 0.0D : -1.5D;
-        Vec3 pos = position().add(0, 0.05D, 0).add(getForward().scale(offset));
+        Vec3 pos = position().add(0, 0.2D, 0).add(getForward().scale(offset));
         callback.accept(passenger, pos.x, pos.y, pos.z);
         clampPassengerRotation(passenger);
     }
