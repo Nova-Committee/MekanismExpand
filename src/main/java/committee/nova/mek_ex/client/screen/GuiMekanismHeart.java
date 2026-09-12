@@ -6,6 +6,8 @@ import committee.nova.mek_ex.common.inventory.container.MekanismHeartContainer;
 import mekanism.client.gui.GuiMekanismTile;
 import mekanism.client.gui.element.GuiInnerScreen;
 import mekanism.client.gui.element.button.MekanismButton;
+import mekanism.client.gui.element.text.GuiTextField;
+import mekanism.common.util.text.InputValidator;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -16,7 +18,7 @@ import java.util.List;
 public class GuiMekanismHeart extends GuiMekanismTile<TileEntityMekanismHeart, MekanismHeartContainer> {
     public GuiMekanismHeart(MekanismHeartContainer container, Inventory inv, Component title) {
         super(container, inv, title);
-        imageHeight = 130;
+        imageHeight = 150;
         inventoryLabelY = imageHeight - 94;
     }
     @Override protected void addGuiElements() {
@@ -31,9 +33,23 @@ public class GuiMekanismHeart extends GuiMekanismTile<TileEntityMekanismHeart, M
         addRenderableWidget(new MekanismButton(this, 54, 68, 40, 18, Component.literal("+"), (e, x, y) -> {
             send(MekanismHeartActionPayload.SET_RANGE, tile.getMultiblock().getTransferRange() + 1); return true;
         }));
+        GuiTextField machine = addRenderableWidget(new GuiTextField(this, 8, 92, 140, 18));
+        machine.setMaxLength(128);
+        machine.setInputValidator(InputValidator.RESOURCE_LOCATION);
+        addRenderableWidget(new MekanismButton(this, 8, 112, 140, 18, Component.literal("Toggle machine"), (e, x, y) -> {
+            String id = machine.getText().trim();
+            if (!id.isEmpty()) {
+                send(MekanismHeartActionPayload.TOGGLE_MACHINE, 0, id);
+                machine.setText("");
+            }
+            return true;
+        }));
     }
     private void send(int action, int value) {
-        PacketDistributor.sendToServer(new MekanismHeartActionPayload(tile.getBlockPos(), action, value, ""));
+        send(action, value, "");
+    }
+    private void send(int action, int value, String machineId) {
+        PacketDistributor.sendToServer(new MekanismHeartActionPayload(tile.getBlockPos(), action, value, machineId));
     }
     @Override protected void drawForegroundText(@NotNull GuiGraphics graphics, int mouseX, int mouseY) {
         renderTitleText(graphics); renderInventoryText(graphics); super.drawForegroundText(graphics, mouseX, mouseY);

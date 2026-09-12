@@ -4,8 +4,6 @@ import committee.nova.mek_ex.common.content.sonar.SonarFilter;
 import committee.nova.mek_ex.common.content.sonar.SonarItemStackFilter;
 import committee.nova.mek_ex.common.content.sonar.SonarEntityIDFilter;
 import committee.nova.mek_ex.common.content.sonar.SonarEntityTagFilter;
-import committee.nova.mek_ex.common.content.sonar.SonarEntityIDFilter;
-import committee.nova.mek_ex.common.content.sonar.SonarEntityTagFilter;
 import committee.nova.mek_ex.common.content.sonar.SonarModIDFilter;
 import committee.nova.mek_ex.common.content.sonar.SonarTagFilter;
 import committee.nova.mek_ex.common.gear.config.ModuleSonarFiltersConfig;
