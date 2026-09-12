@@ -202,10 +202,10 @@ public final class StructureAssemblers {
         return industrialTurbine(sizeX, sizeY, sizeZ, rotorCountHint, true);
     }
 
-    /**
-     * @param withCondensers when false, only electromagnetic coils are placed above the complex
-     *                       (open-loop / vented steam, no water return via saturating condensers).
-     */
+
+
+
+
     public static StructurePlan industrialTurbine(int sizeX, int sizeY, int sizeZ, int rotorCountHint,
           boolean withCondensers) {
         sizeX = oddClamp(sizeX, 5, 17);

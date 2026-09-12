@@ -13,7 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.entity.PartEntity;
 import org.jetbrains.annotations.Nullable;
 
-/** Hitbox segment repositioned with board yaw for F3+B multipart rendering. */
+
 public final class ElectricSkateboardPart extends PartEntity<EntityElectricSkateboard> {
     private final EntityDimensions size;
 

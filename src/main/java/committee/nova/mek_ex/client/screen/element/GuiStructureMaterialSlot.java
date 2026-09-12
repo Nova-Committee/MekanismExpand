@@ -18,11 +18,11 @@ import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-/**
- * Required-material icon for the structure builder. Implements
- * {@link IRecipeViewerIngredientHelper} so JEI/EMI can show recipes (R), usages (U),
- * and bookmarks (A) when hovering the rendered item, same as normal inventory slots.
- */
+
+
+
+
+
 public class GuiStructureMaterialSlot extends GuiElement implements IRecipeViewerIngredientHelper {
 
     private final Supplier<Item> itemSupplier;

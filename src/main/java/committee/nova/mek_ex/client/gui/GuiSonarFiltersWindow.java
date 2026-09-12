@@ -2,6 +2,10 @@ package committee.nova.mek_ex.client.gui;
 
 import committee.nova.mek_ex.common.content.sonar.SonarFilter;
 import committee.nova.mek_ex.common.content.sonar.SonarItemStackFilter;
+import committee.nova.mek_ex.common.content.sonar.SonarEntityIDFilter;
+import committee.nova.mek_ex.common.content.sonar.SonarEntityTagFilter;
+import committee.nova.mek_ex.common.content.sonar.SonarEntityIDFilter;
+import committee.nova.mek_ex.common.content.sonar.SonarEntityTagFilter;
 import committee.nova.mek_ex.common.content.sonar.SonarModIDFilter;
 import committee.nova.mek_ex.common.content.sonar.SonarTagFilter;
 import committee.nova.mek_ex.common.gear.config.ModuleSonarFiltersConfig;
@@ -39,7 +43,7 @@ public class GuiSonarFiltersWindow extends GuiWindow {
 
     public GuiSonarFiltersWindow(IGuiWrapper gui, int x, int y, IModule<?> module, int slotIndex, List<SonarFilter<?>> current,
           Consumer<ModuleSonarFiltersConfig> onSaved) {
-        super(gui, x, y, 176, 166, WindowType.UNSPECIFIED);
+        super(gui, x, y, 176, 186, WindowType.UNSPECIFIED);
         this.module = module;
         this.slotIndex = slotIndex;
         this.onSaved = onSaved;
@@ -67,6 +71,8 @@ public class GuiSonarFiltersWindow extends GuiWindow {
             showTextField();
             return true;
         }));
+        addChild(new TranslationButton(gui(), relativeX + 6, relativeY + 158, 80, 16, MEXLang.SONAR_ADD_ENTITY_ID, (e, mx, my) -> { mode = Mode.ADD_ENTITY_ID; showTextField(); return true; }));
+        addChild(new TranslationButton(gui(), relativeX + 90, relativeY + 158, 80, 16, MEXLang.SONAR_ADD_ENTITY_TAG, (e, mx, my) -> { mode = Mode.ADD_ENTITY_TAG; showTextField(); return true; }));
         addChild(new TranslationButton(gui(), relativeX + 6, relativeY + 140, 52, 16, MEXLang.SONAR_TOGGLE, (e, mx, my) -> {
             if (selected >= 0 && selected < filters.size()) {
                 SonarFilter<?> filter = filters.get(selected);
@@ -129,6 +135,12 @@ public class GuiSonarFiltersWindow extends GuiWindow {
             filter.setModID(text);
             filters.add(filter);
             save();
+        } else if (mode == Mode.ADD_ENTITY_ID) {
+            ResourceLocation id = ResourceLocation.tryParse(text);
+            if (id == null || BuiltInRegistries.ENTITY_TYPE.getOptional(id).isEmpty()) return;
+            SonarEntityIDFilter filter = new SonarEntityIDFilter(); filter.setEntityID(text); filters.add(filter); save();
+        } else if (mode == Mode.ADD_ENTITY_TAG) {
+            SonarEntityTagFilter filter = new SonarEntityTagFilter(); filter.setTagName(text); filters.add(filter); save();
         }
         textField.setText("");
         textField.setVisible(false);
@@ -180,6 +192,8 @@ public class GuiSonarFiltersWindow extends GuiWindow {
             }
             case SonarTagFilter tag -> Component.literal(prefix + "Tag: " + tag.getTagName());
             case SonarModIDFilter mod -> Component.literal(prefix + "Mod: " + mod.getModID());
+            case SonarEntityIDFilter id -> Component.literal(prefix + "Entity: " + id.getEntityID());
+            case SonarEntityTagFilter tag -> Component.literal(prefix + "Entity Tag: " + tag.getTagName());
             default -> Component.literal(prefix + filter.getType().getSerializedName());
         };
     }
@@ -189,5 +203,6 @@ public class GuiSonarFiltersWindow extends GuiWindow {
         ADD_ITEM,
         ADD_TAG,
         ADD_MODID
+        , ADD_ENTITY_ID, ADD_ENTITY_TAG
     }
 }

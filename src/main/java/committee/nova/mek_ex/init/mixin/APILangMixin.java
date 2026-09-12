@@ -36,7 +36,7 @@ public class APILangMixin {
         int index = $VALUES.length;
         String name = Util.makeDescriptionId(type, ResourceLocation.fromNamespaceAndPath("mek_ex", path));
 
-        // Build internal name: e.g. UPGRADE_RADIOACTIVE, UPGRADE_RADIOACTIVE_DESC
+
         String internal = type.toUpperCase();
         String[] paths = path.split("\\.");
         for (String s : paths) {

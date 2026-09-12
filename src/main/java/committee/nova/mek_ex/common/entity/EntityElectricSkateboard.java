@@ -331,7 +331,7 @@ public class EntityElectricSkateboard extends Entity implements HasCustomInvento
         return false;
     }
 
-    /** Yaw-oriented board OBB vs block AABB via separating axes (world X/Y/Z + board right/forward). */
+
     private static boolean obbIntersectsAabb(double x, double y, double z, float yawDegrees, AABB block) {
         double halfLength = BOARD_LENGTH * 0.5D;
         double halfWidth = BOARD_WIDTH * 0.5D;
@@ -581,7 +581,7 @@ public class EntityElectricSkateboard extends Entity implements HasCustomInvento
         double maxForward = getMaxForwardSpeed();
         double maxReverse = getMaxReverseSpeed();
 
-        // Positive yaw turns right in Minecraft; A (left) must decrease yaw.
+
         float steering = (inputRight ? 1F : 0F) - (inputLeft ? 1F : 0F);
         entityData.set(STEERING, steering);
         if (steering != 0F) {

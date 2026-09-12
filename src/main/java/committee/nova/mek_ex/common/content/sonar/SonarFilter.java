@@ -10,6 +10,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.Entity;
 
 public abstract class SonarFilter<FILTER extends SonarFilter<FILTER>> {
     public static final Codec<SonarFilter<?>> GENERIC_CODEC = Codec.lazyInitialized(
@@ -72,6 +73,10 @@ public abstract class SonarFilter<FILTER extends SonarFilter<FILTER>> {
     }
 
     public abstract boolean canFilter(BlockState state);
+
+    public boolean canFilter(Entity entity) {
+        return false;
+    }
 
     public abstract SonarFilterType getType();
 

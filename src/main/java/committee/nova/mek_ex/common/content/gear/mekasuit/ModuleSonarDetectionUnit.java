@@ -14,6 +14,7 @@ import mekanism.api.gear.IModuleHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -31,6 +32,11 @@ public record ModuleSonarDetectionUnit(List<SonarFilter<?>> filters) implements 
             return 0;
         }
         return 4 << Math.min(installedCount, 4) - 1;
+    }
+
+    public boolean matches(Entity entity) {
+        for (SonarFilter<?> filter : filters) if (filter.isEnabled() && filter.hasFilter() && filter.canFilter(entity)) return true;
+        return false;
     }
 
     public boolean matches(BlockState state) {

@@ -324,8 +324,8 @@ public class TileEntityEnvironmentalRadiationGenerator extends TileEntityConfigu
               ? 0D
               : requestedWithFraction - requestedJoules;
         if (requestedJoules <= 0L) {
-            // The sub-Joule value remains in conversionGenerationFraction, so the
-            // radiation can continue decaying without losing its eventual output.
+
+
             neutralizeRadiation(neutralized);
             return;
         }

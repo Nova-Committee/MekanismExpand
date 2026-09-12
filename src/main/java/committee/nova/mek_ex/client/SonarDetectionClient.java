@@ -92,7 +92,7 @@ public final class SonarDetectionClient {
     }
 
     public static void render(RenderLevelStageEvent event) {
-        // Must run before vanilla flushes the outline buffer (after block entities).
+
         if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_ENTITIES) {
             return;
         }
@@ -110,8 +110,8 @@ public final class SonarDetectionClient {
             return;
         }
 
-        // Same path as glowing potion: write silhouettes into the outline target, then
-        // let entity_outline post-processing produce see-through world-aligned edges.
+
+
         OutlineBufferSource outlines = minecraft.renderBuffers().outlineBufferSource();
         outlines.setColor(OUTLINE_R, OUTLINE_G, OUTLINE_B, OUTLINE_A);
         VertexConsumer consumer = outlines.getBuffer(RenderType.outline(WHITE_TEXTURE));
@@ -137,32 +137,32 @@ public final class SonarDetectionClient {
         float y1 = y0 + 1.0F;
         float z1 = z0 + 1.0F;
 
-        // -X
+
         vertex(consumer, pose, x0, y0, z0);
         vertex(consumer, pose, x0, y1, z0);
         vertex(consumer, pose, x0, y1, z1);
         vertex(consumer, pose, x0, y0, z1);
-        // +X
+
         vertex(consumer, pose, x1, y0, z1);
         vertex(consumer, pose, x1, y1, z1);
         vertex(consumer, pose, x1, y1, z0);
         vertex(consumer, pose, x1, y0, z0);
-        // -Y
+
         vertex(consumer, pose, x0, y0, z1);
         vertex(consumer, pose, x1, y0, z1);
         vertex(consumer, pose, x1, y0, z0);
         vertex(consumer, pose, x0, y0, z0);
-        // +Y
+
         vertex(consumer, pose, x0, y1, z0);
         vertex(consumer, pose, x1, y1, z0);
         vertex(consumer, pose, x1, y1, z1);
         vertex(consumer, pose, x0, y1, z1);
-        // -Z
+
         vertex(consumer, pose, x1, y0, z0);
         vertex(consumer, pose, x1, y1, z0);
         vertex(consumer, pose, x0, y1, z0);
         vertex(consumer, pose, x0, y0, z0);
-        // +Z
+
         vertex(consumer, pose, x0, y0, z1);
         vertex(consumer, pose, x0, y1, z1);
         vertex(consumer, pose, x1, y1, z1);
@@ -170,7 +170,7 @@ public final class SonarDetectionClient {
     }
 
     private static void vertex(VertexConsumer consumer, Matrix4f pose, float x, float y, float z) {
-        // Color is forced by OutlineBufferSource; UV samples white.png (non-zero alpha).
+
         consumer.addVertex(pose, x, y, z).setUv(0.0F, 0.0F);
     }
 

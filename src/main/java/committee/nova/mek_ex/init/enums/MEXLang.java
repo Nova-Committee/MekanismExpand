@@ -38,6 +38,8 @@ public enum MEXLang implements ILangEntry {
     SONAR_ADD_ITEM("gui", "sonar_add_item"),
     SONAR_ADD_TAG("gui", "sonar_add_tag"),
     SONAR_ADD_MODID("gui", "sonar_add_modid"),
+    SONAR_ADD_ENTITY_ID("gui", "sonar_add_entity_id"),
+    SONAR_ADD_ENTITY_TAG("gui", "sonar_add_entity_tag"),
     SONAR_TOGGLE("gui", "sonar_toggle"),
     SONAR_REMOVE("gui", "sonar_remove"),
     SONAR_DONE("gui", "sonar_done"),

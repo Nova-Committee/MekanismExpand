@@ -6,14 +6,14 @@ import snownee.jade.api.IWailaCommonRegistration;
 import snownee.jade.api.IWailaPlugin;
 import snownee.jade.api.WailaPlugin;
 
-/**
- * Jade compatibility mirroring Mekanism's looking-at energy display for entities like the Robit:
- * show Mekanism-style green energy and hide Jade's universal NeoForge energy bar.
- *
- * <p>Do not call {@code addConfig(LookingAtUtils.ENERGY)} here — Mekanism already registers that
- * option. Re-registering it crashes Jade during resource reload and prevents our client components
- * from being registered, leaving Jade's default NeoForge energy bar in place.
- */
+
+
+
+
+
+
+
+
 @WailaPlugin
 public class MekEXJadePlugin implements IWailaPlugin {
     @Override

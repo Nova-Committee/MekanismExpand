@@ -20,7 +20,7 @@ public class EnumUtilsMixin {
 
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void clinitInject(CallbackInfo ci) {
-        // Force loading Upgrade class first to ensure UpgradeMixin runs before EnumUtils caching
+
         Upgrade.values();
         UPGRADES = Upgrade.values();
     }

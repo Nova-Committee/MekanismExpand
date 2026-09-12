@@ -30,10 +30,18 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.chunk.LevelChunk;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 
 public class MekanismHeartMultiblockData extends MultiblockData {
+
+    public static final int DEFAULT_TRANSFER_RANGE = 18;
+    public static final int MIN_TRANSFER_RANGE = 1;
+    public static final int MAX_TRANSFER_RANGE = 128;
 
     public static final long CREATIVE_ENERGY = Long.MAX_VALUE;
 
@@ -45,6 +53,11 @@ public class MekanismHeartMultiblockData extends MultiblockData {
     private long lastOutput;
     @ContainerSync
     private int receiverCount;
+    @ContainerSync
+    private int syncedTransferRange = DEFAULT_TRANSFER_RANGE;
+
+    private int transferRange = DEFAULT_TRANSFER_RANGE;
+    private final Set<ResourceLocation> excludedMachines = new HashSet<>();
 
     private BlockPos center = BlockPos.ZERO;
     private int cellCount;
@@ -95,6 +108,44 @@ public class MekanismHeartMultiblockData extends MultiblockData {
 
     public int getProviderCount() {
         return providerCount;
+    }
+
+    public int getTransferRange() {
+        return transferRange;
+    }
+
+    public void setTransferRange(int range) {
+        int clamped = Math.max(MIN_TRANSFER_RANGE, Math.min(MAX_TRANSFER_RANGE, range));
+        if (transferRange != clamped) {
+            transferRange = clamped;
+            syncedTransferRange = clamped;
+            cachedReceivers.clear();
+            cachedMultiblockAnchors.clear();
+            markDirty();
+        }
+    }
+
+    public Set<ResourceLocation> getExcludedMachines() {
+        return Set.copyOf(excludedMachines);
+    }
+
+    public void setExcludedMachines(Set<ResourceLocation> values) {
+        excludedMachines.clear();
+        excludedMachines.addAll(values);
+        cachedReceivers.clear();
+        cachedMultiblockAnchors.clear();
+        markDirty();
+    }
+
+    public void toggleExcludedMachine(ResourceLocation id) {
+        if (!excludedMachines.add(id)) excludedMachines.remove(id);
+        cachedReceivers.clear();
+        cachedMultiblockAnchors.clear();
+        markDirty();
+    }
+
+    private boolean isExcluded(BlockEntity tile) {
+        return excludedMachines.contains(BuiltInRegistries.BLOCK.getKey(tile.getBlockState().getBlock()));
     }
 
     @Override
@@ -225,6 +276,9 @@ public class MekanismHeartMultiblockData extends MultiblockData {
                     if (be == null || be instanceof committee.nova.mek_ex.common.block.entity.TileEntityMekanismHeart) {
                         continue;
                     }
+                    if (isExcluded(be)) {
+                        continue;
+                    }
                     MultiblockData multiblock = resolveEnergyMultiblock(be);
                     if (multiblock != null && multiblock != this && !(multiblock instanceof MekanismHeartMultiblockData)) {
                         if (multiblock.inventoryID != null) {
@@ -315,7 +369,7 @@ public class MekanismHeartMultiblockData extends MultiblockData {
     }
 
     public AABB transferBox() {
-        int half = MekanismHeartTemplate.TRANSFER_RANGE / 2;
+        int half = transferRange / 2;
         return new AABB(
               center.getX() - half,
               center.getY() - half,
@@ -324,6 +378,19 @@ public class MekanismHeartMultiblockData extends MultiblockData {
               center.getY() + half + 1,
               center.getZ() + half + 1
         );
+    }
+
+    @Override
+    public void readUpdateTag(CompoundTag tag, HolderLookup.Provider provider) {
+        super.readUpdateTag(tag, provider);
+        transferRange = Math.max(MIN_TRANSFER_RANGE, Math.min(MAX_TRANSFER_RANGE, tag.getInt("TransferRange")));
+        syncedTransferRange = transferRange;
+    }
+
+    @Override
+    public void writeUpdateTag(CompoundTag tag, HolderLookup.Provider provider) {
+        super.writeUpdateTag(tag, provider);
+        tag.putInt("TransferRange", transferRange);
     }
 
     public List<ChunkPos> getForcedChunks() {

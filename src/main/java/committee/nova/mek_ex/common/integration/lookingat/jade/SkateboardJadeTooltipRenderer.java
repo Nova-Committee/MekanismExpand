@@ -13,9 +13,9 @@ import snownee.jade.api.ITooltip;
 import snownee.jade.api.config.IPluginConfig;
 import snownee.jade.api.ui.Element;
 
-/**
- * Renders Mekanism-style green energy for the electric skateboard.
- */
+
+
+
 public class SkateboardJadeTooltipRenderer implements IEntityComponentProvider {
     static final SkateboardJadeTooltipRenderer INSTANCE = new SkateboardJadeTooltipRenderer();
 

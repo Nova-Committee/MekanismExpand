@@ -8,9 +8,9 @@ import snownee.jade.api.JadeIds;
 import snownee.jade.api.TooltipPosition;
 import snownee.jade.api.config.IPluginConfig;
 
-/**
- * Removes Jade's NeoForge/universal energy bar so Mekanism-style energy can replace it.
- */
+
+
+
 public class SkateboardJadeBuiltinRemover implements IEntityComponentProvider {
     static final SkateboardJadeBuiltinRemover INSTANCE = new SkateboardJadeBuiltinRemover();
 
@@ -31,7 +31,7 @@ public class SkateboardJadeBuiltinRemover implements IEntityComponentProvider {
 
     @Override
     public int getDefaultPriority() {
-        // Run after providers that add the universal NeoForge energy display.
+
         return TooltipPosition.TAIL;
     }
 }

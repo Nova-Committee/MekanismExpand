@@ -103,7 +103,7 @@ public class TileEntityStructureBuilder extends TileEntityConfigurableMachine {
         super(MEXBlocks.multiblocks_builder, pos, state);
         configComponent.setupItemIOConfig(new ArrayList<>(materialSlots), Collections.emptyList(), energySlot, true);
         ConfigInfo energyConfig = configComponent.setupInputConfig(TransmissionType.ENERGY, energyContainer);
-        // Front is the build face — never accept energy from there.
+
         energyConfig.addDisabledSides(RelativeSide.FRONT);
         ejectorComponent = new TileComponentEjector(this).setOutputData(configComponent, TransmissionType.ITEM);
     }
@@ -365,7 +365,7 @@ public class TileEntityStructureBuilder extends TileEntityConfigurableMachine {
             case Y -> sizeY;
             case Z -> sizeZ;
         };
-        // Direction-aware clamp so industrial turbine odd axes can both increase and decrease.
+
         int clamped = recipe.clampSize(axis, value, Integer.compare(value, current));
         if (clamped == current) {
             return;

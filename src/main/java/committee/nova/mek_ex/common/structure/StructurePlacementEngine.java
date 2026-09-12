@@ -30,10 +30,10 @@ public final class StructurePlacementEngine {
     private StructurePlacementEngine() {
     }
 
-    /**
-     * Plan local axes after orientation: +X = right of facing, +Y = up, +Z = forward (depth into the structure).
-     * z=0 is the layer directly in front of the machine so the machine never sits inside the build volume.
-     */
+
+
+
+
     public static BlockPos localToWorld(BlockPos machinePos, Direction facing, int localX, int localY, int localZ) {
         Direction forward = facing.getAxis().isHorizontal() ? facing : Direction.NORTH;
         Direction right = forward.getClockWise();
@@ -201,9 +201,9 @@ public final class StructurePlacementEngine {
         return countMaterial(slots, required) > 0;
     }
 
-    /**
-     * Plan default orientation is south-facing (+Z forward, +X right). Map machine facing to Y-turns.
-     */
+
+
+
     public static int facingToTurns(Direction facing) {
         return switch (facing) {
             case SOUTH -> 0;

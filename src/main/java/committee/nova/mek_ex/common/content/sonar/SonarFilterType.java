@@ -15,7 +15,9 @@ import org.jetbrains.annotations.NotNull;
 public enum SonarFilterType implements StringRepresentable {
     ITEMSTACK,
     TAG,
-    MODID;
+    MODID,
+    ENTITY_ID,
+    ENTITY_TAG;
 
     public static final Codec<SonarFilterType> CODEC = StringRepresentable.fromEnum(SonarFilterType::values);
     public static final IntFunction<SonarFilterType> BY_ID = ByIdMap.continuous(SonarFilterType::ordinal, values(), ByIdMap.OutOfBoundsStrategy.WRAP);
@@ -28,6 +30,8 @@ public enum SonarFilterType implements StringRepresentable {
             case ITEMSTACK -> SonarItemStackFilter.CODEC;
             case TAG -> SonarTagFilter.CODEC;
             case MODID -> SonarModIDFilter.CODEC;
+            case ENTITY_ID -> SonarEntityIDFilter.CODEC;
+            case ENTITY_TAG -> SonarEntityTagFilter.CODEC;
         };
     }
 
@@ -36,6 +40,8 @@ public enum SonarFilterType implements StringRepresentable {
             case ITEMSTACK -> SonarItemStackFilter.STREAM_CODEC;
             case TAG -> SonarTagFilter.STREAM_CODEC;
             case MODID -> SonarModIDFilter.STREAM_CODEC;
+            case ENTITY_ID -> SonarEntityIDFilter.STREAM_CODEC;
+            case ENTITY_TAG -> SonarEntityTagFilter.STREAM_CODEC;
         };
     }
 

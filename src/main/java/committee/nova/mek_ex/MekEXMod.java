@@ -5,6 +5,7 @@ import committee.nova.mek_ex.common.upgrade.MEXUpgrades;
 import committee.nova.mek_ex.common.network.ElectricSkateboardGearPayload;
 import committee.nova.mek_ex.common.network.ElectricSkateboardInputPayload;
 import committee.nova.mek_ex.common.network.StructureBuilderActionPayload;
+import committee.nova.mek_ex.common.network.MekanismHeartActionPayload;
 import committee.nova.mek_ex.init.registry.MEXBlocks;
 import committee.nova.mek_ex.init.registry.MEXContainerTypes;
 import committee.nova.mek_ex.init.registry.MEXCreativeTabs;
@@ -68,6 +69,7 @@ public class MekEXMod {
         modEventBus.addListener(ElectricSkateboardInputPayload::register);
         modEventBus.addListener(ElectricSkateboardGearPayload::register);
         modEventBus.addListener(StructureBuilderActionPayload::register);
+        modEventBus.addListener(MekanismHeartActionPayload::register);
     }
 
     private static void registerTicketControllers(RegisterTicketControllersEvent event) {

@@ -72,6 +72,7 @@ public class MEXClient {
         ClientRegistrationUtil.registerScreen(event, MEXContainerTypes.POTION_NEBULIZER, GuiPotionNebulizer::new);
         ClientRegistrationUtil.registerScreen(event, MEXContainerTypes.MULTIBLOCKS_BUILDER, GuiStructureBuilder::new);
         ClientRegistrationUtil.registerScreen(event, MEXContainerTypes.ELECTRIC_SKATEBOARD, GuiElectricSkateboard::new);
+        ClientRegistrationUtil.registerScreen(event, MEXContainerTypes.MEKANISM_HEART, GuiMekanismHeart::new);
     }
 
     @SubscribeEvent

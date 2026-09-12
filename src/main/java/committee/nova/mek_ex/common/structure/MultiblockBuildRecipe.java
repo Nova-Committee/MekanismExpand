@@ -79,7 +79,7 @@ public class MultiblockBuildRecipe implements Recipe<RecipeInput> {
     private final Optional<Block> face;
     private final Optional<Block> coil;
     private final boolean useGlass;
-    /** Industrial turbine: place saturating condensers for closed-loop water return. */
+
     private final boolean withCondensers;
     private final List<PortSpec> ports;
     private final Optional<StructurePlan> fixedPlan;
@@ -221,10 +221,10 @@ public class MultiblockBuildRecipe implements Recipe<RecipeInput> {
         return minSize(axis) < maxSize(axis);
     }
 
-    /**
-     * Step used when adjusting a size axis with +/- controls.
-     * Industrial turbine width/depth must stay odd, so those axes move by 2.
-     */
+
+
+
+
     public int sizeStep(SizeAxis axis) {
         if (mode == Mode.INDUSTRIAL_TURBINE && axis != SizeAxis.Y) {
             return 2;
@@ -232,9 +232,9 @@ public class MultiblockBuildRecipe implements Recipe<RecipeInput> {
         return 1;
     }
 
-    /**
-     * Apply a +/- adjustment from the current size, respecting min/max and mode step rules.
-     */
+
+
+
     public int adjustSize(SizeAxis axis, int current, int delta) {
         if (delta == 0) {
             return clampSize(axis, current);
@@ -246,11 +246,11 @@ public class MultiblockBuildRecipe implements Recipe<RecipeInput> {
         return clampSize(axis, value, 0);
     }
 
-    /**
-     * @param direction hint for resolving even values on odd-only axes:
-     *                  negative prefers decrease, positive prefers increase,
-     *                  zero sanitizes toward the lower valid odd size (same as structure assembly).
-     */
+
+
+
+
+
     public int clampSize(SizeAxis axis, int value, int direction) {
         int min = minSize(axis);
         int max = maxSize(axis);

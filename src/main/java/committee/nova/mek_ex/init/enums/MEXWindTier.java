@@ -4,11 +4,11 @@ import mekanism.api.tier.BaseTier;
 import mekanism.api.tier.ITier;
 import mekanism.api.energy.IEnergyConversionHelper;
 
-/**
- * Defines the generation and storage balance for each wind generator tier.
- */
+
+
+
 public enum MEXWindTier implements ITier {
-    // Public balance values are authored in FE; Mekanism APIs receive Joules below.
+
     BASIC(BaseTier.BASIC, 120_000L, 34L),
     ADVANCED(BaseTier.ADVANCED, 260_000L, 68L),
     ELITE(BaseTier.ELITE, 520_000L, 88L),
@@ -37,11 +37,11 @@ public enum MEXWindTier implements ITier {
         return IEnergyConversionHelper.INSTANCE.feConversion().convertFrom(generationRateFe);
     }
 
-    /**
-     * The original wind generator outputs sixteen times its minimum-height
-     * generation rate. TileEntityGenerator doubles the constructor value, so
-     * eight times the tier rate is passed to the parent.
-     */
+
+
+
+
+
     public long getGeneratorConstructorOutput() {
         return Math.multiplyExact(getGenerationRate(), 8L);
     }

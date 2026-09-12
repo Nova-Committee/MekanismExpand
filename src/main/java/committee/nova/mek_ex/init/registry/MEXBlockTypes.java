@@ -221,6 +221,7 @@ public final class MEXBlockTypes {
     public static final BlockTypeTile<TileEntityMekanismHeart> BLOCK_ANTIMATTER = BlockTileBuilder
           .createBlock(() -> MEXGenTileEntityTypes.BLOCK_ANTIMATTER, MEXLang.DESCRIPTION_MEKANISM_HEART)
           .externalMultiblock()
+            .withGui(() -> MEXContainerTypes.MEKANISM_HEART)
           .build();
 
     public static final Machine<TileEntityStructureBuilder> MULTIBLOCKS_BUILDER = Machine.MachineBuilder

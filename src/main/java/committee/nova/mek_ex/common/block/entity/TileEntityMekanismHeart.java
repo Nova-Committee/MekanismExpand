@@ -8,6 +8,10 @@ import committee.nova.mek_ex.init.registry.MEXBlocks;
 import mekanism.common.lib.multiblock.MultiblockManager;
 import mekanism.common.tile.prefab.TileEntityMultiblock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -33,6 +37,20 @@ public class TileEntityMekanismHeart extends TileEntityMultiblock<MekanismHeartM
     @Override
     public boolean canBeMaster() {
         return true;
+    }
+
+    @Override
+    public ItemInteractionResult onActivate(Player player, InteractionHand hand, ItemStack stack) {
+        if (!player.isShiftKeyDown() && getMultiblock().isFormed()) {
+            return switch (openGui(player)) {
+                case SUCCESS, SUCCESS_NO_ITEM_USED -> ItemInteractionResult.SUCCESS;
+                case CONSUME -> ItemInteractionResult.CONSUME;
+                case CONSUME_PARTIAL -> ItemInteractionResult.CONSUME_PARTIAL;
+                case FAIL -> ItemInteractionResult.FAIL;
+                default -> ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            };
+        }
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 
     @Override

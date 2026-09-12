@@ -239,7 +239,7 @@ public class GuiStructureBuilder extends GuiConfigurableTile<TileEntityStructure
             boolean show = axis < count && isAxisAdjustable(axis);
             minusButtons.get(slot).visible = show;
             plusButtons.get(slot).visible = show;
-            // Enable decrease/increase independently so limits (and odd-size steps) are respected.
+
             minusButtons.get(slot).active = show && canAdjustAxis(axis, -1);
             plusButtons.get(slot).active = show && canAdjustAxis(axis, 1);
         }

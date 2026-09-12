@@ -85,9 +85,9 @@ public final class ElectricSkateboardItem extends Item {
         return MekanismConfig.client.energyColor.get();
     }
 
-    /**
-     * Energy is persisted on the item via CUSTOM_DATA (same tag the entity uses when picked up / placed).
-     */
+
+
+
     public static long getStoredEnergy(ItemStack stack) {
         CustomData data = stack.get(DataComponents.CUSTOM_DATA);
         if (data == null || data.isEmpty()) {

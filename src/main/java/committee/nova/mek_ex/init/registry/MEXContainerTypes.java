@@ -12,6 +12,8 @@ import committee.nova.mek_ex.common.block.entity.TileEntityPotionNebulizer;
 import committee.nova.mek_ex.common.block.entity.TileEntityStructureBuilder;
 import committee.nova.mek_ex.common.entity.EntityElectricSkateboard;
 import committee.nova.mek_ex.common.inventory.container.ElectricSkateboardContainer;
+import committee.nova.mek_ex.common.inventory.container.MekanismHeartContainer;
+import committee.nova.mek_ex.common.block.entity.TileEntityMekanismHeart;
 import mekanism.common.inventory.container.tile.MekanismTileContainer;
 import mekanism.common.registration.impl.ContainerTypeDeferredRegister;
 import mekanism.common.registration.impl.ContainerTypeRegistryObject;
@@ -30,4 +32,5 @@ public class MEXContainerTypes {
     public static final ContainerTypeRegistryObject<MekanismTileContainer<TileEntityPotionNebulizer>> POTION_NEBULIZER = CONTAINER_TYPES.custom(MEXBlocks.potion_nebulizer, TileEntityPotionNebulizer.class).build();
     public static final ContainerTypeRegistryObject<MekanismTileContainer<TileEntityStructureBuilder>> MULTIBLOCKS_BUILDER = CONTAINER_TYPES.custom(MEXBlocks.multiblocks_builder, TileEntityStructureBuilder.class).offset(0, 98).build();
     public static final ContainerTypeRegistryObject<ElectricSkateboardContainer> ELECTRIC_SKATEBOARD = CONTAINER_TYPES.registerEntity("electric_skateboard", EntityElectricSkateboard.class, ElectricSkateboardContainer::new);
+    public static final ContainerTypeRegistryObject<MekanismHeartContainer> MEKANISM_HEART = CONTAINER_TYPES.register(MEXBlocks.block_antimatter, TileEntityMekanismHeart.class, MekanismHeartContainer::new);
 }

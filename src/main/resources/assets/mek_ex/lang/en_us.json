@@ -39,6 +39,8 @@
   "gui.mek_ex.sonar_add_item": "Item",
   "gui.mek_ex.sonar_add_tag": "Tag",
   "gui.mek_ex.sonar_add_modid": "Mod ID",
+  "gui.mek_ex.sonar_add_entity_id": "Entity ID",
+  "gui.mek_ex.sonar_add_entity_tag": "Entity Tag",
   "gui.mek_ex.sonar_toggle": "Toggle",
   "gui.mek_ex.sonar_remove": "Remove",
   "gui.mek_ex.sonar_done": "Done",
