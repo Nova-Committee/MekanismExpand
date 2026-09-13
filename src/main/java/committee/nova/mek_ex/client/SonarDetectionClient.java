@@ -6,8 +6,10 @@ import committee.nova.mek_ex.common.content.gear.mekasuit.ModuleSonarDetectionUn
 import committee.nova.mek_ex.init.registry.MEXModules;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import mekanism.api.gear.IModule;
@@ -18,11 +20,13 @@ import net.minecraft.client.renderer.OutlineBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
@@ -35,9 +39,17 @@ public final class SonarDetectionClient {
     private static final int OUTLINE_G = 217;
     private static final int OUTLINE_B = 230;
     private static final int OUTLINE_A = 255;
+    /** RGB used by vanilla glowing outline (`Entity#getTeamColor`). */
+    public static final int OUTLINE_COLOR_RGB = (OUTLINE_R << 16) | (OUTLINE_G << 8) | OUTLINE_B;
     private static final ResourceLocation WHITE_TEXTURE = ResourceLocation.withDefaultNamespace("textures/misc/white.png");
 
+    private static volatile Set<UUID> outlinedEntities = Set.of();
+
     private SonarDetectionClient() {
+    }
+
+    public static boolean isSonarOutlined(Entity entity) {
+        return outlinedEntities.contains(entity.getUUID());
     }
 
     public static void onClientTick(ClientTickEvent.Post event) {
@@ -84,15 +96,22 @@ public final class SonarDetectionClient {
                 }
             }
         }
-        SCANS.put(player.getUUID(), new ScanData(hits, side));
+        AABB area = new AABB(minX, minY, minZ, minX + side, maxY + 1, minZ + side);
+        List<Entity> entityHits = level.getEntities(player, area, custom::matches);
+        Set<UUID> nextOutlined = new HashSet<>(entityHits.size());
+        for (Entity entity : entityHits) {
+            nextOutlined.add(entity.getUUID());
+        }
+        outlinedEntities = Set.copyOf(nextOutlined);
+        SCANS.put(player.getUUID(), new ScanData(hits));
     }
 
     public static void clear(UUID playerId) {
         SCANS.remove(playerId);
+        outlinedEntities = Set.of();
     }
 
     public static void render(RenderLevelStageEvent event) {
-
         if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_ENTITIES) {
             return;
         }
@@ -109,8 +128,6 @@ public final class SonarDetectionClient {
         if (!levelRenderer.shouldShowEntityOutlines()) {
             return;
         }
-
-
 
         OutlineBufferSource outlines = minecraft.renderBuffers().outlineBufferSource();
         outlines.setColor(OUTLINE_R, OUTLINE_G, OUTLINE_B, OUTLINE_A);
@@ -136,7 +153,6 @@ public final class SonarDetectionClient {
         float x1 = x0 + 1.0F;
         float y1 = y0 + 1.0F;
         float z1 = z0 + 1.0F;
-
 
         vertex(consumer, pose, x0, y0, z0);
         vertex(consumer, pose, x0, y1, z0);
@@ -170,11 +186,10 @@ public final class SonarDetectionClient {
     }
 
     private static void vertex(VertexConsumer consumer, Matrix4f pose, float x, float y, float z) {
-
         consumer.addVertex(pose, x, y, z).setUv(0.0F, 0.0F);
     }
 
-    private record ScanData(List<BlockPos> hits, int sideLength) {
+    private record ScanData(List<BlockPos> hits) {
         private ScanData {
             hits = hits == null ? List.of() : Collections.unmodifiableList(hits);
         }

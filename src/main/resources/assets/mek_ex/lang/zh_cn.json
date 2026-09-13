@@ -40,6 +40,8 @@
   "gui.mek_ex.sonar_add_item": "物品",
   "gui.mek_ex.sonar_add_tag": "标签",
   "gui.mek_ex.sonar_add_modid": "模组ID",
+  "gui.mek_ex.sonar_add_entity_id": "生物ID",
+  "gui.mek_ex.sonar_add_entity_tag": "生物标签",
   "gui.mek_ex.sonar_toggle": "开关",
   "gui.mek_ex.sonar_remove": "删除",
   "gui.mek_ex.sonar_done": "完成",

@@ -17,8 +17,10 @@
   ],
   "client": [
     "BlockLightEngineMixin",
+    "EntityMixin",
     "HumanoidModelMixin",
     "GuiModuleTweakerMixin",
+    "MinecraftMixin",
     "RenderSPSMixin",
     "RecipeViewerRecipeTypeMixin"
   ],
