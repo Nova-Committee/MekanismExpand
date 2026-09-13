@@ -2,9 +2,12 @@ package committee.nova.mek_ex.common.multiblock;
 
 import committee.nova.mek_ex.common.chunk.MekanismHeartChunkManager;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import mekanism.api.Action;
@@ -58,6 +61,9 @@ public class MekanismHeartMultiblockData extends MultiblockData {
 
     private int transferRange = DEFAULT_TRANSFER_RANGE;
     private final Set<ResourceLocation> excludedMachines = new HashSet<>();
+    /** Machine block ids currently detected in range (including excluded). Client-synced via container. */
+    private final List<ResourceLocation> discoveredMachines = new ArrayList<>();
+    private final List<Integer> discoveredCounts = new ArrayList<>();
 
     private BlockPos center = BlockPos.ZERO;
     private int cellCount;
@@ -111,7 +117,7 @@ public class MekanismHeartMultiblockData extends MultiblockData {
     }
 
     public int getTransferRange() {
-        return transferRange;
+        return isRemote() ? syncedTransferRange : transferRange;
     }
 
     public void setTransferRange(int range) {
@@ -121,6 +127,7 @@ public class MekanismHeartMultiblockData extends MultiblockData {
             syncedTransferRange = clamped;
             cachedReceivers.clear();
             cachedMultiblockAnchors.clear();
+            scanTicker = 20;
             markDirty();
         }
     }
@@ -129,23 +136,51 @@ public class MekanismHeartMultiblockData extends MultiblockData {
         return Set.copyOf(excludedMachines);
     }
 
+    public boolean isMachineExcluded(ResourceLocation id) {
+        return excludedMachines.contains(id);
+    }
+
+    public List<ResourceLocation> getDiscoveredMachines() {
+        return List.copyOf(discoveredMachines);
+    }
+
+    public int getDiscoveredCount(int index) {
+        return index >= 0 && index < discoveredCounts.size() ? discoveredCounts.get(index) : 0;
+    }
+
+    public void setClientDiscoveredMachines(List<ResourceLocation> machines, List<Integer> counts) {
+        discoveredMachines.clear();
+        discoveredMachines.addAll(machines);
+        discoveredCounts.clear();
+        discoveredCounts.addAll(counts);
+    }
+
+    public void setClientExcludedMachines(Set<ResourceLocation> values) {
+        excludedMachines.clear();
+        excludedMachines.addAll(values);
+    }
+
     public void setExcludedMachines(Set<ResourceLocation> values) {
         excludedMachines.clear();
         excludedMachines.addAll(values);
         cachedReceivers.clear();
         cachedMultiblockAnchors.clear();
+        scanTicker = 20;
         markDirty();
     }
 
     public void toggleExcludedMachine(ResourceLocation id) {
-        if (!excludedMachines.add(id)) excludedMachines.remove(id);
+        if (!excludedMachines.add(id)) {
+            excludedMachines.remove(id);
+        }
         cachedReceivers.clear();
         cachedMultiblockAnchors.clear();
+        scanTicker = 20;
         markDirty();
     }
 
-    private boolean isExcluded(BlockEntity tile) {
-        return excludedMachines.contains(BuiltInRegistries.BLOCK.getKey(tile.getBlockState().getBlock()));
+    private boolean isExcluded(ResourceLocation id) {
+        return excludedMachines.contains(id);
     }
 
     @Override
@@ -252,6 +287,7 @@ public class MekanismHeartMultiblockData extends MultiblockData {
     private void refreshReceivers(ServerLevel world) {
         cachedReceivers.clear();
         cachedMultiblockAnchors.clear();
+        Map<ResourceLocation, Integer> found = new LinkedHashMap<>();
         Set<UUID> seenIds = new HashSet<>();
         IdentityHashMap<MultiblockData, Boolean> seenAnonymous = new IdentityHashMap<>();
         AABB box = transferBox();
@@ -276,11 +312,18 @@ public class MekanismHeartMultiblockData extends MultiblockData {
                     if (be == null || be instanceof committee.nova.mek_ex.common.block.entity.TileEntityMekanismHeart) {
                         continue;
                     }
-                    if (isExcluded(be)) {
+                    MultiblockData multiblock = resolveEnergyMultiblock(be);
+                    boolean isEnergyTarget = multiblock != null && multiblock != this && !(multiblock instanceof MekanismHeartMultiblockData);
+                    boolean hasHandler = !isEnergyTarget && hasEnergyHandler(world, pos, be);
+                    if (!isEnergyTarget && !hasHandler) {
                         continue;
                     }
-                    MultiblockData multiblock = resolveEnergyMultiblock(be);
-                    if (multiblock != null && multiblock != this && !(multiblock instanceof MekanismHeartMultiblockData)) {
+                    ResourceLocation id = BuiltInRegistries.BLOCK.getKey(be.getBlockState().getBlock());
+                    found.merge(id, 1, Integer::sum);
+                    if (isExcluded(id)) {
+                        continue;
+                    }
+                    if (isEnergyTarget) {
                         if (multiblock.inventoryID != null) {
                             if (seenIds.add(multiblock.inventoryID)) {
                                 cachedMultiblockAnchors.add(pos.immutable());
@@ -288,13 +331,27 @@ public class MekanismHeartMultiblockData extends MultiblockData {
                         } else if (seenAnonymous.put(multiblock, Boolean.TRUE) == null) {
                             cachedMultiblockAnchors.add(pos.immutable());
                         }
-                        continue;
-                    }
-                    if (hasEnergyHandler(world, pos, be)) {
+                    } else {
                         cachedReceivers.add(pos.immutable());
                     }
                 }
             }
+        }
+        updateDiscoveredMachines(found);
+    }
+
+    private void updateDiscoveredMachines(Map<ResourceLocation, Integer> found) {
+        // Keep excluded machines visible even if none are currently in range.
+        for (ResourceLocation excluded : excludedMachines) {
+            found.putIfAbsent(excluded, 0);
+        }
+        List<Map.Entry<ResourceLocation, Integer>> sorted = new ArrayList<>(found.entrySet());
+        sorted.sort(Comparator.comparing(entry -> entry.getKey().toString()));
+        discoveredMachines.clear();
+        discoveredCounts.clear();
+        for (Map.Entry<ResourceLocation, Integer> entry : sorted) {
+            discoveredMachines.add(entry.getKey());
+            discoveredCounts.add(entry.getValue());
         }
     }
 

@@ -1,6 +1,7 @@
 package committee.nova.mek_ex;
 
 import committee.nova.mek_ex.common.chunk.MekanismHeartChunkManager;
+import committee.nova.mek_ex.common.multiblock.MekanismHeartInteraction;
 import committee.nova.mek_ex.common.upgrade.MEXUpgrades;
 import committee.nova.mek_ex.common.network.ElectricSkateboardGearPayload;
 import committee.nova.mek_ex.common.network.ElectricSkateboardInputPayload;
@@ -23,6 +24,7 @@ import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
 
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.ModContainer;
@@ -31,6 +33,7 @@ import net.minecraft.resources.ResourceLocation;
 import mekanism.api.security.IEntitySecurityUtils;
 import mekanism.common.integration.energy.EnergyCompatUtils;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.world.chunk.RegisterTicketControllersEvent;
 
 @Mod(MekEXMod.MOD_ID)
@@ -70,6 +73,7 @@ public class MekEXMod {
         modEventBus.addListener(ElectricSkateboardGearPayload::register);
         modEventBus.addListener(StructureBuilderActionPayload::register);
         modEventBus.addListener(MekanismHeartActionPayload::register);
+        NeoForge.EVENT_BUS.addListener(EventPriority.HIGH, MekanismHeartInteraction::onRightClick);
     }
 
     private static void registerTicketControllers(RegisterTicketControllersEvent event) {
